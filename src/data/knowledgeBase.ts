@@ -113,7 +113,28 @@ export const knowledgeBase: KisanGKEntry[] = [
 
   // --- Modern Farming Concepts ---
   { pattern: /mulching|panni|plastic/i, answer: "⬛ **Mulching (Plastic Sheet):** Fasal ke aas-paas zameen par black plastic sheet bichhane se pani bhaap bankar nahi udta (pani ki bachat) aur kachra (weed) bhi nahi ugta. Sabziyon ke liye yeh best tech hai." },
-  { pattern: /mrp|msp|samarthan mulya/i, answer: "⚖️ **MSP (Minimum Support Price):** MSP sarkar dwara tay kiya gaya woh 'Nyunatam Samarthan Mulya' hai jis par woh kisan ki fasal kharidti hai, taaki kisan ko bazar mein ghata (loss) na ho." }
+  { pattern: /mrp|msp|samarthan mulya/i, answer: "⚖️ **MSP (Minimum Support Price):** MSP sarkar dwara tay kiya gaya woh 'Nyunatam Samarthan Mulya' hai jis par woh kisan ki fasal kharidti hai, taaki kisan ko bazar mein ghata (loss) na ho." },
+
+  // --- Batch 3: Fruit Orchards & Desi Ilaj (Traditional Remedies) ---
+  { pattern: /anar|pomegranate/i, answer: "🍎 **Anar (Pomegranate):** Retili mitti mein 'Sinduri' aur 'Bhagwa' variety sabse best hain. Drip irrigation se iska bagicha bahut badiya munafa deta hai." },
+  { pattern: /ber|apple ber|plum/i, answer: "🍏 **Ber (Jujube):** 'Thai Apple Ber' ki kheti sukhe ilakon ka vardan hai. Ek saal baad hi fal aana shuru ho jata hai aur pani ki zaroorat na ke barabar hoti hai." },
+  { pattern: /khajoor|date palm/i, answer: "🌴 **Khajoor (Date Palm):** Agar pani thoda khaara bhi hai, toh Khajoor ki kheti karein. Sarkar is par bhari subsidy deti hai aur ek ped saalon tak fal deta hai." },
+  { pattern: /lassi|chach|buttermilk|fitoor/i, answer: "🥛 **Khatti Lassi (Sour Buttermilk):** Purani khatti lassi ko tambe (copper) ke bartan mein rakh kar spray karne se fasal mein fafundi (fungus) aur virus ki bimariyan door hoti hain. Yeh ek asardar desi fungicide hai!" },
+  { pattern: /raakh|ash|koyla/i, answer: "🔥 **Raakh (Wood Ash):** Chulhe ki raakh mein Potassium hota hai. Subah ki os (dew) mein iska chhidkaw karne se sabziyon par lagne wale chhote keede mar jate hain." },
+  { pattern: /neemastra|neem ka pani/i, answer: "🍃 **Neemastra:** 5 kg neem ke patte, 5 L gaumutra, aur 1 kg gobar ko pani mein sadakar Neemastra banta hai. Yeh sundi (caterpillar) aur ras chusne wale keedo ka sabse tagda desi ilaj hai." },
+
+  // --- Batch 4: Advanced Machinery & Smart Farming ---
+  { pattern: /seed drill|beej machine|buvai machine/i, answer: "🚜 **Zero Till Seed Drill:** Is machine se bina khet ki jutai kiye seedha beej aur khad ek sath boya ka sakta hai. Isse tractor ke diesel aur kisan ke samay dono ki bachat hoti hai." },
+  { pattern: /rotavator|mitti bhurbhuri/i, answer: "⚙️ **Rotavator:** Khet ki mitti ko ekdum barik aur bhurbhuri banane ke liye Rotavator sabse best hai. Yeh pichli fasal ke kachre ko bhi mitti mein mila kar khad bana deta hai." },
+  { pattern: /laser leveler|leveling|samtal/i, answer: "📐 **Laser Land Leveler:** Khet ko ekdum samtal (flat) karne ke liye. Isse pure khet mein pani barabar pahunchta hai aur 30% tak pani ki bachat hoti hai." },
+  { pattern: /ph maap|ph meter/i, answer: "📏 **pH Meter:** Har tech-kisan ke paas mitti aur pani ka pH napne wala digital meter hona chahiye. Agar pani ka pH 7 se zyada hai, toh khad aur dawai ka asar aada reh jata hai." },
+
+  // --- Batch 5: Weather Defense, Storage & Final Crop Care ---
+  { pattern: /loo|heatwave|garmi|dhoop/i, answer: "☀️ **Loo (Heatwave) se Bachav:** Garmiyon mein garm hawaon (Loo) se fasal ko bachane ke liye khet ki pashchimi (West) disha mein lambe ped (jaise Khejri ya Safeda) lagayein. Fasal mein dopahar se pehle halki sinchai karein." },
+  { pattern: /storage|bhandaran|store|anaaj/i, answer: "🛖 **Anaaj Bhandaran (Grain Storage):** Anaaj ko tanki mein bharne se pehle achhi tarah sukhayein (nami 10% se kam ho). Keedo se bachane ke liye tanki mein sookhe Neem ke patte ya Machis ki dibbiyan (Sulphur hota hai) rakh dein." },
+  { pattern: /katayi samay|harvesting time/i, answer: "🌾 **Sahi Katayi (Harvesting):** Gehun aur sarson ki katayi tabhi karein jab daane mein nami bilkul kam ho jaye aur daana dant se chabane par 'kat' ki aawaz kare." },
+  { pattern: /gudai|nirai|khurpi/i, answer: "🧑🌾 **Nirai-Gudai (Hoeing):** Fasal jab 20-25 din ki ho tab pehli gudai zaroor karein. Isse mitti mein hawa (aeration) jati hai aur jado ka vikas dugna ho jata hai." },
+  { pattern: /kisan call center|help line|toll free/i, answer: "📞 **Kisan Call Center:** Kheti ki kisi bhi emergency ya bimari ki jankari ke liye sarkar ke toll-free number 1800-180-1551 par call karke krishi vaigyaniko (scientists) se free salah lein." }
 ];
 
 /**
