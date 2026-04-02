@@ -1,0 +1,5 @@
+{
+  "name": "Bharat AI",
+  "description": "Empowering Farmers. Built by Jaswant. A futuristic agricultural assistant with voice, GPS, and crop diagnosis.",
+  "requestFramePermissions": ["geolocation", "camera"]
+}
