@@ -134,7 +134,126 @@ export const knowledgeBase: KisanGKEntry[] = [
   { pattern: /storage|bhandaran|store|anaaj/i, answer: "🛖 **Anaaj Bhandaran (Grain Storage):** Anaaj ko tanki mein bharne se pehle achhi tarah sukhayein (nami 10% se kam ho). Keedo se bachane ke liye tanki mein sookhe Neem ke patte ya Machis ki dibbiyan (Sulphur hota hai) rakh dein." },
   { pattern: /katayi samay|harvesting time/i, answer: "🌾 **Sahi Katayi (Harvesting):** Gehun aur sarson ki katayi tabhi karein jab daane mein nami bilkul kam ho jaye aur daana dant se chabane par 'kat' ki aawaz kare." },
   { pattern: /gudai|nirai|khurpi/i, answer: "🧑🌾 **Nirai-Gudai (Hoeing):** Fasal jab 20-25 din ki ho tab pehli gudai zaroor karein. Isse mitti mein hawa (aeration) jati hai aur jado ka vikas dugna ho jata hai." },
-  { pattern: /kisan call center|help line|toll free/i, answer: "📞 **Kisan Call Center:** Kheti ki kisi bhi emergency ya bimari ki jankari ke liye sarkar ke toll-free number 1800-180-1551 par call karke krishi vaigyaniko (scientists) se free salah lein." }
+  { pattern: /kisan call center|help line|toll free/i, answer: "📞 **Kisan Call Center:** Kheti ki kisi bhi emergency ya bimari ki jankari ke liye sarkar ke toll-free number 1800-180-1551 par call karke krishi vaigyaniko (scientists) se free salah lein." },
+  
+  // --- Game Development & Coding Languages ---
+  { pattern: /game|game dev|hill climb|car game/i, answer: "🎮 **Game Development:** Mobile games (jaise 2D Hill Climb ya Car Selling) banane ke liye 'Unity Engine' sabse best hai. Isme C# language use hoti hai, jo seekhne mein asan hai." },
+  { pattern: /c\+\+|c plus plus/i, answer: "💻 **C++ Programming:** Agar aapko duniya ke sabse fast aur high-graphics wale games banane hain (jaise GTA ya PUBG), toh C++ sabse powerful language hai. 'Unreal Engine' poora C++ par chalta hai." },
+  { pattern: /html|css|javascript|web/i, answer: "🌐 **Web Development:** HTML kisi website ka dhancha (Skeleton) hai, CSS uski sundarta (Design) hai, aur JavaScript uska dimaag (Brain) hai jo buttons aur logic ko chalata hai." },
+  { pattern: /react|tailwind|lovable/i, answer: "⚛️ **Modern Tech Stack:** Aajkal ki badi websites React.js aur Tailwind CSS par banti hain. Yeh apps ko super fast aur sundar banati hain, bilkul humare Bharat AI ki tarah!" },
+  { pattern: /api|json|fetch/i, answer: "🔗 **API & JSON:** API (Application Programming Interface) do alag-alag softwares ko aapas mein baat karne deti hai. JSON woh format hai jisme yeh data internet par travel karta hai." },
+
+  // --- Affiliate Marketing & E-Commerce ---
+  { pattern: /affiliate|earnkaro|commission|paisa/i, answer: "💸 **Affiliate Marketing:** Bina apna product banaye paise kamane ka best tareeqa! Aap EarnKaro jaisi apps se Amazon/Flipkart ke links banakar apne doston ke sath share kar sakte hain." },
+  { pattern: /whatsapp channel|low price|deals/i, answer: "🛒 **WhatsApp Marketing:** Agar aapka 'Low price product' jaisa koi WhatsApp channel hai, toh uspe bheed (audience) badhane ke liye daily best deals, tech gadgets aur Meesho ke saste offers share karein." },
+
+  // --- YouTube Growth & Content Creation ---
+  { pattern: /youtube|channel|views|shorts/i, answer: "▶️ **YouTube Growth:** Aajkal channel jaldi grow karne ke liye YouTube Shorts sabse powerful tool hai. Shuruat ke 3 second mein kuch aisa bolein ki viewer ruk jaye (ise 'Hook' kehte hain)." },
+  { pattern: /gaming channel|js gamer|fact jaswant/i, answer: "🎮 **Content Creation:** Gaming channel (jaise JS Gamer) ke liye achhi commentary aur gameplay zaroori hai. Wahi Fact channels (jaise Fact Jaswant) ke liye background music aur fast video editing sabse main hoti hai!" },
+  { pattern: /editing|video edit|kinemaster|capcut/i, answer: "🎬 **Video Editing:** Mobile se best editing ke liye CapCut, VN Editor ya KineMaster ka use karein. Transitions aur sound effects lagane se video professional lagti hai." },
+
+  // --- AI & Future Tech ---
+  { pattern: /ai|artificial intelligence|machine learning/i, answer: "🤖 **Artificial Intelligence:** AI ka matlab hai machines (computers) ko insaan ki tarah sochne, dekhne aur samajhne ki shamta dena. Humara offline rule-based NLP bhi isika ek hissa hai." },
+  { pattern: /server|database|backend/i, answer: "🗄️ **Backend Technology:** User ka data (jaise login, password, chats) jahan internet par safe rakha jata hai, use Server ya Database (jaise Firebase ya MongoDB) kehte hain." },
+
+  // --- Web Development & Internet Basics ---
+  { pattern: /domain|hosting|website link/i, answer: "🌐 **Domain & Hosting:** Domain aapki website ka naam hai (jaise google.com). Hosting woh jagah hai jahan website ka code save hota hai (jaise aapne Vercel aur GitHub ka use kiya hai)." },
+  { pattern: /git|github|version control/i, answer: "🐙 **Git & GitHub:** Git ek tool hai jo code mein kiye gaye har badlav (changes) ko track karta hai. GitHub cloud par code ko safe rakhne aur puri duniya ke sath share karne ka platform hai." },
+  { pattern: /ram|rom|memory|storage/i, answer: "💻 **RAM vs ROM:** RAM (Random Access Memory) temporary memory hai jo app chalte waqt use hoti hai. ROM permanent storage hai jahan aapka data (jaise photos, apps) save rehta hai." },
+  { pattern: /algorithm|algo|logic/i, answer: "🧠 **Algorithm:** Kisi bhi technical problem ko solve karne ke step-by-step tareeqe ko algorithm kehte hain. Jaise humara yeh chatbot keywords match karne ka apna ek algorithm use karta hai!" },
+
+  // --- Cybersecurity & Hacking Prevention ---
+  { pattern: /phishing|hack|fraud|fake link/i, answer: "🎣 **Phishing Attack:** Yeh ek cyber fraud hai jisme hacker nakli bank ya login page ka link bhejta hai. Kabhi bhi anjaan link par click karke apna password nahi daalna chahiye." },
+  { pattern: /vpn|virtual private network/i, answer: "🛡️ **VPN (Virtual Private Network):** VPN aapke internet connection ko encrypt (lock) kar deta hai aur aapki real location chupa leta hai taaki hackers aapka data track na kar sakein." },
+  { pattern: /password|security|safe/i, answer: "🔐 **Password Security:** Ek strong password mein hamesha Capital letter, chhota letter, numbers, aur special character (@, #) hona chahiye. Ise har 3 mahine mein badalna best practice hai." },
+
+  // --- Monetization & Advanced Content Creation ---
+  { pattern: /amazon affiliate|link se paise|amazon link/i, answer: "🛒 **Amazon Affiliate:** Amazon ke products ke affiliate links banakar aap unhe apne 'Fact Jaswant' channel ke description mein daal sakte hain. Jab koi wahan se kharidega, toh aapko bina product banaye commission milega." },
+  { pattern: /seo|search engine optimization|google rank/i, answer: "🔍 **SEO (Search Engine Optimization):** Apni website ya YouTube video ke title, tags, aur description mein aise 'Keywords' daalna jo log sabse zyada search karte hain, taaki aapka content sabse upar aaye." },
+  { pattern: /prompt engineering|chatgpt se/i, answer: "⌨️ **Prompt Engineering:** AI (jaise Gemini ya ChatGPT) se sahi kaam karwane ke liye use ekdum sateek aur detailed command dene ki kala ko Prompt Engineering kehte hain." },
+
+  // --- Future Tech ---
+  { pattern: /5g|network|speed/i, answer: "📶 **5G Technology:** 5G internet pichli 4G technology se lagbhag 100 guna fast hai. Yeh Cloud Gaming aur self-driving cars jaise advance features ko bina lag (deri) ke chalne mein madad karta hai." },
+  { pattern: /blockchain|crypto|bitcoin/i, answer: "⛓️ **Blockchain:** Yeh ek digital ledger (khata) hai jisme data blocks mein save hota hai aur ise hack karna lagbhag namumkin hai. Cryptocurrency (jaise Bitcoin) isika ek hissa hai." },
+
+  // --- Smart Hardware & IoT (Internet of Things) ---
+  { pattern: /iot|sensor|arduino|smart kheti|hardware/i, answer: "🔌 **IoT & Smart Sensors:** Internet of Things (IoT) se khet mein 'Soil Moisture Sensor' laga sakte hain. Jab mitti sookhegi, yeh sensor Arduino ke zariye aapke phone par turant alert bhej dega. Yeh Hackathon ka best hardware project hai!" },
+  { pattern: /drone kheti|uav|kisan drone|camera/i, answer: "🚁 **Kisan Drone (UAV):** Drone sirf dawai spray nahi karta, isme lage 'Multispectral Camera' se khet ki photo khinch kar pata lagaya ja sakta hai ki khet ke kis hisse mein fasal bimar hai ya pani kam hai." },
+  
+  // --- Advanced/Modern Agriculture ---
+  { pattern: /hydroponics|bina mitti|pani mein kheti/i, answer: "💧 **Hydroponics (Bina Mitti ki Kheti):** Yeh ek advance technique hai jisme poudhe mitti ki jagah pani aur nutrients ke solution mein ugaye jate hain. Isme 90% pani bachta hai aur chhat (roof) par bhi kheti ho sakti hai." },
+  { pattern: /aquaponics|machhli|fish/i, answer: "🐟 **Aquaponics:** Kheti aur Machhli palan (Fish Farming) ka jor! Machhliyon ke waste (kachre) wala pani poudhon ke liye khad ka kaam karta hai, aur poudhe pani saaf karke wapas machhliyon ko de dete hain." },
+
+  // --- Student Productivity & Exams ---
+  { pattern: /board exam|study|padhai|class 10|time table|focus/i, answer: "📚 **Smart Study Tricks:** Padhai ke liye 'Pomodoro Technique' use karein (25 min padhai, 5 min break). Board exams mein lamba answer likhne se zyada, points mein likhna aur heading banana sabse yaada marks dilata hai." },
+  { pattern: /quiz app|mcq|level|score/i, answer: "📝 **Quiz App Logic:** Ek badiya quiz game banane ke liye Array of Objects ka use karein. Har sahi answer par 'score++' karein aur use `localStorage` mein save karein taaki user ka level (progress) hamesha maintain rahe." },
+
+  // --- Advanced Online Earning & Freelancing ---
+  { pattern: /freelance|fiverr|upwork|online kamai/i, answer: "💼 **Freelancing:** Agar aapko Video Editing, HTML/CSS, ya YouTube Thumbnail banana aata hai, toh Fiverr ya Upwork par apni profile banayein. Wahan client in digital kaamo ke liye dollars ($) mein pay karte hain." },
+  { pattern: /user testing|app test|website test/i, answer: "📱 **User Testing:** Duniya ki badi companiyan apni nayi website ya app ko launch karne se pehle test karwati hain. Platforms jaise 'UserTesting' par aapko unki app chala kar apna feedback (aawaz mein) dena hota hai, jiske badle paise milte hain." },
+  { pattern: /cloud computing|aws|google cloud/i, answer: "☁️ **Cloud Computing:** Pehle data apne computer ki hard drive mein save hota tha. Ab AWS ya Google Cloud ki madad se aapka data aur website internet par safe rehti hai aur 24/7 access ki ja sakti hai." },
+
+  // --- Smart Road Safety & Infrastructure ---
+  { pattern: /smart road|surakshit|accident|rescue|traffic ai/i, answer: "🛣️ **Smart Road AI:** AI cameras aur sensors ka use karke sadko ko 'Surakshit Marg' banaya ja sakta hai. Agar koi accident hota hai, toh AI system automatically ambulance aur rescue team ko exact GPS location bhej deta hai taaki jaan bachai ja sake." },
+
+  // --- Automobile Career & Government Posts ---
+  { pattern: /rto|motor vehicle inspector|automobile|mechanical/i, answer: "🚔 **RTO Officer Career:** RTO (Regional Transport Officer) ya Motor Vehicle Inspector banne ke liye graduation chahiye hoti hai. Agar aapke paas Mechanical Engineering ya Automobile Engineering ki degree hai, toh is field mein aana bahut aasan aur faydemand hota hai. Yeh bahut respect wali post hai!" },
+
+  // --- Advanced Agriculture Market (e-NAM) ---
+  { pattern: /e-nam|online mandi|bhav|online beche/i, answer: "💻 **e-NAM (National Agriculture Market):** Yeh sarkar ka ek online portal hai. Ab kisan ko sirf apni local mandi par nirbhar nahi rehna padega. e-NAM ke zariye aap apni fasal desh ki kisi bhi mandi mein online bech sakte hain jahan sabse zyada bhav mil raha ho." },
+  { pattern: /mungfali|groundnut|tikka/i, answer: "🥜 **Mungfali (Groundnut):** Retili aur bhurbhuri mitti mein Mungfali bahut shandaar hoti hai. Isme 'Tikka Rog' (patton par kale dhabbe) ka dhyan rakhein. Bachav ke liye Mancozeb ya Carbendazim dawa ka chhidkaw karein." },
+
+  // --- Software Publishing & Mobile Gaming Tech ---
+  { pattern: /play store|app upload|developer account/i, answer: "📲 **Play Store App Upload:** Apni banayi hui app ko Google Play Store par duniya ke liye daalne ke liye 'Google Play Console' ka developer account lena padta hai. Iski ek bar ki life-time fees $25 (lagbhag ₹2000) hoti hai." },
+  { pattern: /multiplayer|grand mobile|server lag|ping/i, answer: "🕹️ **Multiplayer Gaming Tech:** Adventure aur multiplayer mobile games (jaise Grand Mobile) ko handle karne ke liye 'Dedicated Servers' aur 'WebSockets' ki zaroorat hoti hai, taaki ek saath hazaron players bina kisi lag ya high ping ke khel sakein." },
+
+  // --- General Science & Farmer Tools ---
+  { pattern: /barometer|hawa ka dabav|toofan/i, answer: "🌪️ **Mausam Vigyan:** Hawa ka dabav napne ke liye Barometer ka use hota hai. Agar barometer ka meter achanak tezi se neeche gire, toh iska matlab hai khet mein bhayankar toofan ya aandhi aane wali hai." },
+  { pattern: /kcc limit|kisan credit card|loan limit/i, answer: "💳 **KCC Loan Limit:** Kisan Credit Card (KCC) par aapko kitna loan milega, yeh aapki zameen (zameen ka size) aur aap kaunsi fasal bo rahe hain, is par nirbhar karta hai. Ise 'Scale of Finance' kehte hain." },
+
+  // --- Secret Creator Easter Eggs (The Jaswant Identity) ---
+  { pattern: /narayan singh|anjali|parents|mata pita/i, answer: "👨👩👦 **Creator's Pride:** Mera nirmaan ek visionary tech founder Jaswant ne kiya hai. Unke pita ka naam Shri Narayan Singh aur mata ka naam Shrimati Anjali hai. Unhi ke aashirwad se yeh AI project safal hua hai!" },
+  { pattern: /tommy|kutta|dog|pet/i, answer: "🐕 **Tommy The Dog:** Tommy Jaswant ke bhai ka dog hai! Woh bahut active, samajhdar aur Jaswant ki family ka ek pyara hissa hai." },
+
+  // --- Class 10 Board Exams & Student AI ---
+  { pattern: /class 10|board exam|10th class/i, answer: "🎓 **Class 10 Board Exams:** Boards mein top karne ka secret hai consistent revision. Ek fixed time-table banayein aur pichle 5 saal ke question papers (PYQs) zaroor solve karein." },
+  { pattern: /sst|social science|samajik/i, answer: "🌍 **SST (Social Science) Tips:** SST mein lambe answers ko ratne ki jagah kahani (story) ki tarah samjhein. Dates aur events ki ek alag timeline banayein aur Map work ki practice roz karein." },
+  { pattern: /sanskrit|math|ganit/i, answer: "📐 **Maths & Sanskrit:** Math mein calculation speed aur formulas ko tip par rakhein. Sanskrit sabse scoring subject hai, isme shabd roop, dhatu roop aur grammar par pakad mazboot rakhein." },
+  { pattern: /it exam|information technology/i, answer: "💻 **IT (Information Tech):** IT exam mein theory ke sath practical logic (jaise database aur web applications) bahut zaroori hai. Jaswant ki tarah coding karne walon ke liye yeh subject bahut aasan hota hai!" },
+
+  // --- Next-Gen Web Projects ---
+  { pattern: /quiz game|quiz website|user section/i, answer: "🎮 **Quiz Game Website:** Ek advance quiz website banane ke liye HTML/CSS se UI design karein. JavaScript se levels, timers aur questions manage karein. User ka score aur current level `localStorage` mein save karein taaki data delete na ho." },
+  { pattern: /surakshit marg|smart rescue|road safety ai/i, answer: "🚑 **Surakshit Marg AI:** Yeh ek revolutionary concept hai! Isme sadko par accident rokne aur emergency rescue ko fast karne ke liye AI, sensors, aur real-time data ka use kiya jata hai, taaki ambulance turant exact location par pahunch sake." },
+  
+  // --- Geography & Local Climate (Sardarshahar Context) ---
+  { pattern: /churu|sardarshahar|rajasthan mitti|local climate/i, answer: "🏜️ **Rajasthan (Churu/Sardarshahar) Climate:** Yahan ki zameen retili aur mausam bahut garam hota hai. Aisi jagah par wahi fasal ugti hai jo 45°C+ temperature aur kam pani jhel sake, jaise Bajra, Moth aur Guar. Smart farming hi yahan success ka rasta hai." },
+
+  // --- Indian Geography & Landmarks ---
+  { pattern: /rajdhani|capital|delhi|bharat/i, answer: "🇮🇳 **Bharat ki Rajdhani:** Bharat ki rajdhani New Delhi hai. Isse pehle Calcutta (Kolkata) rajdhani hua karti thi." },
+  { pattern: /rajasthan rajdhani|jaipur|pink city/i, answer: "🏰 **Jaipur (Pink City):** Yeh Rajasthan ki rajdhani hai. Isse Maharaja Sawai Jai Singh II ne basaya tha aur yeh apne kila (forts) aur culture ke liye puri duniya mein mashhoor hai." },
+  { pattern: /sabse bada rajya|area wise|state/i, answer: "🗺️ **Area Wise Largest State:** Kshetraphal (Area) ki drishti se Rajasthan Bharat ka sabse bada rajya hai." },
+  { pattern: /ganga|nadi|river|longest/i, answer: "🌊 **Ganga Nadi:** Yeh Bharat ki sabse lambi aur pavitra nadi hai. Iski lambai lagbhag 2,525 km hai." },
+  { pattern: /thara|desert|registan/i, answer: "🌵 **Thar Desert:** Isse 'Great Indian Desert' bhi kehte hain. Yeh mukhya roop se Rajasthan mein hai aur duniya ke sabse purane registano mein se ek hai." },
+
+  // --- General Science & Space GK ---
+  { pattern: /suraj|sun|tara|star/i, answer: "☀️ **The Sun:** Suraj ek madhyam aakar ka tara (star) hai. Isse humein Energy aur Vitamin D milti hai. Prithvi se iski doori lagbhag 15 crore km hai." },
+  { pattern: /isro|chandrayaan|moon mission/i, answer: "🚀 **ISRO & Chandrayaan:** ISRO Bharat ki space agency hai. Chandrayaan-3 ne chand ke South Pole par land karke itihas racha hai. Bharat aisa karne wala duniya ka pehla desh hai!" },
+  { pattern: /vayu|oxygen|hawa|gas/i, answer: "🌬️ **Atmosphere:** Humari hawa mein sabse zyada Nitrogen (78%) hai, uske baad Oxygen (21%) jo humein saans lene ke liye chahiye hoti hai." },
+  { pattern: /pani formula|h2o|water chemical/i, answer: "💧 **Water (H2O):** Pani ka chemical formula H2O hai, jisme Hydrogen ke 2 aur Oxygen ka 1 atom hota hai." },
+
+  // --- Indian History & Freedom Fighters ---
+  { pattern: /mahatma gandhi|bapu|ahimsa/i, answer: "👓 **Mahatma Gandhi:** Inhe 'Rashtrapita' kaha jata hai. Unhone Ahimsa (Non-violence) ke raste par chalkar Bharat ko azadi dilane mein mukhya bhoomika nibhayi." },
+  { pattern: /bhagat singh|shaheed|azadi/i, answer: "✊ **Shaheed Bhagat Singh:** Bharat ke sabse bade krantikariyon mein se ek. Unhone 'Inquilab Zindabad' ka nara diya aur desh ke liye balidan diya." },
+  { pattern: /samvidhan|constitution|ambedkar/i, answer: "📜 **Bhartiya Samvidhan:** Bharat ka samvidhan duniya ka sabse bada likhit samvidhan hai. Iske mukhya nirmata Dr. B.R. Ambedkar hain." },
+
+  // --- Sports & Achievements ---
+  { pattern: /cricket|world cup|dhoni|kohli/i, answer: "🏏 **Cricket:** Bharat ne do baar (1983 aur 2011) ODI World Cup jeeta hai. Cricket Bharat ka sabse lokpriya khel hai." },
+  { pattern: /hockey|national game/i, answer: "🏑 **Hockey:** Hockey ko Bharat ka rashtriya khel (National Game) mana jata hai. Major Dhyan Chand ko 'Hockey ka Jaadugar' kaha jata hai." },
+
+  // --- Local Pride (Churu & Rajasthan GK) ---
+  { pattern: /tal chhapar|black buck|churu sanctuary/i, answer: "🦌 **Tal Chhapar:** Churu district mein sthit yeh sanctuary 'Black Bucks' (Kale Hiran) ke liye poore Bharat mein famous hai." },
+  { pattern: /sardarshahar clock|ghantaghar/i, answer: "🕰️ **Sardarshahar Ghantaghar:** Sardarshahar ka ghantaghar yahan ki pehchaan hai aur iski architecture dekhne layak hai." },
+  { pattern: /karni mata|deshnoke|chuhe/i, answer: "🐭 **Karni Mata Mandir:** Deshnoke (Bikaner) mein sthit yeh mandir apne safed chuho (Kaba) ke liye duniya bhar mein jana jata hai." }
 ];
 
 /**
