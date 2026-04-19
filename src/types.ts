@@ -3,12 +3,18 @@ export interface Message {
   text: string;
   sender: "user" | "bot";
   timestamp: Date;
-  type?: "text" | "report";
+  type?: "text" | "report" | "treatment";
+  treatmentData?: {
+    chemical: string;
+    organic: string;
+    prevention: string;
+  };
 }
 
 export type Language = "English" | "Hindi" | "Hinglish" | "Marwadi";
 
 export interface KisanGKEntry {
   pattern: RegExp;
-  answer: string;
+  answer?: string;
+  answers?: Partial<Record<Language, string>>;
 }

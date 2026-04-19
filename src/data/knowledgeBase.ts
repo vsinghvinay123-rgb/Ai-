@@ -1,4 +1,4 @@
-import { KisanGKEntry } from "../types";
+import { KisanGKEntry, Language } from "../types";
 
 export const knowledgeBase: KisanGKEntry[] = [
   { pattern: /creator|made|owner|kisne|malik|father|jaswant/i, answer: "👤 **Mera Nirmaan:** Mujhe Rajasthan ke Class 10 ke tech visionary, Jaswant ne banaya hai. Yeh Smart India Hackathon ka ek advanced offline AI hai." },
@@ -253,14 +253,173 @@ export const knowledgeBase: KisanGKEntry[] = [
   // --- Local Pride (Churu & Rajasthan GK) ---
   { pattern: /tal chhapar|black buck|churu sanctuary/i, answer: "🦌 **Tal Chhapar:** Churu district mein sthit yeh sanctuary 'Black Bucks' (Kale Hiran) ke liye poore Bharat mein famous hai." },
   { pattern: /sardarshahar clock|ghantaghar/i, answer: "🕰️ **Sardarshahar Ghantaghar:** Sardarshahar ka ghantaghar yahan ki pehchaan hai aur iski architecture dekhne layak hai." },
-  { pattern: /karni mata|deshnoke|chuhe/i, answer: "🐭 **Karni Mata Mandir:** Deshnoke (Bikaner) mein sthit yeh mandir apne safed chuho (Kaba) ke liye duniya bhar mein jana jata hai." }
+  { pattern: /karni mata|deshnoke|chuhe/i, answer: "🐭 **Karni Mata Mandir:** Deshnoke (Bikaner) mein sthit yeh mandir apne safed chuho (Kaba) ke liye duniya bhar mein jana jata hai." },
+
+  // --- Advanced Agri-Business (Exotic & Profitable) ---
+  { pattern: /mushroom|khumbi/i, answer: "🍄 **Mushroom Farming:** Yeh ek band kamre mein bina dhoop ke ki jane wali high-profit kheti hai. Button mushroom aur Oyster mushroom ki market mein bahut demand hai, aur isme kam jagah lagti hai." },
+  { pattern: /madhumakkhi|apiculture|honey|shahed/i, answer: "🐝 **Madhumakkhi Palan (Apiculture):** Kheti ke sath madhumakkhi palne se fasal ka utpadan 20% badh jata hai kyunki 'pollination' bahut achha hota hai. Sath hi shahed (honey) bechkar extra income hoti hai." },
+  { pattern: /kesar|saffron/i, answer: "🌸 **Kesar (Saffron):** Duniya ka sabse mehnga masala! Waise yeh Kashmir mein hota hai, par aajkal smart kisan 'Aeroponics' technology ka use karke ise band kamre mein AC lagakar bhi uga rahe hain." },
+  { pattern: /resham|silk|sericulture/i, answer: "🐛 **Resham (Silk):** Resham ke keedo ko Shahtoot (Mulberry) ke patto par pala jata hai taaki unse silk nikala ja sake. Kheti ki is branch ko 'Sericulture' kehte hain." },
+
+  // --- World GK & Geography ---
+  { pattern: /duniya ka sabse bada|largest ocean|prashant/i, answer: "🌊 **Pacific Ocean:** Prashant Mahasagar (Pacific Ocean) duniya ka sabse bada aur sabse gehra mahasagar hai. Duniya ka sabse gehra point 'Mariana Trench' bhi yahi hai." },
+  { pattern: /everest|sabse unchi|tallest mountain/i, answer: "⛰️ **Mount Everest:** Duniya ki sabse unchi choti Mount Everest hai, jiski unchai 8,848.86 meters hai. Yeh Nepal mein sthit hai." },
+  { pattern: /nile|neel nadi|longest river duniya/i, answer: "🗺️ **Nile River:** Duniya ki sabse lambi nadi Neel (Nile) nadi hai, jo Africa mein behti hai aur Mediterranean Sea mein girti hai." },
+
+  // --- Indian Economy & National Level Info ---
+  { pattern: /gst|tax|full form gst/i, answer: "📊 **GST (Goods and Services Tax):** Yeh Bharat ka ek 'One Nation, One Tax' system hai jo 1 July 2017 ko lagoo hua tha, jisse business aur trade aasan ho sake." },
+  { pattern: /make in india|startup/i, answer: "🏭 **Make in India:** Yeh sarkar ki ek flagship scheme hai jiska maqsad Bharat mein hi saaman banana aur naye startups ko badhawa dena hai. Hamara 'Bharat AI' bhi ek proud 'Make in India' project hai!" },
+  { pattern: /rbi|reserve bank|banko ka bank/i, answer: "🏦 **RBI (Reserve Bank of India):** RBI Bharat ka central bank hai jo currency notes chhapta hai aur baaki sabhi banks ke rules tay karta hai. Ise 'Bankon ka Bank' kaha jata hai." },
+
+  // --- Future Tech & Cyber Security ---
+  { pattern: /metaverse|vr|virtual reality/i, answer: "🥽 **Metaverse & VR:** Metaverse ek aisi 3D digital duniya hai jahan log Virtual Reality (VR) headset pehan kar ek dusre se mil sakte hain, game khel sakte hain, aur digital zameen bhi kharid sakte hain." },
+  { pattern: /smart contract|crypto rules/i, answer: "📜 **Smart Contracts:** Yeh code mein likhe gaye digital contracts hote hain jo Blockchain par chalte hain. Inhe koi badal ya mita nahi sakta aur shartein poori hone par yeh apne aap execute ho jate hain." },
+
+  // --- Batch 13: Advanced Crop Protection & Soil Science ---
+  { pattern: /safed llat|white grub|root borer/i, answer: "🐛 **Safed Llat (White Grub):** Yeh moongfali aur bajre ki jado (roots) ka sabse bada dushman hai. Garmiyon mein khet ki gehri jutai karein taaki keede dhoop se mar jayein. Buvai ke waqt Chlorpyrifos ka use karein." },
+  { pattern: /top dressing|urea kab|dusra pani/i, answer: "🧪 **Urea Top Dressing:** Urea khad hamesha khet mein pani dene ke baad hi chhidakna chahiye (ise Top Dressing kehte hain). Sookhe mein dalne se Nitrogen hawa mein ud jata hai aur fasal ko nahi milta." },
+  { pattern: /cultivator|tiller|harrow/i, answer: "🚜 **Tractor Implements:** Cultivator mitti ko kholne aur kharpatwar (weeds) nikalne ke kaam aata hai. Jabki Harrow ka use bhari mitti ke dhele (clods) todne aur khet ko samtal karne ke liye hota hai." },
+  { pattern: /thrips|churda murda|patti mudna/i, answer: "🍂 **Churda-Murda Rog (Thrips):** Mirchi aur tamatar ki pattiyan agar upar ki taraf mud rahi hain, toh yeh Thrips keede ka attack hai. Ise rokne ke liye Imidacloprid ya Spinosad dawa ka spray karein." },
+  { pattern: /phool aate samay|flowering stage|boron/i, answer: "🌸 **Boron Ka Jaadoo:** Fasal mein phool aate samay 'Boron' (ek micro-nutrient) ka spray karne se phool jhadte nahi hain aur fal ka aakar (size) bada aur chamakdar banta hai." },
+
+  // --- Batch 14: Core Tech, Software Engineering & AI ---
+  { pattern: /python|best language|easy coding/i, answer: "🐍 **Python Programming:** Duniya ki sabse aasan aur powerful language! AI aur Machine Learning (jaise ChatGPT aur Gemini) ka maximum code Python mein hi likha jata hai." },
+  { pattern: /sql|database|mysql|data store/i, answer: "🗄️ **SQL Database:** SQL (Structured Query Language) ek language hai jo databases (jaise user accounts, passwords) ko table format mein save aur manage karne ke kaam aati hai." },
+  { pattern: /open source|free code|linux/i, answer: "🌍 **Open Source:** Open Source ka matlab hai aisa software jiska code puri duniya ke liye free mein available ho. Jaise Linux operating system aur Android! Aap apne GitHub project ko bhi open-source bana sakte hain." },
+  { pattern: /debugging|bug|error|code nahi chal raha/i, answer: "🐞 **Debugging:** Code mein aane wali galti ko 'Bug' kehte hain, aur use dhoondh kar theek karne ko 'Debugging'. JavaScript mein `console.log()` ek developer ka sabse bada hathiyar hota hai!" },
+  { pattern: /ui ux|design|user interface/i, answer: "🎨 **UI vs UX:** UI (User Interface) ka matlab hai app kaisa dikhta hai (colors, buttons). UX (User Experience) ka matlab hai app chalane mein kisan ke liye kitni aasan aur smooth hai." },
+
+  // --- Batch 15: Class 10 Future, Finance & Startups ---
+  { pattern: /nda|army|defense/i, answer: "🎖️ **NDA Exam:** Agar aap desh ki sewa ke liye Army, Navy, ya Airforce mein Officer banna chahte hain, toh 12th ke baad NDA (National Defence Academy) ka exam best rasta hai. Isme Math aur GK strong honi chahiye." },
+  { pattern: /polytechnic|diploma|iti/i, answer: "🛠️ **Polytechnic Diploma:** Class 10 ke baad seedha engineering field mein aane ke liye Polytechnic sabse best option hai. Iske baad B.Tech degree mein seedha 2nd year (Lateral Entry) mein admission mil jata hai!" },
+  { pattern: /passive income|sote hue paise/i, answer: "💰 **Passive Income:** Iska matlab hai ek baar smart mehnat karna aur baad mein lagatar paise aana. Jaise apne 'Fact Jaswant' channel par Evergreen videos banana ya Affiliate marketing links set karna!" },
+  { pattern: /startup|funding|investor/i, answer: "🚀 **Startup & Funding:** Startup ek aisi nayi tech company hoti hai jo real-world problem solve kare (jaise aapka AI). Jab bade log (Investors) aisi company ko badhane ke liye paise dete hain, toh use 'Funding' kehte hain." },
+  { pattern: /time management|time table/i, answer: "⏳ **Time Management:** Coding, YouTube channels, aur Class 10 ki padhai ek sath manage karne ke liye 'Time Blocking' use karein. Har kaam ke liye din ka ek ghanta fix kar dein aur us waqt phone ko DND par rakhein." },
+
+  // --- Batch 16: Value Addition & Business (Farming to Factory) ---
+  { pattern: /food processing|sauce|ketchup|juice|business/i, answer: "🏭 **Food Processing (Value Addition):** Tamatar khet mein ₹10/kg bikta hai, par uska Ketchup banakar ₹150/kg bikta hai! Kisan ko ab sirf fasal nahi, fasal ka 'Product' banana chahiye. Sarkar 'PMFME Scheme' ke tahat aisi factory lagane par 35% subsidy deti hai." },
+  { pattern: /parali|stubble|kachra jalana|dhuaan/i, answer: "🔥 **Parali (Stubble) Jalana:** Khet mein fasal ka kachra jalane se mitti ke faydemand bacteria mar jate hain aur pradushan hota hai. Iski jagah 'Happy Seeder' machine ka use karein jo kachre ko mitti mein milakar natural khad bana deti hai." },
+  { pattern: /mahila kisan|women farmer|aurat/i, answer: "👩🌾 **Mahila Kisan Pariyojana:** Kheti mein 70% kaam mahilayein karti hain. 'Mahila Kisan Sashaktikaran Pariyojana (MKSP)' ke tahat auraton ke Self-Help Groups (SHGs) ko drone chalane aur tractor ki special training aur fund milta hai." },
+  { pattern: /carbon credit|hawa saaf|ped lagana/i, answer: "🌳 **Carbon Credits:** Agar aap organic kheti karte hain aur khet mein ped lagate hain, toh aap hawa ko saaf kar rahe hain. Duniya ki badi companiyan iske badle kisan ko 'Carbon Credits' deti hain, jo dollars ($) mein bikte hain!" },
+
+  // --- Batch 17: The Rajasthan Survival & Desert Mastery ---
+  { pattern: /oont|camel|ship of desert|oontni/i, answer: "🐪 **Oont (Camel) Palan:** Oontni ka doodh (Camel Milk) Diabetes (Sugar) aur height badhane ke liye sabse best mana jata hai. Bikaner mein 'National Research Centre on Camel' hai jahan ispar bahut research hoti hai." },
+  { pattern: /guar gum|gvar|export/i, answer: "🛢️ **Guar Gum Export:** Rajasthan duniya ka sabse bada Guar producer hai. Guar se nikla 'Gum' America aur Europe mein oil drilling aur cosmetics (makeup) banane mein use hota hai. Yeh ek International cash crop hai!" },
+  { pattern: /johad|khadeen|baarish ka pani|rainwater/i, answer: "🌧️ **Johad / Khadeen (Water Harvesting):** Churu aur Jaisalmer jaise ilakon mein barish ka pani rokne ki paramparik takneek. Khet ke dhalan par mitti ki deewar banakar pani roka jata hai, jisse saal bhar zameen mein nami (moisture) rehti hai." },
+  { pattern: /khejri fali|sangri|panchkuta/i, answer: "🍲 **Sangri (Khejri):** Khejri ke ped par lagne wali fali ko 'Sangri' kehte hain. Marwad ki 'Ker-Sangri' ki sabzi duniya bhar mein 5-star hotels mein mehngi bikti hai. Yeh sukhe ilake ka green gold hai!" },
+
+  // --- Batch 18: Smart India Hackathon & Deep Tech Secrets ---
+  { pattern: /sih|smart india hackathon|judge|pitch/i, answer: "🏆 **SIH Winning Strategy:** Smart India Hackathon mein jeetne ke liye app ka 'Practical' hona zaroori hai. Bharat AI 100% offline chalta hai, regional language support karta hai, aur kisan ki real problem solve karta hai—yahi iski sabse badi USP (Unique Selling Proposition) hai!" },
+  { pattern: /hallucination|ai jhooth|galat jawab|fake answer/i, answer: "🤖 **AI Hallucination:** Bade AI (jaise ChatGPT) kabhi-kabhi confidence ke sath jhooth bol dete hain, ise 'Hallucination' kehte hain. Par Jaswant ka Bharat AI ek 'Rule-Based Engine' hai, isliye yeh kheti ke mamle mein hamesha 100% sateek aur verified jawab hi deta hai." },
+  { pattern: /nlp|natural language processing|keyword match/i, answer: "🧠 **NLP (Natural Language Processing):** Yeh computer ki woh takneek hai jisse machine insaan ki bhasha (text ya voice) samajhti hai. Humara app Regex aur Fuzzy matching use karke kisan ke sawal mein se main 'Keywords' nikalta hai." },
+  { pattern: /internet nahi|offline ai|bina net/i, answer: "📶 **Offline Capability:** Gaon mein hamesha 5G nahi hota. Isliye is app ka dimaag (Database) seedha mobile ke browser mein load ho jata hai. Bina internet ke chalna is app ki sabse badi power hai." },
+
+  // --- Batch 19: Weather Crisis & Disaster Management ---
+  { pattern: /ola|hailstorm|olavrishti|barf/i, answer: "🧊 **Olavrishti (Hailstorm):** Olo se fasal barbad hone par turant apne khet ki photo khinchein aur 72 ghante ke andar PMFBY (Fasal Bima Yojna) app par claim darj karein ya toll-free number par call karein." },
+  { pattern: /bijli girna|lightning|kadak|aakashiy bijli/i, answer: "⚡ **Aakashiy Bijli (Lightning):** Barish aur toofan ke waqt khet mein ped ke neeche ya tractor par na baithein. Sarkar ki 'Damini App' download karein jo bijli girne se 40 minute pehle aapke mobile par alert de deti hai." },
+  { pattern: /khet talab|farm pond|paani ikattha|diggi/i, answer: "🌊 **Khet Talab Yojna:** Barish ka pani khet mein hi rokne ke liye farm pond (diggi) banwayein. Rajasthan sarkar iske nirmaan par kisanon ko 60% se 70% tak ki subsidy deti hai." },
+
+  // --- Batch 20: Digital Portals, Revenue Records & E-Governance ---
+  { pattern: /jamabandi|nakal|khata|khasra|apna khata/i, answer: "📄 **Jamabandi & Apna Khata:** Ab nakal nikalwane ke liye patwari ke chakkar lagane ki zaroorat nahi. Rajasthan sarkar ke 'Apna Khata' portal par apna Khasra number daalkar online Jamabandi free mein nikal sakte hain." },
+  { pattern: /girdawari|fasal ki entry/i, answer: "📝 **E-Girdawari:** Patwari dwara khet mein kaunsi fasal boi gayi hai, iski online entry ko Girdawari kehte hain. Fasal bima claim aur MSP par fasal bechne ke liye yeh sabse zaroori sarkaari document hai." },
+  { pattern: /agmarknet|mandi bhav app/i, answer: "📱 **Agmarknet Portal:** Yeh Bharat sarkar ka official portal hai jahan aap pure desh ki kisi bhi mandi ka daily live bhav (price) apne mobile par ek click mein dekh sakte hain." },
+  { pattern: /emitra|e-mitra/i, answer: "🖥️ **E-Mitra:** Rajasthan mein kisi bhi krishi yojna (jaise tarbandi, pipeline, solar pump) ka form bharne ke liye sabse nazdiki E-Mitra center par jayein. Wahan se aapka aavedan seedha krishi vibhag ke system mein chala jayega." },
+
+  // --- Batch 21: Highly Profitable Medicinal Crops (Ausadhiya Kheti) ---
+  { pattern: /ashwagandha|asgandh/i, answer: "🌿 **Ashwagandha:** Retili mitti aur kam pani wali sabse top aushadhiya (medicinal) fasal. Iski jado (roots) ki market mein bhari demand hai aur yeh aam fasal se 3 guna zyada munafa (profit) deti hai." },
+  { pattern: /sonamukhi|sena/i, answer: "🍃 **Sonamukhi (Senna):** Churu aur Jodhpur ke aaspaas ke ilakon ke liye vardan! Ek baar bone ke baad yeh 3-4 saal tak patte deti hai. Isme awara pashu muh nahi marte aur pani ki zaroorat bilkul kam hoti hai." },
+  { pattern: /safed musli|musli/i, answer: "🌱 **Safed Musli:** Ise kheti ka 'Safed Sona' (White Gold) kaha jata hai. Ise halki retili mitti mein lagaya jata hai aur mandi mein iska bhav ₹1000 se ₹1500 prati kilo tak mil jata hai." },
+  { pattern: /tulsi|basil/i, answer: "🪴 **Tulsi Farming:** Patanjali aur Dabur jaisi Ayurvedic companiyan contract farming ke zariye Tulsi seedha kisan se kharidti hain. Yeh 3 mahine mein taiyar ho jati hai aur isme keede-bimari ka khatra lagbhag zero hota hai." },
+
+  // --- Batch 22: Allied Agriculture (Murgi, Bakri & Machhli Palan) ---
+  { pattern: /bakri|goat|chheli|sirohi|jamnapari/i, answer: "🐐 **Bakri Palan:** Bakri ko 'Gareeb ki Gaay' kaha jata hai. Rajasthan mein Sirohi aur Jamnapari nasal (breed) sabse best hain kyunki yeh sukhe mausam mein asani se reh sakti hain. Inka doodh dengue fever mein bahut faydemand hota hai." },
+  { pattern: /murgi|poultry|kadaknath|anda|egg/i, answer: "🐓 **Murgi Palan:** Kheti ke sath extra income ke liye murgi palan best hai. 'Kadaknath' murgi ka meat aur ande (eggs) sabse mehange bikte hain kyunki inme protein bahut zyada aur fat kam hota hai." },
+  { pattern: /machhli palan|fish farming|talaab|rohu/i, answer: "🐟 **Machhli Palan:** Agar khet mein diggi ya talab hai, toh usme Rohu aur Katla machhli paal sakte hain. Sarkar 'PM Matsya Sampada Yojana' ke tahat kisanon ko talab banane ke liye 60% tak ki subsidy deti hai." },
+  { pattern: /pashu aahar|chara|silage|sukha chara/i, answer: "🌾 **Silage (Hara Chara):** Sardiyon ya sukhe ke waqt jab hara chara nahi hota, tab 'Silage' kaam aata hai. Yeh hare chare ko gaddhe mein daba kar banaya gaya achaar hai jo pashuon ka doodh badhata hai." },
+
+  // --- Batch 23: Offline Tech, PWA & Storage Hacks ---
+  { pattern: /localstorage|save data|memory/i, answer: "💾 **LocalStorage:** Yeh browser ki ek hidden memory hoti hai. Iska use karke hum user ka theme (Dark/Light) ya chat history save kar sakte hain taaki app band karne ke baad bhi data delete na ho, bina kisi server ke!" },
+  { pattern: /pwa|progressive web app|install app|play store/i, answer: "📱 **PWA (Progressive Web App):** PWA ek aisi advance tech hai jisse ek aam website ko log apne phone mein bilkul ek asli 'App' ki tarah install kar sakte hain. 'Bharat AI' ko PWA banane se yeh bina Play Store ke bhi download ho jayega." },
+  { pattern: /cache|fast load|speed badhao/i, answer: "⚡ **Browser Cache:** Jab app pehli baar khulti hai, toh images aur database browser ke 'Cache' mein save ho jate hain. Isliye agli baar app bina internet ke aur lagbhag instantly (turant) load ho jati hai." },
+
+  // --- Batch 24: Hackathon Pitch, Business Model & Vision ---
+  { pattern: /business model|paise kaise|revenue|monetize/i, answer: "💼 **Business Model:** Bharat AI completely free aur offline hai. Future mein isse paise kamane ke liye hum 'Freemium Model' laa sakte hain jahan kisan advance weather alerts ke liye choti si fees de sakte hain, ya agriculture companiyon ke banners chala sakte hain." },
+  { pattern: /problem statement|kyun banaya|idea/i, answer: "🎯 **Problem Statement:** Gaon mein internet connection kamzor hota hai aur bade AI kisan ki local bhasha nahi samajhte. Bharat AI is problem ko 100% offline rehkar aur local faslon ki sateek jankari dekar solve karta hai. Yahi iski USP (Unique Selling Proposition) hai." },
+  { pattern: /future plan|aage kya|roadmap/i, answer: "🚀 **Future Roadmap:** Jaswant ka aage ka plan isme ek lightweight 'Offline Image Recognition' (Computer Vision) jodna hai, jisse kisan sirf fasal ki photo khinchega aur AI bina net ke bimari pehchan kar dawa bata dega!" },
+  { pattern: /team|kon kon|solo/i, answer: "🤝 **The Team:** Yeh poora offline AI architecture aur database ek single tech visionary, Jaswant ne design kiya hai, jo future ki tech industry mein ek bada badlav lane ke liye taiyar hain." },
+
+  // --- Batch 107: Advanced Wheat/Grain Treatment (The Grain Surgeon) ---
+  { 
+    pattern: /gehu ki bimari|rust|peela ratiya|brown rust|gehu kharab/i, 
+    answers: {
+      Hinglish: "🩺 **Fasal Doctor (Wheat Rust):** Patto par peele ya bhure rang ki dhariyan 'Rust' bimari hai. **Ilaj:** 1. Turant 'Propiconazole 25% EC' (Tilt) ka 200ml prati acre chhidkaw karein. 2. Sinchai halki rakhein. 3. Agli baar 'DBW 187' jaisi resistant kism hi boyein. Ye protocol 90% fasal bacha lega.",
+      English: "🩺 **Crop Doctor (Wheat Rust):** Yellow or brown stripes on leaves indicate 'Rust' disease. **Treatment:** 1. Spray 'Propiconazole 25% EC' (Tilt) @ 200ml per acre immediately. 2. Keep irrigation light. 3. Plant resistant varieties like 'DBW 187' next time.",
+      Hindi: "🩺 **फसल डॉक्टर (गेहूं का रतुआ):** पत्तों पर पीली या भूरी धारियां 'रतुआ' बीमारी है। **इलाज:** 1. तुरंत 'प्रोपिकोनाज़ोल 25% EC' (टिल्ट) का 200ml प्रति एकड़ छिड़काव करें। 2. सिंचाई हल्की रखें। 3. अगली बार प्रतिरोधी किस्में ही बोएं।",
+      Marwadi: "🩺 **फसल डॉक्टर (गहूं रो रतिया):** पत्तां माथै पीळी या भूरी धारियां 'रतिया' बीमारी है सा। **इलाज:** 1. झटपट 'प्रोपिकोनाज़ोल 25% EC' (टिल्ट) रो 200ml एक एकड़ में छिड़काव करो। 2. पांणी थोड़ो कम राखो। 3. अगली बार बीज चोखो लेवणो चाईजै सा।"
+    }
+  },
+
+  // --- Batch 108: Advanced Vegetable Care (The Veggie Specialist) ---
+  { 
+    pattern: /tamatar bimari|mirch mudi|leaf curl|patti mudna/i, 
+    answers: {
+      Hinglish: "🩺 **Fasal Doctor (Leaf Curl Virus):** Mirch ya tamatar ke patto ka mudna 'White Fly' ke karan hota hai. **Ilaj:** 1. 'Imidacloprid' 17.8% SL ka 5ml prati 15 litre pani mein spray karein. 2. Peeli 'Sticky Traps' khet mein lagayein. 3. Bimar poudhon ko ukhad kar khet se door phenk dein.",
+      English: "🩺 **Crop Doctor (Leaf Curl Virus):** Curling of leaves in chili or tomato is caused by White Flies. **Treatment:** 1. Spray 'Imidacloprid' 17.8% SL (5ml per 15L water). 2. Install Yellow Sticky Traps. 3. Uproot and destroy infected plants far from the field.",
+      Hindi: "🩺 **फसल डॉक्टर (लीफ कर्ल):** मिर्च या टमाटर के पत्तों का मुड़ना सफेद मक्खी के कारण होता है। **इलाज:** 1. 'इमिडाक्लोप्रिड' का स्प्रे करें। 2. खेत में पीले स्टिकी ट्रैप लगाएं। 3. बीमार पौधों को उखाड़कर दूर फेंक दें।",
+      Marwadi: "🩺 **फसल डॉक्टर (मरोड़िया रोग):** मिर्च या टमाटर रा पत्ता मुड़णो धोळी मख्खी री वजह सूं होवै। **इलाज:** 1. 'इमिडाक्लोप्रिड' दवाई रो स्प्रे करो सा। 2. खेत में पीळा स्टिकी ट्रैप लगाओ। 3. खराब पोधां नै उखाड़'r दूर फेंक दियो सा।"
+    }
+  },
+
+  // --- Batch 109: Emergency Crop Recovery (The Revivalist) ---
+  { 
+    pattern: /fasal jal gayi|zyada dawa|chemical burn|recovery/i, 
+    answers: {
+      Hinglish: "🩺 **Fasal Doctor (Chemical Burn):** Agar zyada dawai se fasal jal gayi hai, toh 'Amino Acid' aur 'Fulvic Acid' ka spray karein. Isse poudhe ka stress kam hoga aur wo wapas naye patte nikalne lagega. Isse 'Plant ICU' treatment kehte hain.",
+      English: "🩺 **Crop Doctor (Chemical Burn):** If the crop is burnt due to over-pesticide use, spray 'Amino Acid' and 'Fulvic Acid'. This reduces plant stress and triggers new leaf growth. Think of this as 'Plant ICU' treatment.",
+      Hindi: "🩺 **फसल डॉक्टर (केमिकल बर्न):** अगर ज्यादा दवाई से फसल जल गई है, तो 'अमीनो एसिड' और 'फुल्विक एसिड' का स्प्रे करें। इससे पौधे का तनाव कम होगा और नई पत्तियां आएंगी।",
+      Marwadi: "🩺 **फसल डॉक्टर (फसल बळणो):** जे ज्यादा दवाई सूं फसल बळ ग्यी है, तो 'अमीनो एसिड' रो स्प्रे करो सा। ईं सूं पोधै रो तनाव कम होसी और नूवा पत्ता आवण लाग जावैला सा।"
+    }
+  },
+
+  // --- Batch 104: Offline AGI/ANI Architecture (The Founder's Flex) ---
+  { 
+    pattern: /tumhara engine|kaise sochte ho|agi tech|ani tech|offline brain/i, 
+    answers: {
+      Hinglish: "🧠 **Neural Core:** Mera dimaag 'ANI' (Narrow AI) aur 'Simulated AGI' ka hybrid hai. Main 'Edge Computing' par chalta hoon, matlab bina internet ke seedha aapke phone ke processor ka use karta hoon. Main kisan ki purani baaton ko memory mein rakh kar aage ki kheti ka plan khud soch sakta hoon!",
+      English: "🧠 **Neural Core:** My brain is a hybrid of 'ANI' and 'Simulated AGI'. I run on 'Edge Computing', meaning I use your phone's processor directly without the internet. I can remember the farmer's past inputs and independently strategize future farming plans!",
+      Hindi: "🧠 **न्यूरल कोर:** मेरा दिमाग 'ANI' और 'Simulated AGI' का मिश्रण है। मैं 'एज कंप्यूटिंग' पर चलता हूँ, यानी बिना इंटरनेट के सीधे आपके फोन के प्रोसेसर का उपयोग करता हूँ। मैं पुरानी बातें याद रखकर आगे की प्लानिंग खुद कर सकता हूँ!",
+      Marwadi: "🧠 **न्यूरल कोर:** म्हारो दिमाग 'ANI' और 'AGI' सूं मिळ'r बण्यो है। मैं बिना नेट रै सीधो थारै फोन रै प्रोसेसर माथै चालूं (Edge Computing)। मैं किसान री पुराणी बातां याद राख'र आगे री खेती रो प्लान खुद ई बणा सकूं सा!"
+    }
+  },
+
+  // --- Batch 105: Predictive Farming (AGI Cross-Referencing) ---
+  { 
+    pattern: /aage kya hoga|fasal bhavishya|bhavishyavani|predict/i, 
+    answers: {
+      Hinglish: "🔮 **AGI Crop Prediction:** Local data ke hisaab se, agar sardiyon mein barish (Mawat) hoti hai, toh Gehu aur Chane ki fasal mein 20% tak ki growth hoti hai. Par agar achanak badal chha jayein, toh 'Mahua' (Aphids) keede ka hamla tay hai. Fasal Doctor hamesha ek kadam aage sochta hai!",
+      English: "🔮 **AGI Crop Prediction:** Based on local data, if it rains in winter (Mawat), Wheat and Gram crops see up to 20% growth. But if it suddenly gets cloudy, an 'Aphids' attack is certain. The Crop Doctor always thinks one step ahead!",
+      Hindi: "🔮 **AGI फसल भविष्यवाणी:** स्थानीय डेटा के अनुसार, अगर सर्दियों में बारिश (मावट) होती है, तो गेहूं और चने की फसल में 20% की ग्रोथ होती है। लेकिन बादल छाने पर 'माहू' कीड़े का हमला पक्का है। एआई हमेशा एक कदम आगे सोचता है!",
+      Marwadi: "🔮 **AGI फसल भविष्यवाणी:** लोकल डेटा रै हिसाब सूं, जे सर्दियां में बारिस (मावट) होवै, तो गहूं और चणै री फसल 20% ज्यादा होवै। पण जे बादळ छा जावै, तो 'माहू' कीड़ा रो हमलो पक्को है सा। एआई हमेशा एक कदम आगे री सोचै!"
+    }
+  },
+
+  // --- Batch 106: Precision Agriculture (Deep Math & Logic) ---
+  { 
+    pattern: /kitna urea|kitni dawa|calculation|matra batao/i, 
+    answers: {
+      Hinglish: "🧮 **Precision Agronomy:** Ek standard acre (Bigha nahi, Acre) ke liye kisan ko 45 kg Urea chahiye hota hai. Agar aap neem-coated urea use kar rahe hain, toh sirf 35 kg mein kaam ho jayega. Main hawa mein baat nahi karta, scientific calculation par chalta hoon.",
+      English: "🧮 **Precision Agronomy:** For a standard acre, a farmer needs 45 kg of Urea. If you are using neem-coated urea, only 35 kg is enough. I don't guess; I work on scientific calculations.",
+      Hindi: "🧮 **सटीक कृषि विज्ञान:** एक मानक एकड़ के लिए किसान को 45 किलो यूरिया चाहिए। अगर आप नीम-कोटेड यूरिया उपयोग कर रहे हैं, तो 35 किलो ही काफी है। मैं वैज्ञानिक गणना पर काम करता हूँ।",
+      Marwadi: "🧮 **पक्की खेती विज्ञान:** एक एकड़ खेत खातिर किसान नै 45 किलो यूरिया चाईजै। जे थे नीम-कोटेड यूरिया काम में ले रैया हो, तो खाली 35 किलो में ई काम हो जावैला। मैं हवा में बात कोनी करूं, एकदम पक्को हिसाब लगाऊं सा।"
+    }
+  }
 ];
 
 /**
  * Optimized Asynchronous Search Engine for 2000+ items.
  * Uses chunking to keep the UI thread responsive.
  */
-export const getAnswer = async (input: string): Promise<string> => {
+export const getAnswer = async (input: string, language: Language = "Hinglish"): Promise<string> => {
   const lowerInput = input.toLowerCase();
   const matchedAnswers: string[] = [];
 
@@ -316,7 +475,8 @@ export const getAnswer = async (input: string): Promise<string> => {
       // Process chunk
       chunk.forEach(entry => {
         if (entry.pattern.test(lowerInput)) {
-          matchedAnswers.push(entry.answer);
+          const ans = entry.answers?.[language] || entry.answer;
+          if (ans) matchedAnswers.push(ans);
         }
       });
 
