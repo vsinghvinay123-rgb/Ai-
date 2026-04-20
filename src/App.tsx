@@ -28,9 +28,15 @@ import AdSenseBanner from "./components/AdSenseBanner";
 
 // --- Ad Slot Component ---
 const AdSlot = ({ type }: { type: "top" | "inline" | "anchor" }) => (
-  <div className={`mx-auto w-full max-w-lg ${type === "top" ? "mt-4 mb-6" : type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-bg-dark/80 backdrop-blur-md border-t border-white/10" : "my-6"}`}>
-    <div className={`relative bg-gray-100/10 border border-white/5 rounded-xl p-2 flex flex-col items-center justify-center transition-all hover:bg-gray-100/15 ${type === "anchor" ? "min-h-[60px]" : "min-h-[100px]"}`}>
-      <span className="absolute top-1 right-2 text-[8px] uppercase tracking-widest text-gray-500 font-bold">Advertisement</span>
+  <div className={`mx-auto w-full max-w-lg ${
+    type === "top" ? "py-4 mb-2" : 
+    type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-bg-dark/90 backdrop-blur-md border-t border-white/10" : 
+    "py-8 my-4"
+  }`}>
+    <div className={`relative bg-gray-100/5 border border-white/5 rounded-xl p-2 flex flex-col items-center justify-center transition-all hover:bg-white/5 ${
+      type === "anchor" ? "min-h-[60px]" : "min-h-[120px]"
+    }`}>
+      <span className="absolute top-1 right-2 text-[8px] uppercase tracking-widest text-gray-400 font-bold">Advertisement</span>
       <AdSenseBanner />
     </div>
   </div>
@@ -642,11 +648,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* Header Area Ad Slot */}
+      {/* Top Ad Area */}
       <AdSlot type="top" />
 
-      {/* Chat Area */}
-      <main className="flex-1 overflow-y-auto p-4 space-y-6 pb-48 scrollbar-hide">
+      {/* Main Container - Chat Messages */}
+      <main className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
         {messages.map((msg, idx) => (
           <React.Fragment key={msg.id}>
             <motion.div
@@ -711,14 +717,110 @@ export default function App() {
         <div ref={messagesEndRef} />
       </main>
 
-      {/* GPS Loading Overlay */}
+      {/* Fixed Bottom UI Area */}
+      <div className="bg-bg-dark/95 backdrop-blur-lg border-t border-white/5 px-4 pt-3 pb-[80px] space-y-3 z-30">
+        
+        {/* Suggestion Chips - Fixed Row Above Input */}
+        <SuggestionChips onChipClick={(text) => {
+          setInputText(text);
+          handleSendMessage(text);
+        }} />
+
+        {/* Action Bar + Input Field */}
+        <div className="flex items-center gap-2">
+          {/* Grouped Action Bar (Mic, GPS, Camera, Voice Toggle) */}
+          <div className="flex items-center gap-1 p-1 bg-white/5 rounded-xl border border-white/10 shrink-0">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={startListening}
+              className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+                isListening ? "bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-green-500/10 text-green-500 border border-green-500/20"
+              }`}
+              title="Voice Input"
+            >
+              <Mic className={`w-5 h-5 ${isListening ? "text-white" : ""}`} />
+            </motion.button>
+            
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={handleGPS}
+              className="w-10 h-10 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-lg flex items-center justify-center transition-all hover:bg-blue-500/20"
+              title="GPS Location"
+            >
+              <MapPin className="w-5 h-5" />
+            </motion.button>
+            
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => fileInputRef.current?.click()}
+              className="w-10 h-10 bg-pink-500/10 text-pink-500 border border-pink-500/20 rounded-lg flex items-center justify-center transition-all hover:bg-pink-500/20"
+              title="Camera Scan"
+            >
+              <Camera className="w-5 h-5" />
+            </motion.button>
+
+            <div className="w-px h-6 bg-white/10 mx-0.5" />
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleVoice}
+              className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+                isVoiceEnabled ? "bg-white/5 text-primary" : "bg-red-500/10 text-red-500 border border-red-500/20"
+              }`}
+              title="Speech Toggle"
+            >
+              {isVoiceEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            </motion.button>
+
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              className="hidden" 
+              accept="image/*" 
+              capture="camera"
+              onChange={handleFileUpload}
+            />
+          </div>
+
+          {/* Chat Input Field */}
+          <div className="flex-1 glass-morphism rounded-xl flex items-center gap-2 border border-white/10 px-3 py-1 focus-within:border-primary/40 transition-all shadow-xl">
+            <input
+              type="text"
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              placeholder={uiTranslation[language].placeholder}
+              className="flex-1 bg-transparent border-none outline-none py-2 text-sm placeholder:text-gray-500 min-w-0"
+            />
+            <button
+              onClick={() => handleSendMessage()}
+              disabled={!inputText.trim()}
+              className={`p-2 rounded-lg transition-all ${
+                inputText.trim() ? "text-primary hover:scale-110" : "text-gray-600"
+              }`}
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Legal Footer */}
+        <footer className="flex flex-wrap justify-center gap-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest opacity-80 overflow-hidden whitespace-nowrap">
+          <button onClick={() => setActiveModal("privacy")} className="hover:text-primary transition-colors">Privacy</button>
+          <button onClick={() => setActiveModal("terms")} className="hover:text-primary transition-colors">Terms</button>
+          <button onClick={() => setActiveModal("about")} className="hover:text-primary transition-colors">About</button>
+          <span className="opacity-40">© 2026 Bharat AI</span>
+        </footer>
+      </div>
+
+      {/* Overlays / Modals */}
       <AnimatePresence>
         {isLocating && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/60 flex flex-col items-center justify-center p-6 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-black/60 flex flex-col items-center justify-center p-6 backdrop-blur-sm"
           >
             <div className="bg-bg-dark/80 p-8 rounded-3xl border border-primary/30 flex flex-col items-center shadow-2xl">
               <Loader2 className="w-12 h-12 text-secondary animate-spin mb-4" />
@@ -728,28 +830,27 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Scanning Overlay */}
       <AnimatePresence>
         {isScanning && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/90 flex flex-col items-center justify-center p-6"
+            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-6"
           >
-            <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 glow-accent">
+            <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 glow-accent mb-8">
               {scannedImage && (
                 <img src={scannedImage} alt="Scanned" className="w-full h-full object-cover opacity-50" />
               )}
               <div className="laser-line" />
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
-                <p className="text-primary font-bold tracking-widest animate-pulse">SCANNING FASAL...</p>
+                <p className="text-primary font-bold tracking-widest animate-pulse uppercase">Scanning Analysis...</p>
               </div>
             </div>
             <button 
               onClick={() => setIsScanning(false)}
-              className="mt-8 p-3 bg-white/10 rounded-full text-white"
+              className="p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-all active:scale-95"
             >
               <X className="w-6 h-6" />
             </button>
@@ -757,106 +858,15 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Input Bar */}
-      <div className="fixed bottom-[60px] left-0 right-0 p-4 space-y-4 z-40 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent">
-        {/* Swarm Dashboard */}
-        <AnimatePresence>
-          {isSwarming && (
-            <div className="max-w-lg mx-auto w-full">
+      <AnimatePresence>
+        {isSwarming && (
+          <div className="fixed inset-0 z-50 pointer-events-none p-4 flex flex-col items-center justify-end pb-[200px]">
+            <div className="pointer-events-auto w-full max-w-lg">
               <AgentSwarmDashboard states={swarmStates} />
             </div>
-          )}
-        </AnimatePresence>
-
-        {/* Floating Action Bar */}
-        <div className="flex justify-center gap-4">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleVoice}
-            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all ${
-              isVoiceEnabled ? "bg-white/5 border border-white/10" : "bg-red-500/20 border border-red-500/40"
-            }`}
-          >
-            {isVoiceEnabled ? (
-              <Volume2 className="w-6 h-6 text-primary" />
-            ) : (
-              <VolumeX className="w-6 h-6 text-red-500" />
-            )}
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={startListening}
-            className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all ${
-              isListening ? "bg-accent animate-pulse" : "bg-primary glow-accent"
-            }`}
-          >
-            <Mic className={`w-6 h-6 ${isListening ? "text-white" : "text-bg-dark"}`} />
-          </motion.button>
-          
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={handleGPS}
-            className="w-14 h-14 bg-secondary rounded-full flex items-center justify-center shadow-2xl glow-accent"
-          >
-            <MapPin className="w-6 h-6 text-bg-dark" />
-          </motion.button>
-          
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => fileInputRef.current?.click()}
-            className="w-14 h-14 bg-accent rounded-full flex items-center justify-center shadow-2xl glow-accent"
-          >
-            <Camera className="w-6 h-6 text-white" />
-          </motion.button>
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            className="hidden" 
-            accept="image/*" 
-            capture="camera"
-            onChange={handleFileUpload}
-          />
-        </div>
-
-        {/* Suggestion Chips */}
-        <div className="max-w-lg mx-auto w-full">
-          <SuggestionChips onChipClick={(text) => {
-            setInputText(text);
-            handleSendMessage(text);
-          }} />
-        </div>
-
-        {/* Text Input */}
-        <div className="glass-morphism rounded-2xl p-2 flex items-center gap-2 border border-white/10 shadow-2xl relative z-10 transition-all focus-within:border-primary/40">
-          <input
-            type="text"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-            placeholder={uiTranslation[language].placeholder}
-            className="flex-1 bg-transparent border-none outline-none px-3 py-2 text-sm placeholder:text-gray-500"
-          />
-          <button
-            onClick={() => handleSendMessage()}
-            disabled={!inputText.trim()}
-            className={`p-2.5 rounded-xl transition-all flex items-center gap-2 ${
-              inputText.trim() ? "bg-primary text-bg-dark hover:scale-105" : "bg-white/5 text-gray-600"
-            }`}
-          >
-            <span className="text-xs font-bold sm:block hidden">{uiTranslation[language].sendBtn}</span>
-            <Send className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Legal Footer */}
-        <footer className="pt-2 pb-4 flex flex-wrap justify-center gap-6 text-[10px] text-gray-500 font-bold uppercase tracking-widest border-t border-white/5">
-          <button onClick={() => setActiveModal("privacy")} className="hover:text-primary transition-colors">Privacy Policy</button>
-          <button onClick={() => setActiveModal("terms")} className="hover:text-primary transition-colors">Terms & Conditions</button>
-          <button onClick={() => setActiveModal("about")} className="hover:text-primary transition-colors">About Us</button>
-          <span className="opacity-40">© 2026 Bharat AI by Jaswant</span>
-        </footer>
-      </div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Cookie Consent Banner */}
       <AnimatePresence>
