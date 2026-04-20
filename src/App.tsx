@@ -718,7 +718,7 @@ export default function App() {
       </main>
 
       {/* Fixed Bottom UI Area */}
-      <div className="bg-bg-dark/95 backdrop-blur-lg border-t border-white/5 px-4 pt-3 pb-[80px] space-y-3 z-30">
+      <div className="bg-bg-dark/95 backdrop-blur-lg border-t border-white/5 px-4 pt-3 pb-[80px] space-y-4 z-30">
         
         {/* Suggestion Chips - Fixed Row Above Input */}
         <SuggestionChips onChipClick={(text) => {
@@ -726,14 +726,13 @@ export default function App() {
           handleSendMessage(text);
         }} />
 
-        {/* Action Bar + Input Field */}
-        <div className="flex items-center gap-2">
-          {/* Grouped Action Bar (Mic, GPS, Camera, Voice Toggle) */}
-          <div className="flex items-center gap-1 p-1 bg-white/5 rounded-xl border border-white/10 shrink-0">
+        {/* Action Bar - Grouped (Mic, GPS, Camera, Voice Toggle) */}
+        <div className="max-w-lg mx-auto w-full px-1">
+          <div className="flex items-center gap-2 p-1.5 bg-white/5 rounded-2xl border border-white/10 w-fit">
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={startListening}
-              className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
+              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
                 isListening ? "bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-green-500/10 text-green-500 border border-green-500/20"
               }`}
               title="Voice Input"
@@ -744,7 +743,7 @@ export default function App() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleGPS}
-              className="w-10 h-10 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-lg flex items-center justify-center transition-all hover:bg-blue-500/20"
+              className="w-10 h-10 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-xl flex items-center justify-center transition-all hover:bg-blue-500/20"
               title="GPS Location"
             >
               <MapPin className="w-5 h-5" />
@@ -753,19 +752,19 @@ export default function App() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => fileInputRef.current?.click()}
-              className="w-10 h-10 bg-pink-500/10 text-pink-500 border border-pink-500/20 rounded-lg flex items-center justify-center transition-all hover:bg-pink-500/20"
+              className="w-10 h-10 bg-pink-500/10 text-pink-500 border border-pink-500/20 rounded-xl flex items-center justify-center transition-all hover:bg-pink-500/20"
               title="Camera Scan"
             >
               <Camera className="w-5 h-5" />
             </motion.button>
 
-            <div className="w-px h-6 bg-white/10 mx-0.5" />
+            <div className="w-px h-6 bg-white/10 mx-1" />
 
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleVoice}
-              className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
-                isVoiceEnabled ? "bg-white/5 text-primary" : "bg-red-500/10 text-red-500 border border-red-500/20"
+              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                isVoiceEnabled ? "bg-white/10 text-primary border border-primary/20" : "bg-red-500/10 text-red-500 border border-red-500/20"
               }`}
               title="Speech Toggle"
             >
@@ -781,27 +780,35 @@ export default function App() {
               onChange={handleFileUpload}
             />
           </div>
+        </div>
 
-          {/* Chat Input Field */}
-          <div className="flex-1 glass-morphism rounded-xl flex items-center gap-2 border border-white/10 px-3 py-1 focus-within:border-primary/40 transition-all shadow-xl">
+        {/* Input area: [Input | Send] */}
+        <div className="flex items-center gap-3 max-w-lg mx-auto w-full">
+          {/* Chat Input Field Container */}
+          <div className="flex-1 glass-morphism rounded-2xl flex items-center border border-white/10 px-4 py-1.5 focus-within:border-primary/40 transition-all shadow-xl min-w-0">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder={uiTranslation[language].placeholder}
-              className="flex-1 bg-transparent border-none outline-none py-2 text-sm placeholder:text-gray-500 min-w-0"
+              className="flex-1 bg-transparent border-none outline-none py-2.5 text-sm placeholder:text-gray-500 min-w-0"
             />
-            <button
-              onClick={() => handleSendMessage()}
-              disabled={!inputText.trim()}
-              className={`p-2 rounded-lg transition-all ${
-                inputText.trim() ? "text-primary hover:scale-110" : "text-gray-600"
-              }`}
-            >
-              <Send className="w-5 h-5" />
-            </button>
           </div>
+
+          {/* Chat Send Button - High Visibility */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => handleSendMessage()}
+            disabled={!inputText.trim()}
+            className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shrink-0 shadow-2xl ${
+              inputText.trim() 
+                ? "bg-primary text-bg-dark glow-accent hover:scale-105" 
+                : "bg-white/5 text-gray-600 border border-white/5 opacity-50"
+            }`}
+          >
+            <Send className="w-6 h-6" />
+          </motion.button>
         </div>
 
         {/* Legal Footer */}
