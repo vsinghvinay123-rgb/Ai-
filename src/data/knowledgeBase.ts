@@ -445,6 +445,171 @@ export const knowledgeBase: KisanGKEntry[] = [
       Hindi: "🚀 **करियर गाइड:** इंटरनेट से पैसे कमाने के लिए 'डिजिटल मार्केटिंग', 'डेटा साइंस', या 'फ्रीलांसिंग' सीखें। आजकल बड़ी यूनिवर्सिटी 'ऑनलाइन डिग्री' और 'कोडिंग बूटकैंप' करवाती हैं, जिससे अच्छी जॉब मिल सकती है।",
       Marwadi: "🚀 **करियर रो ज्ञान:** नेट सूं पईसा कमावण खातिर 'डिजिटल मार्केटिंग', 'डेटा साइंस' या 'फ्रीलांसिंग' रो काम सीखो सा। आज काल तो घर बैठ्या ई 'ऑनलाइन डिग्री' मिल जावै, जिणसूं चोखी नौकरी लाग सकै।"
     }
+  },
+
+  // --- Batch 116: Health Insurance & Medical (Top CPC Category) ---
+  { 
+    pattern: /health insurance|medical policy|mediclaim|hospital bill/i, 
+    answers: {
+      Hinglish: "🏥 **Health Advisor:** Apni aur parivaar ki safety ke liye ek achi 'Health Insurance' (Mediclaim) policy zaroor lein. Bimari ke waqt bade 'Hospital Bill' aur medical kharcho se bachne ka yeh sabse smart tarika hai.",
+      English: "🏥 **Health Advisor:** Secure your family's future with a comprehensive 'Health Insurance' (Mediclaim) policy. It is the smartest way to protect your savings from unexpected 'Hospital Bills' and medical emergencies.",
+      Hindi: "🏥 **हेल्थ एडवाइजर:** अपने और परिवार की सुरक्षा के लिए एक अच्छी 'हेल्थ इंश्योरेंस' (मेडिक्लेम) पॉलिसी जरूर लें। अचानक आने वाले 'हॉस्पिटल बिल' और मेडिकल खर्चे से बचने का यह सबसे सुरक्षित तरीका है।",
+      Marwadi: "🏥 **सेहत रो ज्ञान:** आपणै और परिवार री भलाई खातिर एक चोखी 'हेल्थ इंश्योरेंस' (मेडिक्लेम) पॉलिसी जरूर लेवणी चाईजै। बीमारी रै टेम मोटा 'हॉस्पिटल बिल' सूं बचण रो ओ ही सही तरीको है सा।"
+    }
+  },
+
+  // --- Batch 117: Real Estate & Home Loan (High Value Investment) ---
+  { 
+    pattern: /home loan|real estate|buy property|zamin kharide|plot/i, 
+    answers: {
+      Hinglish: "🏠 **Property Guide:** 'Real Estate' ya property kharidna ek solid investment hai. Agar aap ghar ya plot le rahe hain, toh alag-alag banks ke 'Home Loan' interest rates compare karein taaki aapki EMI kam aaye.",
+      English: "🏠 **Property Guide:** Investing in 'Real Estate' or buying property is a solid wealth-building strategy. When applying for a 'Home Loan', always compare interest rates across banks to secure the lowest EMI.",
+      Hindi: "🏠 **प्रॉपर्टी गाइड:** 'रियल एस्टेट' या प्रॉपर्टी खरीदना एक शानदार निवेश है। अगर आप घर या जमीन ले रहे हैं, तो विभिन्न बैंकों के 'होम लोन' ब्याज दरों की तुलना जरूर करें ताकि आपकी EMI कम बने।",
+      Marwadi: "🏠 **जमीन रो ज्ञान:** 'रियल एस्टेट' या जमीन खरीदणो एक घणो चोखो निवेश है। अगर थे घर या प्लाट ले रिया हो, तो अलग-अलग बैंकां रा 'होम लोन' रा ब्याज दर जरूर देख ल्या करो सा।"
+    }
+  },
+
+  // --- Batch 118: Tax Planning & Business Software (B2B High CPC) ---
+  { 
+    pattern: /tax planning|business software|income tax|gst|crm/i, 
+    answers: {
+      Hinglish: "📊 **Business Mentor:** Apne business ko bada karne ke liye 'Business Software' (jaise CRM aur ERP) ka use karein. Sath hi, sahi 'Tax Planning', 'GST' filing aur 'Income Tax' return time par bharne se aap lakho rupaye bacha sakte hain.",
+      English: "📊 **Business Mentor:** Scale your enterprise using modern 'Business Software' (like CRM and ERP). Additionally, efficient 'Tax Planning' and timely 'Income Tax' and 'GST' filing can save you significant capital legally.",
+      Hindi: "📊 **बिजनेस मेंटर:** अपने व्यापार को बढ़ाने के लिए 'बिजनेस सॉफ्टवेयर' का इस्तेमाल करें। इसके अलावा सही 'टैक्स प्लानिंग', 'GST' फाइलिंग और 'इनकम टैक्स' रिटर्न समय पर भरने से आप काफी पैसा बचा सकते हैं।",
+      Marwadi: "📊 **व्यापार रो ज्ञान:** आपणै धंधै ने बढावण खातिर 'बिजनेस सॉफ्टवेयर' काम में लेवणो चाईजै। गैल ई सही 'टैक्स प्लानिंग' और 'इनकम टैक्स' (GST) टेम पर भरण सूं घणो पईसो बच सकै है सा।"
+    }
+  },
+
+  // --- Batch 119: Auto Insurance & Car Loan (High CPC Finance) ---
+  { 
+    pattern: /car loan|auto insurance|bike insurance|vehicle loan/i, 
+    answers: {
+      Hinglish: "🚗 **Auto Guide:** Nayi gaadi ya tractor lene ke liye 'Car Loan' aur 'Vehicle Loan' ke offers compare karein. Aur haan, accident ya nuksan se bachne ke liye 'Auto Insurance' (Bima) karwana sabse zaroori hai.",
+      English: "🚗 **Auto Guide:** When buying a new vehicle, always compare 'Car Loan' and 'Vehicle Loan' offers. More importantly, secure your asset against damages with a comprehensive 'Auto Insurance' policy.",
+      Hindi: "🚗 **ऑटो गाइड:** नई गाड़ी या ट्रैक्टर लेने के लिए 'कार लोन' और 'व्हीकल लोन' के ऑफर्स की तुलना करें। और हाँ, नुकसान से बचने के लिए 'ऑटो इंश्योरेंस' (बीमा) करवाना सबसे जरूरी है।",
+      Marwadi: "🚗 **गाड़ी रो ज्ञान:** नई गाड़ी या ट्रैक्टर लेवण खातिर 'कार लोन' रा ऑफर जरूर देख ल्या करो। और नुकसान सूं बचण खातिर 'ऑटो इंश्योरेंस' (बीमा) करावणो घणो जरूरी है सा।"
+    }
+  },
+
+  // --- Batch 120: Stock Market & Demat Account (High CPC Trading) ---
+  { 
+    pattern: /stock market|share bazar|demat account|trading/i, 
+    answers: {
+      Hinglish: "📈 **Investment Expert:** 'Stock Market' ya 'Share Bazar' mein paise lagane se pehle market research zaroori hai. Trading shuru karne ke liye kisi ache broker ke paas 'Demat Account' aur 'Trading Account' open karein.",
+      English: "📈 **Investment Expert:** Before investing in the 'Stock Market', thorough research is essential. To begin trading, open a 'Demat Account' and 'Trading Account' with a reliable stockbroker.",
+      Hindi: "📈 **इन्वेस्टमेंट एक्सपर्ट:** 'स्टॉक मार्केट' (शेयर बाजार) में पैसे लगाने से पहले रिसर्च बहुत जरूरी है। ट्रेडिंग शुरू करने के लिए किसी अच्छे ब्रोकर के पास 'डीमैट अकाउंट' खुलवाएं।",
+      Marwadi: "📈 **शेयर बाजार रो ज्ञान:** 'शेयर बाजार' में पईसा लगावण सूं पैली पूरी जानकारी लेवणी चाईजै। काम चालू करण खातिर कोई चोखै ब्रोकर कन 'डीमैट अकाउंट' खुलवा लो सा।"
+    }
+  },
+
+  // --- Batch 121: Legal Services & Advice (High CPC Legal) ---
+  { 
+    pattern: /legal advice|lawyer|vakil|court case/i, 
+    answers: {
+      Hinglish: "⚖️ **Legal Advisor:** Zameen ya business ke vivad mein hamesha professional 'Legal Advice' leni chahiye. Ek acha 'Lawyer' (Vakil) aapko 'Court Case' aur legal documents mein sahi rasta dikha sakta hai.",
+      English: "⚖️ **Legal Advisor:** Always seek professional 'Legal Advice' for property or business disputes. A qualified 'Lawyer' can guide you efficiently through legal documentation and 'Court Cases'.",
+      Hindi: "⚖️ **लीगल एडवाइजर:** जमीन या व्यापार के विवाद में हमेशा सही 'लीगल एडवाइस' (कानूनी सलाह) लेनी चाहिए। एक अच्छा 'वकील' आपको 'कोर्ट केस' और कानूनी कागजातों में सही रास्ता दिखा सकता है।",
+      Marwadi: "⚖️ **कानून रो ज्ञान:** जमीन या धंधै रै विवाद में हमेशा चोखी 'कानूनी सलाह' लेवणी चाईजै। एक चोखो 'वकील' थानै 'कोर्ट केस' में सही रस्तो दिखा सकै है सा।"
+    }
+  },
+
+  // --- Batch 122: E-commerce & Online Business (High CPC B2B) ---
+  { 
+    pattern: /e-commerce|dropshipping|online store|sell online/i, 
+    answers: {
+      Hinglish: "🛒 **Business Coach:** Apna saman internet par bechne ke liye ek 'E-commerce' website ya 'Online Store' banayein. Aaj kal 'Dropshipping' business model bhi bina inventory ke paise kamane ka ek best tarika hai.",
+      English: "🛒 **Business Coach:** Start selling products globally by launching an 'E-commerce' website or 'Online Store'. Additionally, 'Dropshipping' is a highly profitable business model that requires zero upfront inventory.",
+      Hindi: "🛒 **बिजनेस कोच:** अपना सामान इंटरनेट पर बेचने के लिए एक 'ई-कॉमर्स' वेबसाइट या 'ऑनलाइन स्टोर' बनाएं। आजकल 'ड्रॉपशिपिंग' बिना स्टॉक रखे पैसे कमाने का एक बेहतरीन तरीका है।",
+      Marwadi: "🛒 **व्यापर रो ज्ञान:** आपणो सामान नेट पर बेचण खातिर एक 'ई-कॉमर्स' वेबसाइट बणाओ। आज काल 'ड्रॉपशिपिंग' रो काम bhi बिना सामान राख्यां पईसा कमावण रो चोखो तरीको है सा।"
+    }
+  },
+
+  // --- Batch 123: Credit Score & Debt Management (High CPC Finance) ---
+  { 
+    pattern: /credit score|cibil|debt settlement|loan clearance/i, 
+    answers: {
+      Hinglish: "💳 **Credit Advisor:** Saste interest par loan lene ke liye apna 'Credit Score' (CIBIL) 750 se upar maintain karein. Agar purana karza hai, toh 'Debt Settlement' aur 'Loan Clearance' strategies ka use karke usko jaldi chukayein.",
+      English: "💳 **Credit Advisor:** Maintain a 'Credit Score' (CIBIL) above 750 to secure loans at the lowest interest rates. If you have existing liabilities, use 'Debt Settlement' and 'Loan Clearance' strategies to become debt-free.",
+      Hindi: "💳 **क्रेडिट एडवाइजर:** सस्ते ब्याज पर लोन लेने के लिए अपना 'क्रेडिट स्कोर' (CIBIL) 750 से ऊपर रखें। अगर पुराना कर्ज है, तो 'डेट सेटलमेंट' और 'लोन क्लियरेंस' के जरिए उसे जल्दी चुकाएं।",
+      Marwadi: "💳 **खाता रो ज्ञान:** सस्ता ब्याज पर लोन लेवण खातिर आपणो 'क्रेडिट स्कोर' (CIBIL) 750 सूं ऊपर राखणो चाईजै। अगर जूणो कर्जो है, तो बीनै 'लोन क्लियरेंस' री स्कीम सूं जल्दी चुका देवो सा।"
+    }
+  },
+
+  // --- Batch 124: SaaS & Cyber Security (Top CPC Tech) ---
+  { 
+    pattern: /saas|b2b software|cyber security|data protection/i, 
+    answers: {
+      Hinglish: "🛡️ **IT Expert:** Har badi company aaj kal 'SaaS' (Software as a Service) aur 'B2B Software' tools use karti hai. Apne business aur customer data ko hackers se bachane ke liye 'Cyber Security' aur 'Data Protection' sabse zaroori investment hai.",
+      English: "🛡️ **IT Expert:** Modern businesses run on 'SaaS' (Software as a Service) and 'B2B Software'. To protect your company and customer data from hackers, investing in 'Cyber Security' and 'Data Protection' is absolutely critical.",
+      Hindi: "🛡️ **IT एक्सपर्ट:** हर बड़ी कंपनी आजकल 'SaaS' और 'B2B सॉफ्टवेयर' इस्तेमाल करती है। अपने बिजनेस और ग्राहक डेटा को हैकर्स से बचाने के लिए 'साइबर सिक्योरिटी' और 'डेटा प्रोटेक्शन' सबसे जरूरी निवेश है।",
+      Marwadi: "🛡️ **कंप्यूटर रो ज्ञान:** आज काल हर बड़ी कंपनी 'B2B सॉफ्टवेयर' काम में लेवै है। आपणै धंधै और ग्राहकां रै डेटा नै बचावण खातिर 'साइबर सिक्योरिटी' और 'डेटा प्रोटेक्शन' घणो जरूरी है सा।"
+    }
+  },
+
+  // --- Batch 125: Online Education & Degrees (High CPC Education) ---
+  { 
+    pattern: /online degree|mba|study abroad|university|distance learning/i, 
+    answers: {
+      Hinglish: "🎓 **Education Guide:** Career me aage badhne ke liye top 'University' se 'Online Degree' ya 'MBA' karna ek smart choice hai. Agar aap 'Study Abroad' ka plan kar rahe hain, toh education loan ke options zaroor check karein.",
+      English: "🎓 **Education Guide:** Pursuing an 'Online Degree' or 'MBA' from a top 'University' is a smart career move. If you plan to 'Study Abroad', ensure you compare education loan options.",
+      Hindi: "🎓 **एजुकेशन गाइड:** करियर में तरक्की के लिए टॉप 'यूनिवर्सिटी' से 'ऑनलाइन डिग्री' या 'MBA' करना एक शानदार विकल्प है। अगर आप विदेश में पढ़ना चाहते हैं, तो एजुकेशन लोन के विकल्प जरूर चेक करें।",
+      Marwadi: "🎓 **पढ़ाई रो ज्ञान:** करियर में आगे बढण खातिर कोई चोखी 'यूनिवर्सिटी' सूं 'ऑनलाइन डिग्री' या 'MBA' करणो फायदै रो सौदो hai सा।"
+    }
+  },
+
+  // --- Batch 126: Cryptocurrency & Blockchain (High CPC Finance/Tech) ---
+  { 
+    pattern: /cryptocurrency|bitcoin|blockchain|crypto trading|digital asset/i, 
+    answers: {
+      Hinglish: "🪙 **Crypto Expert:** 'Cryptocurrency' aur 'Bitcoin' mein invest karna high risk aur high reward game hai. 'Blockchain' technology future hai, isliye 'Crypto Trading' shuru karne se pehle market ka pura knowledge lein.",
+      English: "🪙 **Crypto Expert:** Investing in 'Cryptocurrency' and 'Bitcoin' offers high rewards but carries high risk. 'Blockchain' is the future, so acquire deep market knowledge before starting 'Crypto Trading'.",
+      Hindi: "🪙 **क्रिप्टो एक्सपर्ट:** 'क्रिप्टोकरेंसी' और 'बिटकॉइन' में निवेश करना हाई रिस्क और हाई रिवॉर्ड है। 'ब्लॉकचेन' तकनीक भविष्य है, इसलिए 'क्रिप्टो ट्रेडिंग' से पहले बाजार का ज्ञान जरूर लें।",
+      Marwadi: "🪙 **क्रिप्टो रो ज्ञान:** 'क्रिप्टोकरेंसी' और 'बिटकॉइन' में पईसा लगावणो रिस्क रो काम है। 'ब्लॉकचेन' आगे रो टेम है, पण ट्रेडिंग करण सूं पैली पूरी जानकारी लेवणी चाईजै।"
+    }
+  },
+
+  // --- Batch 127: Personal Injury & Insurance Claim (Highest CPC Legal) ---
+  { 
+    pattern: /accident claim|personal injury|injury lawyer|compensation|insurance claim/i, 
+    answers: {
+      Hinglish: "👨‍⚖️ **Claim Advisor:** Kisi bhi accident ke baad 'Insurance Claim' ya 'Compensation' lene ke liye ek expert 'Personal Injury Lawyer' se baat karein. Sahi legal advice aapko apka haq dilwa sakti hai.",
+      English: "👨‍⚖️ **Claim Advisor:** After an accident, always consult an expert 'Personal Injury Lawyer' for your 'Insurance Claim' and 'Compensation'. Proper legal advice ensures you get your rightful settlement.",
+      Hindi: "👨‍⚖️ **क्लेम एडवाइजर:** किसी भी दुर्घटना के बाद 'इंश्योरेंस क्लेम' या 'मुआवजा' लेने के लिए एक विशेषज्ञ 'पर्सनल इंजरी लॉयर' (वकील) से बात करें। सही कानूनी सलाह आपको आपका हक दिला सकती है।",
+      Marwadi: "👨‍⚖️ **क्लेम रो ज्ञान:** कोई भी दुर्घटना रै बाद 'इंश्योरेंस क्लेम' या 'मुआवजो' लेवण खातिर कोई चोखै वकील सूं बात जरूर करणी चाईजै सा।"
+    }
+  },
+
+  // --- Batch 128: Web Dev & Marketing Agency (High B2B CPC) ---
+  { 
+    pattern: /web design|digital agency|app development|seo services|marketing agency/i, 
+    answers: {
+      Hinglish: "🌐 **Agency Mentor:** Business ko digital le jane ke liye professional 'Web Design' aur 'App Development' zaroori hai. Sales badhane ke liye kisi top 'Marketing Agency' se 'SEO Services' lena sabse best strategy hai.",
+      English: "🌐 **Agency Mentor:** Professional 'Web Design' and 'App Development' are crucial for digital transformation. To boost sales, hiring a top 'Marketing Agency' for 'SEO Services' is the best strategy.",
+      Hindi: "🌐 **एजेंसी मेंटर:** बिजनेस को डिजिटल बनाने के लिए प्रोफेशनल 'वेब डिजाइन' और 'ऐप डेवलपमेंट' जरूरी है। बिक्री बढ़ाने के लिए किसी टॉप 'मार्केटिंग एजेंसी' से 'SEO सर्विसेज' लेना सबसे अच्छी रणनीति है।",
+      Marwadi: "🌐 **डिजिटल ज्ञान:** आपणै धंधै नै नेट पर ले जावण खातिर चोखी 'वेब डिजाइन' और 'ऐप' बणावणो जरूरी है। बिक्री बढावण खातिर 'SEO सर्विसेज' लेवणो सबसूं चोखो तरीको है सा।"
+    }
+  },
+
+  // --- Batch 129: Retirement & Wealth Management (High CPC Finance) ---
+  { 
+    pattern: /retirement plan|pension|epf|wealth management|financial planning/i, 
+    answers: {
+      Hinglish: "👴 **Wealth Advisor:** Secure future ke liye early 'Retirement Plan' aur 'Pension' scheme mein invest karein. 'EPF' aur professional 'Wealth Management' services aapke budhape ko tension-free bana sakti hain.",
+      English: "👴 **Wealth Advisor:** For a secure future, invest early in a 'Retirement Plan' and 'Pension' scheme. 'EPF' contributions and professional 'Wealth Management' guarantee a stress-free retirement.",
+      Hindi: "👴 **वेल्थ एडवाइजर:** सुरक्षित भविष्य के लिए जल्दी 'रिटायरमेंट प्लान' और 'पेंशन' स्कीम में निवेश करें। 'EPF' और प्रोफेशनल 'वेल्थ मैनेजमेंट' आपके बुढ़ापे को चिंतामुक्त बना सकते हैं।",
+      Marwadi: "👴 **भविष्य रो ज्ञान:** बुढ़ापै री शांति खातिर जल्दी 'रिटायरमेंट प्लान' और 'पेंशन' में पईसा लगावणो चाईजै। 'EPF' और 'वेल्थ मैनेजमेंट' सूं थारो आगे रो टेम सोरो निकळसी सा।"
+    }
+  },
+
+  // --- Batch 130: Solar Energy & Renewable Power (High B2B/B2C CPC) ---
+  { 
+    pattern: /solar panel|renewable energy|solar inverter|commercial solar|green energy/i, 
+    answers: {
+      Hinglish: "☀️ **Energy Guide:** Bijli ka bill bachane ke liye ghar ya farm par 'Solar Panel' aur 'Solar Inverter' lagwayein. 'Renewable Energy' aur 'Commercial Solar' future hain, jis par sarkar subsidy bhi deti hai.",
+      English: "☀️ **Energy Guide:** Install a 'Solar Panel' and 'Solar Inverter' on your farm or home to save on electricity bills. 'Renewable Energy' and 'Commercial Solar' are the future, often backed by government subsidies.",
+      Hindi: "☀️ **एनर्जी गाइड:** बिजली का बिल बचाने के लिए घर या खेत पर 'सोलर पैनल' और 'सोलर इन्वर्टर' लगवाएं। 'रिन्यूएबल एनर्जी' भविष्य है, जिस पर सरकार भारी सब्सिडी भी देती है।",
+      Marwadi: "☀️ **बिजली रो ज्ञान:** बिजली रो बिल बचावण खातिर घर या खेत में 'सोलर पैनल' और 'सोलर इन्वर्टर' लगवाओ सा। सरकार ईं पर घणी सब्सिडी देवै है।"
+    }
   }
 ];
 
