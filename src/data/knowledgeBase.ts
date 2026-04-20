@@ -412,6 +412,39 @@ export const knowledgeBase: KisanGKEntry[] = [
       Hindi: "🧮 **सटीक कृषि विज्ञान:** एक मानक एकड़ के लिए किसान को 45 किलो यूरिया चाहिए। अगर आप नीम-कोटेड यूरिया उपयोग कर रहे हैं, तो 35 किलो ही काफी है। मैं वैज्ञानिक गणना पर काम करता हूँ।",
       Marwadi: "🧮 **पक्की खेती विज्ञान:** एक एकड़ खेत खातिर किसान नै 45 किलो यूरिया चाईजै। जे थे नीम-कोटेड यूरिया काम में ले रैया हो, तो खाली 35 किलो में ई काम हो जावैला। मैं हवा में बात कोनी करूं, एकदम पक्को हिसाब लगाऊं सा।"
     }
+  },
+
+  // --- Batch 113: Finance, Insurance & Loans (Highest CPC Category) ---
+  { 
+    pattern: /loan kaise le|credit card|mutual fund|term insurance|bank account/i, 
+    answers: {
+      Hinglish: "💰 **Finance Advisor:** 'Personal Loan' ya 'Credit Card' lene se pehle hamesha interest rate compare karein. Future safe karne ke liye 'Term Insurance' aur wealth banane ke liye 'Mutual Funds' (SIP) sabse best financial planning hai. (Invest smartly!)",
+      English: "💰 **Finance Advisor:** Before taking a 'Personal Loan' or 'Credit Card', always compare interest rates. For a secure future, 'Term Insurance' and 'Mutual Funds' (SIP) are the best methods for long-term wealth creation and financial planning.",
+      Hindi: "💰 **फाइनेंस एडवाइजर:** 'पर्सनल लोन' या 'क्रेडिट कार्ड' लेने से पहले हमेशा ब्याज दर चेक करें। भविष्य के लिए 'टर्म इंश्योरेंस' और पैसे बढ़ाने के लिए 'म्यूचुअल फंड' (SIP) में निवेश करना सबसे अच्छी फाइनेंसियल प्लानिंग है।",
+      Marwadi: "💰 **पैसा रो ज्ञान:** 'पर्सनल लोन' या 'क्रेडिट कार्ड' लेवण सूं पैली ब्याज जरूर देखणो चाईजै। आगे रै टेम खातिर 'टर्म इंश्योरेंस' और पईसा बढावण खातिर 'म्यूचुअल फंड' (SIP) सबसूं चोखो तरीको है सा।"
+    }
+  },
+
+  // --- Batch 114: Technology, Software & Cloud (High Paying Tech Ads) ---
+  { 
+    pattern: /website kaise banaye|cloud computing|web hosting|cyber security|app development/i, 
+    answers: {
+      Hinglish: "💻 **Tech Mentor:** Ek professional website banane ke liye sabse pehle achi 'Web Hosting' aur 'Cloud Computing' service leni padti hai. Iske sath hi 'Cyber Security' aur 'SaaS' (Software as a Service) aaj ke time mein sabse high-paying IT skills hain.",
+      English: "💻 **Tech Mentor:** To build a professional business, you need reliable 'Web Hosting' and scalable 'Cloud Computing' services. Additionally, 'Cyber Security' and 'SaaS' (Software as a Service) development are the highest-paying digital skills today.",
+      Hindi: "💻 **टेक मेंटर:** एक अच्छी वेबसाइट बनाने के लिए सबसे पहले सुरक्षित 'वेब होस्टिंग' और 'क्लाउड कंप्यूटिंग' सर्विस चाहिए। इसके अलावा 'साइबर सिक्योरिटी' और 'SaaS' आज के समय की सबसे बेहतरीन डिजिटल स्किल्स हैं।",
+      Marwadi: "💻 **कंप्यूटर रो ज्ञान:** एक चोखी वेबसाइट बणावण खातिर सबसूं पैली 'वेब होस्टिंग' और 'क्लाउड कंप्यूटिंग' री सर्विस लेवणी पड़े। आज रै टेम में 'साइबर सिक्योरिटी' और सॉफ्टवेयर रो काम सबसूं ज्यादा पईसा आळो है सा।"
+    }
+  },
+
+  // --- Batch 115: Online Earning & Career (Education Ads) ---
+  { 
+    pattern: /online paise kamaye|digital marketing|online degree|data science|freelancing/i, 
+    answers: {
+      Hinglish: "🚀 **Career Guide:** Internet se paise kamane ke liye 'Digital Marketing', 'Data Science', ya 'Freelancing' seekhein. Aaj kal top universities 'Online Degree' aur 'Coding Bootcamps' bhi karwati hain, jisse aap ghar baithe IT company mein job pa sakte hain.",
+      English: "🚀 **Career Guide:** To earn online, master high-income skills like 'Digital Marketing', 'Data Science', or 'Freelancing'. Top universities now offer 'Online Degrees' and 'Coding Bootcamps', helping you land remote IT jobs from home.",
+      Hindi: "🚀 **करियर गाइड:** इंटरनेट से पैसे कमाने के लिए 'डिजिटल मार्केटिंग', 'डेटा साइंस', या 'फ्रीलांसिंग' सीखें। आजकल बड़ी यूनिवर्सिटी 'ऑनलाइन डिग्री' और 'कोडिंग बूटकैंप' करवाती हैं, जिससे अच्छी जॉब मिल सकती है।",
+      Marwadi: "🚀 **करियर रो ज्ञान:** नेट सूं पईसा कमावण खातिर 'डिजिटल मार्केटिंग', 'डेटा साइंस' या 'फ्रीलांसिंग' रो काम सीखो सा। आज काल तो घर बैठ्या ई 'ऑनलाइन डिग्री' मिल जावै, जिणसूं चोखी नौकरी लाग सकै।"
+    }
   }
 ];
 

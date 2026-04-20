@@ -24,16 +24,43 @@ import {
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { Message, Language } from "./types";
 import { getAnswer } from "./data/knowledgeBase";
+import AdSenseBanner from "./components/AdSenseBanner";
 
 // --- Ad Slot Component ---
-const AdSlot = ({ type }: { type: "top" | "inline" }) => (
-  <div className={`my-6 mx-auto w-full max-w-lg ${type === "top" ? "mt-4" : ""}`}>
-    <div className="relative bg-gray-100/10 border border-white/5 rounded-xl p-8 flex flex-col items-center justify-center min-h-[100px] transition-all hover:bg-gray-100/15">
-      <span className="absolute top-2 right-2 text-[8px] uppercase tracking-widest text-gray-500 font-bold">Advertisement</span>
-      <p className="text-gray-400 text-xs font-mono animate-pulse">Google AdSense Slot</p>
+const AdSlot = ({ type }: { type: "top" | "inline" | "anchor" }) => (
+  <div className={`mx-auto w-full max-w-lg ${type === "top" ? "mt-4 mb-6" : type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-bg-dark/80 backdrop-blur-md border-t border-white/10" : "my-6"}`}>
+    <div className={`relative bg-gray-100/10 border border-white/5 rounded-xl p-2 flex flex-col items-center justify-center transition-all hover:bg-gray-100/15 ${type === "anchor" ? "min-h-[60px]" : "min-h-[100px]"}`}>
+      <span className="absolute top-1 right-2 text-[8px] uppercase tracking-widest text-gray-500 font-bold">Advertisement</span>
+      <AdSenseBanner />
     </div>
   </div>
 );
+
+// --- Suggestion Chips Component ---
+const SuggestionChips = ({ onChipClick }: { onChipClick: (text: string) => void }) => {
+  const chips = [
+    { label: "💰 Best Mutual Funds", query: "Best Mutual Funds" },
+    { label: "💻 Cloud Web Hosting", query: "Cloud Web Hosting" },
+    { label: "🛡️ Term Insurance Plan", query: "Term Insurance Plan" },
+    { label: "🚀 Digital Marketing", query: "Digital Marketing" },
+    { label: "🚜 Modern Agri Tech", query: "Modern Agri Tech" }
+  ];
+
+  return (
+    <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 px-1">
+      {chips.map((chip, idx) => (
+        <motion.button
+          key={idx}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => onChipClick(chip.query)}
+          className="whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 hover:bg-primary/20 hover:border-primary/40 transition-all flex items-center gap-2"
+        >
+          {chip.label}
+        </motion.button>
+      ))}
+    </div>
+  );
+};
 
 // --- Affiliate Product Card Component ---
 const AffiliateProductCard = ({ keyword }: { keyword: string }) => {
@@ -677,8 +704,8 @@ export default function App() {
               </div>
             </motion.div>
             
-            {/* Inline Ad Slot every 4 bot responses */}
-            {idx > 0 && idx % 7 === 0 && <AdSlot type="inline" />}
+            {/* Inline Ad Slot every 5 bot responses (excluding first) */}
+            {idx > 0 && msg.sender === "bot" && messages.filter((m, i) => i <= idx && m.sender === "bot").length % 5 === 0 && <AdSlot type="inline" />}
           </React.Fragment>
         ))}
         <div ref={messagesEndRef} />
@@ -731,7 +758,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Input Bar */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 space-y-4">
+      <div className="fixed bottom-[60px] left-0 right-0 p-4 space-y-4 z-40 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent">
         {/* Swarm Dashboard */}
         <AnimatePresence>
           {isSwarming && (
@@ -792,8 +819,16 @@ export default function App() {
           />
         </div>
 
+        {/* Suggestion Chips */}
+        <div className="max-w-lg mx-auto w-full">
+          <SuggestionChips onChipClick={(text) => {
+            setInputText(text);
+            handleSendMessage(text);
+          }} />
+        </div>
+
         {/* Text Input */}
-        <div className="glass-morphism rounded-2xl p-2 flex items-center gap-2 border border-white/10 shadow-2xl relative z-10">
+        <div className="glass-morphism rounded-2xl p-2 flex items-center gap-2 border border-white/10 shadow-2xl relative z-10 transition-all focus-within:border-primary/40">
           <input
             type="text"
             value={inputText}
@@ -905,6 +940,9 @@ Bharat AI is a revolutionary offline-first application designed to empower farme
 Our Mission:
 To bridge the digital divide between high-tech AI and the hard-working farmers of India.`}
       />
+      
+      {/* Anchor Ad Slot - Sticky to bottom */}
+      <AdSlot type="anchor" />
     </div>
   );
 }
