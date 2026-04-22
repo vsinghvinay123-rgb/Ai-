@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://ais-pre-etkckcnffzwav2ug63a6gy-531834705811.asia-east1.run.app/sitemap.xml
+Sitemap: https://jaswant-ai.vercel.app/sitemap.xml
