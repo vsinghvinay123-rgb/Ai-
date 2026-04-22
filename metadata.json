@@ -1,5 +1,5 @@
 {
-  "name": "Bharat AI",
-  "description": "Empowering Farmers. Built by Jaswant. A futuristic agricultural assistant with voice, GPS, and crop diagnosis.",
+  "name": "Bharat AI - Smart Agriculture, Finance & Tech Advisor",
+  "description": "India's most advanced AI assistant for modern farming, crop management, mutual funds, personal loans, health insurance, and digital business advice.",
   "requestFramePermissions": ["geolocation", "camera"]
 }
