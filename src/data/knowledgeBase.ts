@@ -610,6 +610,39 @@ export const knowledgeBase: KisanGKEntry[] = [
       Hindi: "☀️ **एनर्जी गाइड:** बिजली का बिल बचाने के लिए घर या खेत पर 'सोलर पैनल' और 'सोलर इन्वर्टर' लगवाएं। 'रिन्यूएबल एनर्जी' भविष्य है, जिस पर सरकार भारी सब्सिडी भी देती है।",
       Marwadi: "☀️ **बिजली रो ज्ञान:** बिजली रो बिल बचावण खातिर घर या खेत में 'सोलर पैनल' और 'सोलर इन्वर्टर' लगवाओ सा। सरकार ईं पर घणी सब्सिडी देवै है।"
     }
+  },
+
+  // --- Batch 131: Crop Rotation & Soil Health Advisor ---
+  { 
+    pattern: /crop rotation|fasal chakra|soil health|mitti ki sehat|ke baad kya|after.*plant|rotation/i, 
+    answers: {
+      Hinglish: "🔄 **Crop Rotation Advisor:** Mitti ki urvarak shakti (fertility) banaye rakhne ke liye 'Fasal Chakra' (Crop Rotation) zaroori hai. Bajra ya Gehu (Cereals) ke baad hamesha Guar, Moong ya Chana (Legumes) lagayein. Isse mitti mein Nitrogen badhta hai aur keede-makode kam hote hain.\n\n**Behatar Rotation Examples:**\n1. Bajra -> Moong/Guar (Kharif)\n2. Gehu -> Chana (Rabi)\n3. Sarson -> Moong",
+      English: "🔄 **Crop Rotation Advisor:** To maintain soil fertility, 'Crop Rotation' is essential. Always plant legumes like Guar, Moong, or Gram after cereals like Bajra or Wheat. This fixes Nitrogen in the soil and prevents pest buildup.\n\n**Beneficial Rotation Examples:**\n1. Bajra -> Moong/Guar (Kharif)\n2. Wheat -> Gram (Rabi)\n3. Mustard -> Moong",
+      Hindi: "🔄 **फसल चक्र सलाहकार:** मिट्टी की उर्वरक शक्ति बनाए रखने के लिए 'फसल चक्र' (Crop Rotation) बहुत जरूरी है। बाजरा या गेहूं (अनाज) के बाद हमेशा ग्वार, मूंग या चना (दलहन) लगाएं। इससे मिट्टी में नाइट्रोजन बढ़ती है और कीटों का प्रकोप कम होता है।\n\n**बेहतर रोटेशन के उदाहरण:**\n1. बाजरा -> मूंग/ग्वार (खरीफ)\n2. गेहूं -> चना (रबी)\n3. सरसों -> मूंग",
+      Marwadi: "🔄 **फसल चक्र रो ज्ञान:** मिट्टी री ताकत बणाय राखण खातिर 'फसल चक्र' घणो जरूरी है सा। बाजरा या गेहूं रै बाद हमेशा ग्वार, मूंग या चणा लगावणो चाईजै। ईं सूं जमीन में ताकत आवै और कीड़ा-मकोड़ा भी कम होवै सा।\n\n**चोखा रोटेशन रा उदाहरण:**\n1. बाजरा -> मूंग/ग्वार (खरीफ)\n2. गेहूं -> चणा (रबी)\n3. सरसों -> मूंग"
+    }
+  },
+
+  // --- Batch 132: Soil Testing & Amendments (Fertility Expert) ---
+  { 
+    pattern: /soil testing|mitti ki janch|soil ph|nitrogen|potash|amendments|khad/i, 
+    answers: {
+      Hinglish: "🧪 **Soil Health Expert:** Achhi paidavar ke liye 'Soil Testing' (Mitti ki Janch) sabse pehla kadam hai. Apne khet ka sample le kar 'pH level' aur 'Nutrient levels' (N-P-K) check karwayein.\n\n**Common Advice:**\n- **pH low (Acidic):** Chuna (Lime) ka use karein.\n- **pH high (Alkaline):** Gypsum lagayein.\n- **Organic:** Gobar ki khad (FYM) ya Vermicompost best hai mitti ke structure ke liye.",
+      English: "🧪 **Soil Health Expert:** 'Soil Testing' is the first step to high yields. Collect samples and test for 'pH level' and 'Nutrient levels' (N-P-K) at a government lab.\n\n**Common Amendments:**\n- **Acidic Soil (Low pH):** Apply Lime.\n- **Alkaline Soil (High pH):** Apply Gypsum.\n- **Nutrient Boost:** Use well-decomposed FYM or Vermicompost for long-term health.",
+      Hindi: "🧪 **मिट्टी स्वास्थ्य विशेषज्ञ:** अच्छी पैदावार के लिए 'मिट्टी की जांच' (Soil Testing) सबसे पहला कदम है। अपने खेत का सैंपल लेकर 'pH लेवल' और पोषक तत्वों (N-P-K) की जांच करवाएं।\n\n**प्रमुख सलाह:**\n- **कम pH (अम्लीय):** चूने (Lime) का प्रयोग करें।\n- **अधिक pH (क्षारीय):** जिप्सम लगाएं।\n- **जैविक:** गोबर की खाद या वर्मीकम्पोस्ट मिट्टी के स्वास्थ्य के लिए सबसे अच्छे हैं।",
+      Marwadi: "🧪 **मिट्टी रो ज्ञान:** चोखी फसल खातिर 'मिट्टी री जांच' करणी घणी जरूरी है। खेत सूं मिट्टी लेर सरकारी लैब में 'pH' और 'ताकत' (N-P-K) रो हिसाब देख ल्या करो सा।\n\n**सुझाव:**\n- **खारी मिट्टी:** जिप्सम रो उपयोग करो।\n- **अम्लीय मिट्टी:** चूना लगाओ।\n- **देसी खात:** गोबर री खाद सबसूं चोखी होवै है सा।"
+    }
+  },
+
+  // --- Batch 133: Pest Prevention & Natural Pesticides (Wheat, Rice, Cotton) ---
+  { 
+    pattern: /pests|keede|insecticide|natural pesticide|wheat disease|rice pest|cotton pest|neem oil/i, 
+    answers: {
+      Hinglish: "🐛 **Pest Control Expert:** Pests aur diseases se bachne ke liye resistant varieties chunna aur natural methods use karna best hai.\n\n**Actionable Advice:**\n- **Wheat (Gehu):** 'Rust' se bachne ke liye resistant seeds (jaise HD-2967) lagayein.\n- **Rice (Chawal):** 'Stem Borer' ke liye pheromone traps lagayein.\n- **Cotton (Kapas):** 'Pink Bollworm' se bachne ke liye integrated pest management (IPM) follow karein.\n- **Natural Solution:** Neem oil (5ml per liter) ya 'Dashparni Ark' ka spray karein, yeh chemical pesticides se sasta aur safe hai.",
+      English: "🐛 **Pest Control Expert:** Using resistant varieties and natural methods is the best way to manage crop pests and diseases.\n\n**Specific Strategies:**\n- **Wheat:** Use rust-resistant varieties like HD-2967 or DBW-187.\n- **Rice:** Use pheromone traps for Stem Borer management.\n- **Cotton:** Follow IPM for Pink Bollworm control.\n- **Natural Pesticides:** Spray Neem Oil (5ml/L) or Dashparni Ark for effective, chemical-free protection.",
+      Hindi: "🐛 **कीट नियंत्रण विशेषज्ञ:** कीटों और बीमारियों से बचने के लिए रोग-प्रतिरोधी किस्मों और प्राकृतिक तरीकों का उपयोग सबसे अच्छा है।\n\n**प्रमुख उपाय:**\n- **गेहूं:** 'रस्ट' (पीला रतुआ) से बचने के लिए HD-2967 जैसी उन्नत किस्मों का प्रयोग करें।\n- **धान (चावल):** 'स्टेम बोरर' के लिए फेरोमोन ट्रैप लगाएं।\n- **कपास:** 'गुलाबी सुंडी' (Pink Bollworm) के नियंत्रण के लिए IPM तकनीक अपनाएं।\n- **प्राकृतिक कीटनाशक:** नीम का तेल या 'दशपर्णी अर्क' का छिड़काव करें, यह रसायनों से बेहतर और सुरक्षित है।",
+      Marwadi: "🐛 **कीड़ा-मकोड़ा रो ज्ञान:** कीड़ां और बीमारी सूं बचण खातिर रोग-प्रतिरोधी बीज और देसी तरीका सबसूं चोखा है।\n\n**तरीका:**\n- **गेहूं:** रतुआ सूं बचण खातिर HD-2967 जैड़ा बीज बोओ।\n- **धान:** 'स्टेम बोरर' खातिर लाइट ट्रैप या फेरोमोन ट्रैप लगाओ।\n- **कपास:** गुलाबी सुंडी सूं बचाव खातिर IPM तरीको अपनाओ।\n- **देसी नुस्खा:** नीम रो तेल या 'दशपर्णी अर्क' रो छिड़काव करो सा।"
+    }
   }
 ];
 
