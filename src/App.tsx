@@ -16,28 +16,358 @@ import {
   VolumeX,
   Download,
   CheckCircle2,
+  AlertTriangle,
   Cloud,
   Database,
   Stethoscope,
-  ShoppingBag
+  ShoppingBag,
+  Calculator,
+  TrendingUp,
+  Coins,
+  Trash2,
+  AlertCircle,
+  Zap,
+  Activity,
+  History,
+  Search,
+  Plus,
+  Edit2,
+  Folder,
+  User,
+  Cpu,
+  Book,
+  Calendar
 } from "lucide-react";
+import { Chat, Topic } from "./types";
 import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { Message, Language } from "./types";
 import { getAnswer } from "./data/knowledgeBase";
 import AdSenseBanner from "./components/AdSenseBanner";
 
+// --- UI Translations ---
+const uiTranslation = {
+  English: {
+    greeting: "Hello, I am Jaswant's Bharat AI. Ask me about crops, weather, or agriculture.",
+    botPrefix: "🌾 **Bharat AI says:**\n\n",
+    fallback: "I'm sorry, I don't have information about that. Please ask about crops, farming, or Jaswant. 🙏",
+    searchPlaceholder: "Search discussions...",
+    inputPlaceholder: "Type your agricultural query...",
+    emptyHistory: "No discussions yet. Start a new one!",
+    today: "Today",
+    yesterday: "Yesterday",
+    thisWeek: "This Week",
+    older: "Older"
+  },
+  Hindi: {
+    greeting: "नमस्ते, मैं जसवंत का भारत AI हूँ। फसल, मौसम या खेती के बारे में पूछें।",
+    botPrefix: "🌾 **भारत AI का जवाब:**\n\n",
+    fallback: "माफ़ करें, मेरे पास इसके बारे में जानकारी नहीं है। कृपया फसल, खेती या जसवंत के बारे में पूछें। 🙏",
+    searchPlaceholder: "चर्चा खोजें...",
+    inputPlaceholder: "अपनी खेती से जुड़ी समस्या लिखें...",
+    emptyHistory: "अभी तक कोई चर्चा नहीं। नई शुरू करें!",
+    today: "आज",
+    yesterday: "कल",
+    thisWeek: "इस सप्ताह",
+    older: "पुराने"
+  },
+  Hinglish: {
+    greeting: "Namaste! Main Jaswant ka Bharat AI hoon. Fasal, mausam ya kheti ke baare mein puchein.",
+    botPrefix: "🌾 **Bharat AI says:**\n\n",
+    fallback: "Maaf kijiye, mujhe iske baare mein jankari nahi hai. Kripya kheti, fasal ya Jaswant ke baare mein puchein. 🙏",
+    searchPlaceholder: "Discussions search karein...",
+    inputPlaceholder: "Apni kheti ki samasya likhein...",
+    emptyHistory: "Abhi koi discussion nahi hai. Naya shuru karein!",
+    today: "Aaj",
+    yesterday: "Kal",
+    thisWeek: "Is Hafte",
+    older: "Purane"
+  },
+  Marwadi: {
+    greeting: "खम्मा घणी! मैं जसवंत रो भारत AI हूँ। खेती-बाड़ी या मौसम रै बारे में पूछो सा।",
+    botPrefix: "🌾 **भारत AI रो जवाब:**\n\n",
+    fallback: "माफ़ करजो सा, म्नै इण बारे में ठा कोनी। थे खेती या जसवंत रै बारे में पूछ सको हो। 🙏",
+    searchPlaceholder: "बातचीत खोजो...",
+    inputPlaceholder: "आपरै खेत री कोई भी बात लिखो सा...",
+    emptyHistory: "अजे तई कोई बातचीत कोनी। नई शुरू करो सा!",
+    today: "आज",
+    yesterday: "काले",
+    thisWeek: "इण हफ्ते",
+    older: "पुराणा"
+  }
+};
+import html2pdf from "html2pdf.js";
+import { getCropDiagnosis } from "./services/geminiService";
+
+// --- Invalid Crop Card Component ---
+const InvalidCropCard = ({ content }: { content: string }) => (
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    className="mt-4 p-6 bg-orange-500/5 border border-orange-500/20 rounded-2xl flex flex-col items-center text-center gap-4 relative overflow-hidden"
+  >
+    {/* Decorative background icon */}
+    <div className="absolute -right-4 -bottom-4 opacity-5 rotate-12">
+      <AlertTriangle className="w-24 h-24 text-orange-500" />
+    </div>
+
+    <div className="w-14 h-14 bg-orange-500/10 rounded-full flex items-center justify-center border border-orange-500/20">
+      <AlertTriangle className="w-7 h-7 text-orange-500" />
+    </div>
+    <div className="space-y-2 relative z-10">
+      <h4 className="text-orange-500 font-black uppercase tracking-widest text-sm">Validation Error</h4>
+      <p className="text-xs text-gray-400 leading-relaxed max-w-[250px]">
+        {content.replace("[INVALID_CROP]", "").trim()}
+      </p>
+    </div>
+    <div className="px-3 py-1 bg-orange-500/20 rounded-full border border-orange-500/30">
+      <span className="text-[9px] font-bold text-orange-500 uppercase">Crop Not Detected</span>
+    </div>
+  </motion.div>
+);
+
+// --- Fasal Doctor Report Component ---
+const FasalDoctorReportCard = ({ reportId, content, language }: { reportId: string, content: string, language: Language }) => {
+  const reportRef = useRef<HTMLDivElement>(null);
+  
+  const statusMatch = content.match(/Status:\s*([A-Z]+)/i);
+  const status = statusMatch ? statusMatch[1].toUpperCase() : "NORMAL";
+  
+  const healthMatch = content.match(/Health:\s*(\d+)%/i);
+  const healthPercentage = healthMatch ? parseInt(healthMatch[1]) : 100;
+
+  const downloadPDF = () => {
+    const element = reportRef.current;
+    if (!element) return;
+
+    const opt = {
+      margin: 10,
+      filename: `Fasal_Doctor_Report_${reportId}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    } as const;
+
+    html2pdf().set(opt).from(element).save();
+  };
+
+  const getStatusStyles = () => {
+    if (status === "CRITICAL") return { backgroundColor: '#ef4444', color: '#ffffff', boxShadow: '0 0 15px rgba(239, 68, 68, 0.5)' };
+    if (status === "WARNING") return { backgroundColor: '#eab308', color: '#0a0a0a' };
+    return { backgroundColor: '#22c55e', color: '#ffffff' };
+  };
+
+  const statusStyle = getStatusStyles();
+
+  return (
+    <div className="mt-4 space-y-4">
+      <div 
+        ref={reportRef}
+        className="bg-white text-bg-dark p-6 rounded-2xl shadow-2xl border-4 border-bg-dark/5 relative overflow-hidden"
+      >
+        {/* Lab Styling Watermark */}
+        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+          <Stethoscope className="w-32 h-32 rotate-12" />
+        </div>
+
+        {/* Report Header */}
+        <div className="flex justify-between items-start mb-6 border-b border-gray-200 pb-4">
+          <div>
+            <h3 className="text-xl font-black uppercase tracking-tighter text-bg-dark">Fasal Doctor™</h3>
+            <p style={{ color: '#6b7280' }} className="text-[9px] font-bold uppercase tracking-widest">Diagnostic Lab Report • AI Analysis</p>
+          </div>
+          <div className="text-right">
+            <p style={{ color: '#9ca3af' }} className="text-[10px] font-mono">ID: #{reportId}</p>
+            <p style={{ color: '#9ca3af' }} className="text-[10px] font-mono">{new Date().toLocaleDateString()}</p>
+          </div>
+        </div>
+
+        {/* Status Badge */}
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <div 
+            style={statusStyle}
+            className={`px-4 py-1.5 rounded-full text-xs font-black flex items-center gap-2 ${status === "CRITICAL" ? 'animate-pulse' : ''}`}
+          >
+             {status === "CRITICAL" ? "🚨 " : status === "WARNING" ? "⚠️ " : "✅ "}
+             {status}
+          </div>
+          <div className="flex-1">
+             <div className="flex justify-between text-[10px] font-bold uppercase mb-1">
+               <span style={{ color: '#4b5563' }}>Crop Health Score</span>
+               <span style={{ color: '#1f2937' }}>{healthPercentage}%</span>
+             </div>
+             <div style={{ backgroundColor: '#f3f4f6' }} className="h-2 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${healthPercentage}%` }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  style={{ backgroundColor: healthPercentage < 40 ? '#ef4444' : healthPercentage < 70 ? '#eab308' : '#22c55e' }}
+                  className="h-full"
+                />
+             </div>
+          </div>
+        </div>
+
+        {/* Report Content */}
+        <div className="space-y-4 text-sm leading-relaxed whitespace-pre-wrap">
+          {content.replace("[CROP_REPORT]", "").split("\n\n").map((section, idx) => (
+            <div 
+              key={idx} 
+              style={section.includes("**") ? { backgroundColor: '#f9fafb', borderLeftColor: 'rgba(0, 255, 136, 0.4)' } : {}}
+              className={section.includes("**") ? "p-3 rounded-lg border-l-4" : ""}
+            >
+               {section}
+            </div>
+          ))}
+        </div>
+
+        {/* Certification */}
+        <div style={{ borderTopColor: '#f3f4f6' }} className="mt-8 pt-4 border-t flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 style={{ color: '#00ff88' }} className="w-4 h-4" />
+            <span style={{ color: '#9ca3af' }} className="text-[9px] font-bold uppercase tracking-widest italic">Certified by Bharat AI Agronomy Engine</span>
+          </div>
+          <Leaf style={{ color: 'rgba(0, 255, 136, 0.2)' }} className="w-6 h-6" />
+        </div>
+      </div>
+
+      {/* Action Button - NOT part of the ref to avoid rendering in PDF */}
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={downloadPDF}
+        className="w-full bg-white text-bg-dark font-black py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl hover:bg-gray-100 transition-all border-b-4 border-gray-300"
+      >
+        <Download className="w-5 h-5" />
+        {language === "Hindi" ? "📄 रिपोर्ट डाउनलोड करें (PDF)" : "📄 Download Full Report (PDF)"}
+      </motion.button>
+    </div>
+  );
+};
+
+// --- Agri Calculator Card Component ---
+const AgriCalculatorCard = ({ language }: { language: Language }) => {
+  const [crop, setCrop] = useState("Wheat");
+  const [area, setArea] = useState(1);
+  const [unit, setUnit] = useState("Acre");
+
+  const CROP_DATA: Record<string, { seed: number, yield: number, price: number }> = {
+    "Wheat": { seed: 45, yield: 18, price: 2275 },
+    "Mustard": { seed: 1.75, yield: 9, price: 5650 },
+    "Bajra": { seed: 1.8, yield: 11, price: 2500 },
+    "Cotton": { seed: 1.5, yield: 10, price: 7020 },
+    "Moong": { seed: 9, yield: 4.5, price: 8558 },
+  };
+
+  const currentCrop = CROP_DATA[crop] || CROP_DATA["Wheat"];
+  const multiplier = unit === "Bigha" ? 0.4 : 1; 
+  
+  const totalAreaInAcre = area * multiplier;
+  const totalSeed = (currentCrop.seed * totalAreaInAcre).toFixed(1);
+  const totalYield = (currentCrop.yield * totalAreaInAcre).toFixed(1);
+  const totalRevenue = Math.round(currentCrop.price * (currentCrop.yield * totalAreaInAcre)).toLocaleString('en-IN');
+
+  const t = {
+    English: { title: "Agri-Calculator", crop: "Crop", area: "Area", unit: "Unit", seed: "Seed Requirement", yield: "Expected Yield", revenue: "Potential Revenue" },
+    Hindi: { title: "कृषि-कैलकुलेटर", crop: "फसल", area: "क्षेत्रफल", unit: "इकाई", seed: "बीज की आवश्यकता", yield: "संभावित पैदावार", revenue: "अनुमानित आय" },
+    Hinglish: { title: "Agri-Calculator", crop: "Fasal", area: "Area", unit: "Unit", seed: "Beej ki Zarurat", yield: "Expected Yield", revenue: "Potential Revenue" },
+    Marwadi: { title: "खेती-कैलकुलेटर", crop: "फसल", area: "जमीन", unit: "इकाई", seed: "बीज री जरुरत", yield: "पैदावार", revenue: "अनुमानित कमाई" }
+  }[language];
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mt-4 p-5 glass-morphism border border-primary/20 rounded-2xl space-y-4"
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <Calculator className="w-5 h-5 text-primary" />
+        <h3 className="text-sm font-bold uppercase tracking-widest text-primary font-mono">{t.title}</h3>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1">
+          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.crop}</label>
+          <select 
+            value={crop}
+            onChange={(e) => setCrop(e.target.value)}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-white outline-none focus:border-primary/50"
+          >
+            {Object.keys(CROP_DATA).map(c => <option key={c} value={c} className="bg-bg-dark">{c}</option>)}
+          </select>
+        </div>
+        <div className="space-y-1">
+          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.unit}</label>
+          <select 
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-white outline-none focus:border-primary/50"
+          >
+            <option value="Acre" className="bg-bg-dark">Acre</option>
+            <option value="Bigha" className="bg-bg-dark">Bigha</option>
+          </select>
+        </div>
+        <div className="col-span-2 space-y-1">
+          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.area}</label>
+          <input 
+            type="number"
+            value={area}
+            onChange={(e) => setArea(Number(e.target.value))}
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-primary/50"
+          />
+        </div>
+      </div>
+
+      <div className="space-y-3 pt-2">
+        <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Leaf className="w-4 h-4 text-primary" />
+            </div>
+            <span className="text-xs text-gray-400">{t.seed}</span>
+          </div>
+          <span className="text-sm font-bold text-white">{totalSeed} kg</span>
+        </div>
+
+        <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-secondary" />
+            </div>
+            <span className="text-xs text-gray-400">{t.yield}</span>
+          </div>
+          <span className="text-sm font-bold text-white">{totalYield} Qt</span>
+        </div>
+
+        <div className="flex items-center justify-between p-4 bg-green-500/10 rounded-xl border border-green-500/20 shadow-lg shadow-green-500/5">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <Coins className="w-4 h-4 text-green-400" />
+            </div>
+            <span className="text-xs text-green-400 font-bold">{t.revenue}</span>
+          </div>
+          <span className="text-sm font-black text-green-400">₹{totalRevenue}*</span>
+        </div>
+      </div>
+
+      <p className="text-[8px] text-gray-600 italic mt-2">* Market prices are approximate MSP-linked values. Real rates may vary.</p>
+    </motion.div>
+  );
+};
+
 // --- Ad Slot Component ---
 const AdSlot = ({ type }: { type: "top" | "inline" | "anchor" }) => (
   <div className={`mx-auto w-full max-w-lg ${
-    type === "top" ? "py-4 mb-2" : 
+    type === "top" ? "py-2 mb-1" : 
     type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-bg-dark/90 backdrop-blur-md border-t border-white/10" : 
     "py-8 my-4"
   }`}>
-    <div className={`relative bg-gray-100/5 border border-white/5 rounded-xl p-2 flex flex-col items-center justify-center transition-all hover:bg-white/5 ${
-      type === "anchor" ? "min-h-[60px]" : "min-h-[120px]"
+    <div className={`relative bg-white/5 border border-white/10 rounded-xl overflow-hidden flex flex-col items-center justify-center transition-all hover:bg-white/10 ${
+      type === "top" ? "h-[70px]" : 
+      type === "anchor" ? "min-h-[60px]" : 
+      "min-h-[120px]"
     }`}>
-      <span className="absolute top-1 right-2 text-[8px] uppercase tracking-widest text-gray-400 font-bold">Advertisement</span>
-      <AdSenseBanner />
+      <span className="absolute top-1 right-2 text-[7px] uppercase tracking-widest text-gray-500 font-bold opacity-50">Advertisement</span>
+      <AdSenseBanner format={type === "top" || type === "anchor" ? "horizontal" : "auto"} />
     </div>
   </div>
 );
@@ -107,61 +437,345 @@ const AffiliateProductCard = ({ keyword }: { keyword: string }) => {
   );
 };
 
-// --- ANI Agent Swarm Component ---
-const AgentSwarmDashboard = ({ states }: { states: { agronomy: boolean, climate: boolean, data: boolean } }) => (
+// --- Chat History Sidebar Component ---
+const ChatHistorySidebar = ({ 
+  chats, 
+  activeChatId, 
+  onSelectChat, 
+  onNewChat, 
+  onDeleteChat, 
+  onRenameChat,
+  isOpen,
+  onClose
+}: { 
+  chats: Chat[], 
+  activeChatId: string | null, 
+  onSelectChat: (id: string) => void, 
+  onNewChat: () => void, 
+  onDeleteChat: (id: string) => void,
+  onRenameChat: (id: string, newTitle: string) => void,
+  isOpen: boolean,
+  onClose: () => void
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState<Topic | "All">("All");
+
+  const filteredChats = chats
+    .filter(chat => 
+      (activeFilter === "All" || chat.topic === activeFilter) &&
+      (chat.title.toLowerCase().includes(searchQuery.toLowerCase()) || chat.summary.toLowerCase().includes(searchQuery.toLowerCase()))
+    )
+    .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+
+  const groupChatsByTime = (chatList: Chat[]) => {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const thisWeek = new Date(today);
+    thisWeek.setDate(thisWeek.getDate() - 7);
+
+    const groups: { [key: string]: Chat[] } = {
+      Today: [],
+      Yesterday: [],
+      "This Week": [],
+      Older: []
+    };
+
+    chatList.forEach(chat => {
+      const chatDate = new Date(chat.timestamp);
+      if (chatDate >= today) groups.Today.push(chat);
+      else if (chatDate >= yesterday) groups.Yesterday.push(chat);
+      else if (chatDate >= thisWeek) groups["This Week"].push(chat);
+      else groups.Older.push(chat);
+    });
+
+    return groups;
+  };
+
+  const groupedChats = groupChatsByTime(filteredChats);
+
+  const getTopicIcon = (topic: Topic) => {
+    switch (topic) {
+      case "Agriculture": return <Leaf className="w-3.5 h-3.5 text-green-400" />;
+      case "Finance": return <Coins className="w-3.5 h-3.5 text-yellow-400" />;
+      case "Tech": return <Cpu className="w-3.5 h-3.5 text-blue-400" />;
+      case "Personal": return <User className="w-3.5 h-3.5 text-pink-400" />;
+      default: return <Folder className="w-3.5 h-3.5 text-gray-400" />;
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          />
+          <motion.aside 
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed top-0 left-0 bottom-0 w-[320px] bg-bg-dark border-r border-white/10 z-50 flex flex-col shadow-2xl lg:relative lg:translate-x-0"
+          >
+            {/* Sidebar Header */}
+            <div className="p-6 border-b border-white/5">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center border border-primary/30 shadow-lg glow-accent">
+                    <History className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-black glow-text tracking-tight uppercase italic">Bharat Archives</h2>
+                    <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Session Logic History</p>
+                  </div>
+                </div>
+                <button onClick={onClose} className="p-1 px-2 border border-white/10 rounded-md text-xs font-mono lg:hidden">ESC</button>
+              </div>
+
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => { onNewChat(); onClose(); }}
+                className="w-full py-4 bg-primary text-bg-dark rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 shadow-lg glow-accent hover:bg-opacity-90 transition-all"
+              >
+                <Plus className="w-5 h-5" />
+                New Discussion
+              </motion.button>
+            </div>
+
+            {/* Filters & Search */}
+            <div className="px-6 py-4 space-y-4">
+              <div className="relative group">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+                <input 
+                  type="text" 
+                  placeholder="Search interactions..." 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white outline-none focus:border-primary/40 transition-all"
+                />
+              </div>
+
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                {["All", "Agriculture", "Finance", "Tech", "Personal"].map(filter => (
+                  <button
+                    key={filter}
+                    onClick={() => setActiveFilter(filter as any)}
+                    className={`px-3 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap border transition-all ${
+                      activeFilter === filter ? "bg-primary/20 border-primary text-primary" : "bg-white/5 border-white/5 text-gray-500 hover:border-white/10"
+                    }`}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Chat List */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar px-3 pb-6">
+              {Object.entries(groupedChats).map(([group, list]) => (
+                list.length > 0 && (
+                  <div key={group} className="mb-6">
+                    <div className="px-3 mb-3 flex items-center gap-2">
+                       <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest">{group}</p>
+                       <div className="flex-1 h-px bg-white/5" />
+                    </div>
+                    <div className="space-y-1.5">
+                      {list.map(chat => (
+                        <div 
+                          key={chat.id}
+                          className={`group relative p-3 rounded-2xl border transition-all cursor-pointer ${
+                            activeChatId === chat.id 
+                              ? "bg-primary/5 border-primary/30" 
+                              : "bg-transparent border-transparent hover:bg-white/5 hover:border-white/10"
+                          }`}
+                          onClick={() => { onSelectChat(chat.id); onClose(); }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="mt-0.5 p-2 bg-white/5 rounded-lg border border-white/5">
+                              {getTopicIcon(chat.topic)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-0.5">
+                                <h4 className={`text-xs font-bold truncate ${activeChatId === chat.id ? "text-primary" : "text-gray-200"}`}>
+                                  {chat.title}
+                                </h4>
+                                <span className="text-[8px] font-mono text-gray-600 whitespace-nowrap">
+                                  {new Date(chat.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-gray-500 truncate leading-relaxed">
+                                {chat.summary}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Quick Actions (Hover) */}
+                          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center scale-0 group-hover:scale-100 transition-transform origin-right">
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); const t = prompt("Rename session:", chat.title); if(t) onRenameChat(chat.id, t); }}
+                              className="p-1.5 hover:bg-white/10 rounded-lg text-gray-500 hover:text-white"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+                            <button 
+                              onClick={(e) => { e.stopPropagation(); onDeleteChat(chat.id); }}
+                              className="p-1.5 hover:bg-red-500/10 rounded-lg text-gray-500 hover:text-red-500"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              ))}
+
+              {filteredChats.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-20 text-center px-6">
+                  <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
+                    <Activity className="w-8 h-8 text-gray-700" />
+                  </div>
+                  <h5 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-1 italic">No records found</h5>
+                  <p className="text-[10px] text-gray-600 leading-relaxed font-sans">
+                    Aapka chat itihas (history) yahan dikhayi dega. Naya session shuru karein.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar Footer */}
+            <div className="p-4 border-t border-white/5 bg-white/5">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary p-0.5">
+                  <div className="w-full h-full rounded-full bg-bg-dark flex items-center justify-center">
+                    <User className="w-4 h-4 text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-white uppercase tracking-tighter">Verified Farmer</p>
+                  <p className="text-[8px] text-primary font-bold uppercase tracking-widest">Active Session</p>
+                </div>
+              </div>
+            </div>
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+// --- Agent Swarm Dashboard Component ---
+const AgentSwarmDashboard = ({ states }: { states: any }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: 20 }}
-    className="glass-morphism border border-primary/30 rounded-2xl p-4 mb-4 shadow-2xl overflow-hidden relative"
+    className="glass-morphism border border-primary/30 rounded-3xl p-6 mb-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden relative"
   >
-    <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 overflow-hidden">
+    {/* Animated scanning background */}
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-30" />
+    <div className="absolute top-0 left-0 w-full h-1 bg-white/5 overflow-hidden">
       <motion.div 
         animate={{ x: ["-100%", "100%"] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        className="h-full w-1/3 bg-primary"
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        className="h-full w-1/3 bg-primary glow-accent"
       />
     </div>
     
-    <div className="flex justify-between items-center mb-4">
-      <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">ANI Swarm Processing...</h3>
-      <div className="flex gap-1">
-        <div className="w-1 h-1 rounded-full bg-primary animate-ping" />
-        <div className="w-1 h-1 rounded-full bg-primary animate-ping delay-75" />
+    <div className="flex justify-between items-center mb-6 relative z-10">
+      <div className="flex items-center gap-2">
+        <Activity className="w-4 h-4 text-primary animate-pulse" />
+        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">ANI Swarm Control Panel</h3>
+      </div>
+      <div className="flex gap-1.5">
+        <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+        <div className="w-2 h-2 rounded-full bg-secondary animate-ping delay-100" />
       </div>
     </div>
 
-    <div className="space-y-3">
+    <div className="space-y-5 relative z-10">
       {[
-        { id: "agronomy", name: "Agronomy Agent", task: "Scanning for biological threats...", icon: Stethoscope, color: "text-green-400", bg: "bg-green-400/10" },
-        { id: "climate", name: "Climate Agent", task: "Analyzing Churu weather logic...", icon: Cloud, color: "text-blue-400", bg: "bg-blue-400/10" },
-        { id: "data", name: "Data Agent", task: "Structuring multi-lingual output...", icon: Database, color: "text-purple-400", bg: "bg-purple-400/10" }
-      ].map((agent) => (
-        <div key={agent.id} className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className={`w-8 h-8 rounded-lg ${agent.bg} flex items-center justify-center`}>
-              <agent.icon className={`w-4 h-4 ${agent.color}`} />
+        { id: "agronomy", name: "Agronomy Expert", task: "Biological Threat Audit", icon: Stethoscope, color: "text-green-400", bg: "bg-green-400/10" },
+        { id: "climate", name: "Climate Analyst", task: "Met-Data Synthesis", icon: Cloud, color: "text-blue-400", bg: "bg-blue-400/10" },
+        { id: "data", name: "Logic Structurer", task: "Multi-modal Formatting", icon: Database, color: "text-purple-400", bg: "bg-purple-400/10" }
+      ].map((agent) => {
+        const state = states[agent.id] || { progress: 0, status: "idle", conflict: false };
+        return (
+          <div key={agent.id} className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className={`w-9 h-9 rounded-xl ${agent.bg} flex items-center justify-center border border-white/5`}>
+                  <agent.icon className={`w-5 h-5 ${agent.color} ${state.progress > 0 && state.progress < 100 ? "animate-spin-slow" : ""}`} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[11px] font-black text-white uppercase tracking-tight">{agent.name}</p>
+                    {state.conflict && (
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="flex items-center gap-1 bg-red-500/20 px-1.5 py-0.5 rounded border border-red-500/30"
+                      >
+                        <AlertCircle className="w-2.5 h-2.5 text-red-500" />
+                        <span className="text-[7px] font-bold text-red-500 uppercase">Conflict Resolved</span>
+                      </motion.div>
+                    )}
+                  </div>
+                  <p className="text-[9px] text-gray-500 font-mono italic">{agent.task}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className={`text-[10px] font-black ${state.progress === 100 ? "text-green-400" : "text-primary"}`}>
+                  {state.progress}%
+                </p>
+                <p className="text-[8px] text-gray-600 font-bold uppercase">{state.status}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] font-bold text-white">{agent.name}</p>
-              <p className="text-[9px] text-gray-500 lowercase font-mono">{agent.task}</p>
+            
+            {/* Progress Bar */}
+            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${state.progress}%` }}
+                className={`h-full ${state.conflict ? "bg-orange-500" : state.progress === 100 ? "bg-green-400" : "bg-primary"} relative`}
+              >
+                {state.progress > 0 && state.progress < 100 && (
+                  <motion.div 
+                    animate={{ left: ["-10%", "110%"] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="absolute top-0 bottom-0 w-4 bg-white/30 blur-sm"
+                  />
+                )}
+              </motion.div>
             </div>
           </div>
-          <AnimatePresence>
-            {(states as any)[agent.id] && (
-              <motion.div 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="flex items-center gap-1"
-              >
-                <span className="text-[8px] font-bold text-green-400 uppercase">Checked</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      ))}
+        );
+      })}
     </div>
+
+    {/* Conflict Notification Overlay */}
+    <AnimatePresence>
+      {Object.values(states).some((s: any) => s.conflict) && (
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 20 }}
+          className="mt-4 p-3 bg-secondary/10 border border-secondary/30 rounded-xl flex items-center gap-3"
+        >
+          <Zap className="w-4 h-4 text-secondary animate-bounce" />
+          <p className="text-[9px] text-secondary font-bold uppercase tracking-tighter">
+            Logical Conflict Detected: Resolving via ANI Multi-Chain Synthesis...
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
   </motion.div>
 );
 
@@ -299,92 +913,70 @@ export default function App() {
   const [scannedImage, setScannedImage] = useState<string | null>(null);
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(true);
   
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [showCookieBanner, setShowCookieBanner] = useState(false);
   const [activeModal, setActiveModal] = useState<"privacy" | "terms" | "about" | null>(null);
 
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isSwarming, setIsSwarming] = useState(false);
-  const [swarmStates, setSwarmStates] = useState({ agronomy: false, climate: false, data: false });
+  const [swarmStates, setSwarmStates] = useState<any>({
+    agronomy: { progress: 0, status: "idle", conflict: false },
+    climate: { progress: 0, status: "idle", conflict: false },
+    data: { progress: 0, status: "idle", conflict: false }
+  });
 
-  useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
+  const [chats, setChats] = useState<Chat[]>(() => {
+    const oldHistory = localStorage.getItem("chatHistory");
+    const savedSessions = localStorage.getItem("chatSessions");
+    
+    let initialChats: Chat[] = [];
 
-    const consent = localStorage.getItem("cookieConsent");
-    if (!consent) {
-      const timer = setTimeout(() => setShowCookieBanner(true), 1500);
-      return () => clearTimeout(timer);
+    if (savedSessions) {
+      try {
+        const parsed = JSON.parse(savedSessions);
+        initialChats = parsed.map((chat: any) => ({
+          ...chat,
+          timestamp: new Date(chat.timestamp),
+          messages: chat.messages.map((m: any) => ({
+            ...m,
+            timestamp: new Date(m.timestamp)
+          }))
+        }));
+      } catch (e) { console.error("Failed to parse chat sessions", e); }
     }
-  }, []);
-
-  const handleInstallClick = () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        }
-        setDeferredPrompt(null);
-      });
+    
+    if (oldHistory && initialChats.length === 0) {
+      try {
+        const messages = JSON.parse(oldHistory).map((m: any) => ({
+          ...m,
+          timestamp: new Date(m.timestamp)
+        }));
+        const migratedChat: Chat = {
+          id: "migrated-" + Date.now(),
+          title: "Previous Discussion History",
+          summary: "Old chat records migrated successfully.",
+          topic: "Agriculture",
+          timestamp: new Date(),
+          messages
+        };
+        initialChats = [migratedChat];
+        localStorage.removeItem("chatHistory");
+      } catch (e) { console.error("Failed to migrate history", e); }
     }
-  };
+    
+    return initialChats;
+  });
 
-  const acceptCookies = () => {
-    localStorage.setItem("cookieConsent", "accepted");
-    setShowCookieBanner(false);
-  };
+  const [activeChatId, setActiveChatId] = useState<string | null>(() => {
+    return localStorage.getItem("activeChatId");
+  });
 
-  const declineCookies = () => {
-    localStorage.setItem("cookieConsent", "declined");
-    setShowCookieBanner(false);
-  };
-  
-  const uiTranslation = {
-    English: {
-      placeholder: "Ask about crops, pests, or weather...",
-      greeting: "👋 Hello! I am Jaswant's Bharat AI. Ask me any farming question.",
-      botPrefix: "🤖 **Jaswant's AI Analysis:**\n\n",
-      fallback: "Sorry, I don't have this information yet. Please ask something else.",
-      sendBtn: "Send"
-    },
-    Hinglish: {
-      placeholder: "Fasal, mausam ya keedo ke baare mein puchein...",
-      greeting: "👋 Namaste! Main Jaswant ka Bharat AI hoon. Apna sawal puchein.",
-      botPrefix: "🤖 **Jaswant AI Report:**\n\n",
-      fallback: "Maaf kijiye, yeh jankari mere database mein nahi hai.",
-      sendBtn: "Bhejein"
-    },
-    Hindi: {
-      placeholder: "फसल, मौसम या कीड़ों के बारे में पूछें...",
-      greeting: "👋 नमस्ते! मैं जसवंत का भारत एआई हूँ। अपना सवाल पूछें।",
-      botPrefix: "🤖 **जसवंत एआई रिपोर्ट:**\n\n",
-      fallback: "माफ़ कीजिए, यह जानकारी मेरे डेटाबेस में नहीं है।",
-      sendBtn: "भेजें"
-    },
-    Marwadi: {
-      placeholder: "फसल या मौसम रै बारै में पूछो सा...",
-      greeting: "👋 खम्मा घणी! मैं जसवंत रो भारत एआई हूँ सा। पूछो कांई पूछणो है।",
-      botPrefix: "🤖 **जसवंत रो एआई बतावै है:**\n\n",
-      fallback: "माफी चाहूँ सा, आ जानकारी म्हारै कनै कोनी।",
-      sendBtn: "भेजो सा"
-    }
-  };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      text: uiTranslation[language].greeting,
-      sender: "bot",
-      timestamp: new Date(),
-    },
-  ]);
-  
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // --- Effects ---
+  const activeChat = chats.find(c => c.id === activeChatId) || null;
+  const messages = activeChat?.messages || [];
   useEffect(() => {
     const timer = setTimeout(() => setShowSplash(false), 2500);
     return () => clearTimeout(timer);
@@ -393,6 +985,25 @@ export default function App() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const handleInstallClick = () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === "accepted") setDeferredPrompt(null);
+      });
+    }
+  };
+
+  const acceptCookies = () => {
+    localStorage.setItem("cookiesAccepted", "true");
+    setShowCookieBanner(false);
+  };
+
+  const declineCookies = () => {
+    localStorage.setItem("cookiesAccepted", "false");
+    setShowCookieBanner(false);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -441,10 +1052,60 @@ export default function App() {
     }
   };
 
-  // --- Handlers ---
+  const updateActiveChatMessages = (newMessages: Message[]) => {
+    setChats(prev => {
+      const chatId = activeChatId;
+      if (!chatId) return prev;
+      const idx = prev.findIndex(c => c.id === chatId);
+      if (idx === -1) return prev;
+      const next = [...prev];
+      const updatedChat = { ...next[idx], messages: newMessages, timestamp: new Date() };
+      
+      // Auto-generate title & summary from first user message
+      const userMsgs = newMessages.filter(m => m.sender === "user");
+      if (userMsgs.length === 1 && updatedChat.title === "New Discussion") {
+        const firstUserText = userMsgs[0].text;
+        updatedChat.title = firstUserText.slice(0, 30) + (firstUserText.length > 30 ? "..." : "");
+        updatedChat.summary = firstUserText.slice(0, 60) + (firstUserText.length > 60 ? "..." : "");
+        
+        if (/beej|khet|fasal|farming|crop|soil|agri/i.test(firstUserText)) updatedChat.topic = "Agriculture";
+        else if (/paisa|bank|loan|finance|invest|mandi/i.test(firstUserText)) updatedChat.topic = "Finance";
+        else if (/code|tech|program|ai|data|logic/i.test(firstUserText)) updatedChat.topic = "Tech";
+        else updatedChat.topic = "Personal";
+      }
+      
+      next[idx] = updatedChat;
+      return next;
+    });
+  };
+
   const handleSendMessage = async (textOverride?: string) => {
     const text = textOverride || inputText;
     if (!text.trim()) return;
+
+    let chatId = activeChatId;
+    let currentChats = [...chats];
+
+    // Create new chat if none active
+    if (!chatId) {
+      chatId = Date.now().toString();
+      const newChat: Chat = {
+        id: chatId,
+        title: "New Discussion",
+        summary: "Starting a new conversation...",
+        topic: "Other",
+        timestamp: new Date(),
+        messages: [{
+           id: "greeting-" + Date.now(),
+           text: uiTranslation[language].greeting,
+           sender: "bot",
+           timestamp: new Date()
+        }]
+      };
+      currentChats = [newChat, ...currentChats];
+      setChats(currentChats);
+      setActiveChatId(chatId);
+    }
 
     const userMsg: Message = {
       id: Date.now().toString(),
@@ -453,42 +1114,55 @@ export default function App() {
       timestamp: new Date(),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const activeChatNow = currentChats.find(c => c.id === chatId);
+    if (!activeChatNow) return;
+
+    const updatedMessages = [...activeChatNow.messages, userMsg];
+    updateActiveChatMessages(updatedMessages);
     setInputText("");
 
     // Start Swarm Animation
     setIsSwarming(true);
-    setSwarmStates({ agronomy: false, climate: false, data: false });
+    setSwarmStates({
+      agronomy: { progress: 10, status: "thinking", conflict: false },
+      climate: { progress: 0, status: "queued", conflict: false },
+      data: { progress: 0, status: "queued", conflict: false }
+    });
 
     // Sequence the agents
-    setTimeout(() => setSwarmStates(prev => ({ ...prev, agronomy: true })), 500);
-    setTimeout(() => setSwarmStates(prev => ({ ...prev, climate: true })), 1000);
-    setTimeout(() => setSwarmStates(prev => ({ ...prev, data: true })), 1500);
+    setTimeout(() => setSwarmStates(prev => ({ ...prev, agronomy: { progress: 60, status: "auditing", conflict: false } })), 400);
+    setTimeout(() => setSwarmStates(prev => ({ ...prev, agronomy: { progress: 100, status: "complete", conflict: false }, climate: { progress: 30, status: "analyzing", conflict: false } })), 800);
+    setTimeout(() => setSwarmStates(prev => ({ ...prev, climate: { progress: 80, status: "conflicted", conflict: true } })), 1200);
+    setTimeout(() => setSwarmStates(prev => ({ ...prev, climate: { progress: 100, status: "resolved", conflict: true }, data: { progress: 40, status: "structuring", conflict: false } })), 1600);
+    setTimeout(() => setSwarmStates(prev => ({ ...prev, data: { progress: 100, status: "complete", conflict: false } })), 2000);
 
-    // Wait for swarm to finish before showing response
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 2500));
     setIsSwarming(false);
 
-    // Bot Response Logic
-    const answer = await getAnswer(text, language);
-    const isFallback = answer === "Maaf kijiye, mujhe iske baare mein jankari nahi hai. Kripya kheti, fasal ya Jaswant ke baare mein puchein. 🙏";
-    
-    const botResponse = isFallback 
-      ? uiTranslation[language].fallback 
-      : uiTranslation[language].botPrefix + answer;
+    let answer = await getAnswer(text, language);
+    let isFallback = answer === "Maaf kijiye, mujhe iske baare mein jankari nahi hai. Kripya kheti, fasal ya Jaswant ke baare mein puchein. 🙏" || answer === uiTranslation[language].fallback;
+    const diagnosticIntent = /report|diagnosis|health|bimari|pest|keeda|patti|patte|leaf|sukh raha|mar raha/i.test(text);
+    const calculatorIntent = /calculator|hisaab|calculate|kitna beej|seed rate|yield|revenue|kilowatt|area|acre|bigha/i.test(text);
 
+    if (isFallback || diagnosticIntent || calculatorIntent) {
+      const realAIResponse = await getCropDiagnosis(text);
+      if (realAIResponse.includes("[CROP_REPORT]") || realAIResponse.includes("[INVALID_CROP]") || realAIResponse.includes("[CALCULATOR]") || isFallback) {
+        answer = realAIResponse;
+        isFallback = false;
+      }
+    }
+    
+    const botResponse = isFallback ? uiTranslation[language].fallback : (answer.includes("[CROP_REPORT]") || answer.includes("[INVALID_CROP]")) ? answer : uiTranslation[language].botPrefix + answer;
     const isTreatment = answer.includes("🩺") && (answer.includes("Ilaj:") || answer.includes("Treatment:"));
+    const isReport = answer.includes("[CROP_REPORT]");
+    const isCalc = answer.includes("📊") || answer.includes("[CALCULATOR]");
     let treatmentData = undefined;
 
-    if (isTreatment) {
-      const parts = answer.split(/Ilaj:|Treatment:|\w+:/);
-      const treatmentPart = parts[1] || "";
-      const steps = treatmentPart.split(/\d\./).filter(s => s.trim().length > 0);
-      
+    if (isTreatment && !isReport) {
       treatmentData = {
-        chemical: steps[0]?.trim() || "Refer to manual",
-        organic: steps[1]?.trim() || "Use neem decoction",
-        prevention: steps[2]?.trim() || "Crop rotation recommended"
+        chemical: answer.split("💊")[1]?.split("🌿")[0]?.trim() || "No detailed chemical info",
+        organic: answer.split("🌿")[1]?.split("🛡️")[0]?.trim() || "No detailed organic info",
+        prevention: answer.split("🛡️")[1]?.split("⚠️")[0]?.trim() || "No detailed prevention info"
       };
     }
 
@@ -497,15 +1171,22 @@ export default function App() {
       text: botResponse,
       sender: "bot",
       timestamp: new Date(),
-      type: isTreatment ? "treatment" : "text",
-      treatmentData
+      type: isReport ? "report" : isCalc ? "calculator" : isTreatment ? "treatment" : "text",
+      treatmentData,
     };
-    setMessages((prev) => [...prev, botMsg]);
+
+    setChats(prev => {
+      const idx = prev.findIndex(c => c.id === chatId);
+      if (idx === -1) return prev;
+      const next = [...prev];
+      next[idx] = { ...next[idx], messages: [...next[idx].messages, botMsg], timestamp: new Date() };
+      return next;
+    });
     speak(botResponse);
   };
 
   const handleGPS = () => {
-    if (navigator.geolocation) {
+    if (activeChatId && navigator.geolocation) {
       setIsLocating(true);
       navigator.geolocation.getCurrentPosition(
         () => {
@@ -516,7 +1197,7 @@ export default function App() {
             sender: "bot",
             timestamp: new Date(),
           };
-          setMessages((prev) => [...prev, gpsMsg]);
+          updateActiveChatMessages([...messages, gpsMsg]);
           speak("Location Detected: Rajasthan / Semi-Arid Zone. Jaswant's AI recommends Bajra or Mustard for this specific soil type.");
         },
         () => {
@@ -529,28 +1210,71 @@ export default function App() {
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && activeChatId) {
       const reader = new FileReader();
-      reader.onload = (event) => {
-        setScannedImage(event.target?.result as string);
+      reader.onload = async (event) => {
+        const base64Data = event.target?.result as string;
+        setScannedImage(base64Data);
         setIsScanning(true);
-        
-        // Simulate scanning process
-        setTimeout(() => {
+        try {
+          const base64Image = base64Data.split(',')[1];
+          const diagnosis = await getCropDiagnosis("Analyze this crop and provide a diagnostic report.", base64Image, file.type);
           setIsScanning(false);
           const reportMsg: Message = {
             id: Date.now().toString(),
-            text: "📷 Scan Complete. AI Analysis: Healthy crop detected. Keep soil moisture stable.",
+            text: diagnosis,
             sender: "bot",
             timestamp: new Date(),
             type: "report"
           };
-          setMessages((prev) => [...prev, reportMsg]);
-          speak("Scan Complete. AI Analysis: Healthy crop detected. Keep soil moisture stable.");
-        }, 3000);
+          updateActiveChatMessages([...messages, reportMsg]);
+          speak(diagnosis.replace(/\[CROP_REPORT\]|\[INVALID_CROP\]/g, "").trim());
+        } catch (error) {
+          setIsScanning(false);
+          console.error("Diagnosis error:", error);
+        }
       };
       reader.readAsDataURL(file);
     }
+  };
+  const updateLanguage = (newLang: Language) => {
+    setLanguage(newLang);
+    // Update initial message if it was just the greeting
+    if (messages.length === 1 && messages[0].id === "1") {
+      updateActiveChatMessages([{
+        ...messages[0],
+        text: uiTranslation[newLang].greeting
+      }]);
+    }
+  };
+
+  const clearHistory = () => {
+    if (window.confirm("Kripya pushti karein (Confirm): Kya aap poora chat mitaana chahte hain?")) {
+      const initialMsg: Message = {
+        id: "1",
+        text: uiTranslation[language].greeting,
+        sender: "bot",
+        timestamp: new Date(),
+      };
+      if (activeChatId) {
+        setChats(prev => prev.map(c => c.id === activeChatId ? { ...c, messages: [initialMsg], timestamp: new Date() } : c));
+      }
+    }
+  };
+
+  const handleNewChat = () => {
+    setActiveChatId(null); // Will trigger creation on first message
+  };
+
+  const handleDeleteChat = (id: string) => {
+    if (window.confirm("SURE? Yeh session hamesha ke liye delete ho jayega.")) {
+      setChats(prev => prev.filter(c => c.id !== id));
+      if (activeChatId === id) setActiveChatId(null);
+    }
+  };
+
+  const handleRenameChat = (id: string, newTitle: string) => {
+    setChats(prev => prev.map(c => c.id === id ? { ...c, title: newTitle } : c));
   };
 
   const shareOnWhatsApp = (text: string) => {
@@ -609,44 +1333,80 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-bg-dark text-white font-sans overflow-hidden">
-      {/* Header */}
-      <header className="glass-morphism px-4 py-3 flex items-center justify-between z-10 border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/30">
-            <Leaf className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="text-base font-bold glow-text tracking-tight">Bharat Krishi & Tech AI</h2>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          {deferredPrompt && (
-            <motion.button
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleInstallClick}
-              className="p-2 bg-primary text-bg-dark rounded-full shadow-lg glow-accent animate-bounce"
-              title="Install App"
-            >
-              <Download className="w-5 h-5" />
-            </motion.button>
-          )}
+    <>
+      {/* Sidebar Overlay Integration */}
+      <ChatHistorySidebar 
+        chats={chats}
+        activeChatId={activeChatId}
+        onSelectChat={(id) => setActiveChatId(id)}
+        onNewChat={handleNewChat}
+        onDeleteChat={handleDeleteChat}
+        onRenameChat={handleRenameChat}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
 
-          <Globe className="w-4 h-4 text-primary" />
-          <select 
-            value={language} 
-            onChange={(e) => setLanguage(e.target.value as Language)}
-            className="bg-white/5 text-xs font-medium border border-white/10 rounded-lg px-2 py-1 outline-none focus:border-primary/50 transition-colors"
-          >
-            <option value="English" className="bg-bg-dark">English</option>
-            <option value="Hindi" className="bg-bg-dark">Hindi</option>
-            <option value="Hinglish" className="bg-bg-dark">Hinglish</option>
-            <option value="Marwadi" className="bg-bg-dark">Marwadi</option>
-          </select>
-        </div>
-      </header>
+      <div className="flex flex-col h-screen bg-bg-dark text-white font-sans overflow-hidden lg:flex-row">
+        
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col h-full relative">
+          
+          {/* Header */}
+          <header className="glass-morphism px-4 py-3 flex items-center justify-between z-10 border-b border-white/5">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-2 hover:bg-white/5 rounded-xl transition-all active:scale-95 text-primary"
+              >
+                <History className="w-5 h-5" />
+              </button>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/30">
+                  <Leaf className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-base font-bold glow-text tracking-tight leading-tight">Bharat AI</h2>
+                  {activeChat && <p className="text-[9px] text-gray-500 truncate max-w-[150px] font-mono">{activeChat.title}</p>}
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              {deferredPrompt && (
+                <motion.button
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleInstallClick}
+                  className="p-2 bg-primary text-bg-dark rounded-full shadow-lg glow-accent animate-bounce"
+                  title="Install App"
+                >
+                  <Download className="w-5 h-5" />
+                </motion.button>
+              )}
+
+              <Globe className="w-4 h-4 text-primary" />
+              <select 
+                value={language} 
+                onChange={(e) => updateLanguage(e.target.value as Language)}
+                className="bg-white/5 text-xs font-medium border border-white/10 rounded-lg px-2 py-1 outline-none focus:border-primary/50 transition-colors"
+              >
+                <option value="English" className="bg-bg-dark">English</option>
+                <option value="Hindi" className="bg-bg-dark">Hindi</option>
+                <option value="Hinglish" className="bg-bg-dark">Hinglish</option>
+                <option value="Marwadi" className="bg-bg-dark">Marwadi</option>
+              </select>
+
+              <button 
+                onClick={clearHistory}
+                className="p-2 bg-white/5 rounded-lg border border-white/10 text-gray-400 hover:text-red-500 transition-all active:scale-95"
+                title="Clear Chat"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          </header>
 
       {/* Top Ad Area */}
       <AdSlot type="top" />
@@ -667,8 +1427,19 @@ export default function App() {
                     : "glass-morphism text-white rounded-tl-none border-l-2 border-l-primary shadow-xl"
                 }`}>
                   {msg.type === "report" ? (
-                    <div className="whitespace-pre-wrap font-mono text-xs leading-relaxed opacity-90">
-                      {msg.text}
+                    msg.text.includes("[INVALID_CROP]") ? (
+                      <InvalidCropCard content={msg.text} />
+                    ) : (
+                      <FasalDoctorReportCard 
+                        reportId={msg.id} 
+                        content={msg.text.replace(uiTranslation[language].botPrefix, "")} 
+                        language={language} 
+                      />
+                    )
+                  ) : msg.type === "calculator" ? (
+                    <div>
+                      <p className="text-sm leading-relaxed mb-2">{msg.text.split("📊")[0]}</p>
+                      <AgriCalculatorCard language={language} />
                     </div>
                   ) : msg.type === "treatment" ? (
                     <div>
@@ -716,6 +1487,46 @@ export default function App() {
         ))}
         <div ref={messagesEndRef} />
       </main>
+
+          {/* New Chat Empty State Integration */}
+          {(!activeChat || activeChat.messages.length <= 1) && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center pointer-events-none">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="max-w-md w-full bg-white/5 border border-white/10 rounded-[40px] p-10 backdrop-blur-xl"
+              >
+                  <div className="w-20 h-20 bg-primary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl glow-accent">
+                    <Zap className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-black text-white glow-text mb-3 uppercase italic tracking-tighter">New Discussion Ready</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed font-sans mb-8">
+                     Pardesi Kisan, main Jaswant AI hoon. Fasal, mandi bhav aur rish-kheti ke baare mein puchein.
+                  </p>
+                  
+                  {chats.length > 0 && (
+                    <div className="pt-6 border-t border-white/5">
+                      <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Suggest Continuing:</p>
+                      <div className="space-y-2 pointer-events-auto">
+                        {chats.slice(0, 2).map(chat => (
+                          <button 
+                            key={chat.id}
+                            onClick={() => setActiveChatId(chat.id)}
+                            className="w-full p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-white/10 transition-all flex items-center justify-between group"
+                          >
+                            <div className="flex items-center gap-3 overflow-hidden">
+                               <Calendar className="w-4 h-4 text-gray-600 group-hover:text-primary" />
+                               <span className="text-xs text-gray-300 font-bold truncate">{chat.title}</span>
+                            </div>
+                            <Plus className="w-3 h-3 text-gray-600" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+              </motion.div>
+            </div>
+          )}
 
       {/* Fixed Bottom UI Area */}
       <div className="bg-bg-dark/95 backdrop-blur-lg border-t border-white/5 px-4 pt-3 pb-[80px] space-y-4 z-30">
@@ -819,6 +1630,8 @@ export default function App() {
           <span className="opacity-40">© 2026 Bharat AI</span>
         </footer>
       </div>
+    </div>
+  </div>
 
       {/* Overlays / Modals */}
       <AnimatePresence>
@@ -960,6 +1773,6 @@ To bridge the digital divide between high-tech AI and the hard-working farmers o
       
       {/* Anchor Ad Slot - Sticky to bottom */}
       <AdSlot type="anchor" />
-    </div>
+    </>
   );
 }

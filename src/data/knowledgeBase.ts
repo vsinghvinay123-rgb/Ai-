@@ -643,6 +643,45 @@ export const knowledgeBase: KisanGKEntry[] = [
       Hindi: "🐛 **कीट नियंत्रण विशेषज्ञ:** कीटों और बीमारियों से बचने के लिए रोग-प्रतिरोधी किस्मों और प्राकृतिक तरीकों का उपयोग सबसे अच्छा है।\n\n**प्रमुख उपाय:**\n- **गेहूं:** 'रस्ट' (पीला रतुआ) से बचने के लिए HD-2967 जैसी उन्नत किस्मों का प्रयोग करें।\n- **धान (चावल):** 'स्टेम बोरर' के लिए फेरोमोन ट्रैप लगाएं।\n- **कपास:** 'गुलाबी सुंडी' (Pink Bollworm) के नियंत्रण के लिए IPM तकनीक अपनाएं।\n- **प्राकृतिक कीटनाशक:** नीम का तेल या 'दशपर्णी अर्क' का छिड़काव करें, यह रसायनों से बेहतर और सुरक्षित है।",
       Marwadi: "🐛 **कीड़ा-मकोड़ा रो ज्ञान:** कीड़ां और बीमारी सूं बचण खातिर रोग-प्रतिरोधी बीज और देसी तरीका सबसूं चोखा है।\n\n**तरीका:**\n- **गेहूं:** रतुआ सूं बचण खातिर HD-2967 जैड़ा बीज बोओ।\n- **धान:** 'स्टेम बोरर' खातिर लाइट ट्रैप या फेरोमोन ट्रैप लगाओ।\n- **कपास:** गुलाबी सुंडी सूं बचाव खातिर IPM तरीको अपनाओ।\n- **देसी नुस्खा:** नीम रो तेल या 'दशपर्णी अर्क' रो छिड़काव करो सा।"
     }
+  },
+  // --- Batch 134: Cotton Pest (Pink Bollworm) - CRITICAL ---
+  { 
+    pattern: /kapas mein kida|cotton pest|pink bollworm|kapas ki bimari/i, 
+    answers: {
+      Hinglish: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n🚨 **Status:** CRITICAL\n🌱 **Crop Health:** 25% (High Risk)\n🦠 **Disease/Pest:** Pink Bollworm (Gulabi Sundi)\n\n📋 **Detailed Analysis:** Aapki kapas (cotton) ki fasal par gulabi sundi ka heavy attack hua hai. Yeh phool aur tinde ko andar se kha rahi hai jisse fasal poori barbad ho sakti hai.\n\n💊 **Treatment Plan:**\n1. Turant 'Quinalphos 25% EC' (2ml/liter) ya 'Thiodicarb 75% WP' ka spray karein.\n2. Khet mein Pheromone traps (5-7 per acre) lagayein taaki kide fas jayein.\n3. Kharab huye phoolon ko tod kar jala dein.\n\n⚠️ **Doctor's Note:** Agle 48 ghante mein spray karna zaroori hai warna 80% nuksan ho sakta hai.",
+      Hindi: "[CROP_REPORT] \n\n🩺 **फसल डॉक्टर डायग्नोस्टिक रिपोर्ट**\n\n🚨 **स्थिति:** CRITICAL (गंभीर)\n🌱 **फसल का स्वास्थ्य:** 25% (खतरे में)\n🦠 **बीमारी/कीट:** गुलाबी सुंडी (Pink Bollworm)\n\n📋 **विश्लेषण:** आपकी कपास की फसल पर गुलाबी सुंडी का भारी हमला है। तुरंत 'Quinalphos 25% EC' का स्प्रे करें और खेत में फेरोमोन ट्रैप लगाएं।",
+      English: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n🚨 **Status:** CRITICAL\n🌱 **Crop Health:** 25% (High Risk)\n🦠 **Disease/Pest:** Pink Bollworm\n\n📋 **Analysis:** Severe infestation detected. Immediate application of Quinalphos 25% EC is recommended within 48 hours to prevent total crop failure."
+    }
+  },
+
+  // --- Batch 135: Wheat Fungal Disease (Yellow Rust) - WARNING ---
+  { 
+    pattern: /gehu pila pad raha|wheat yellow rust|gehu ki bimari|pila ratwa/i, 
+    answers: {
+      Hinglish: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n⚠️ **Status:** WARNING\n🌱 **Crop Health:** 60% (Moderate Risk)\n🦠 **Disease:** Yellow Rust (Pila Ratwa)\n\n📋 **Detailed Analysis:** Gehu (Wheat) ke patton par peele rang ka powder dikh raha hai jo fafundi (fungus) ki wajah se hai. Yeh prakash sanshleshan (photosynthesis) rok raha hai.\n\n💊 **Treatment Plan:**\n1. 'Propiconazole 25% EC' (1ml/liter pani) ka spray turant karein.\n2. Kheton mein paani ka thehrav rokein.\n3. Nitrogen (Urea) ka upyog thoda kam kar dein jab tak bimari theek na ho.",
+      Hindi: "[CROP_REPORT] \n\n🩺 **फसल डॉक्टर डायग्नोस्टिक रिपोर्ट**\n\n⚠️ **स्थिति:** WARNING (चेतावनी)\n🌱 **फसल का स्वास्थ्य:** 60%\n🦠 **बीमारी:** पीला रतुआ (Yellow Rust)\n\n📋 **विश्लेषण:** गेहूं के पत्तों पर फफूंदी है। तुरंत 'Propiconazole 25% EC' का छिड़काव करें और खेत में पानी जमा न होने दें।",
+      English: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n⚠️ **Status:** WARNING\n🌱 **Crop Health:** 60% (Moderate Risk)\n🦠 **Disease:** Yellow Rust (Fungal)\n\n📋 **Analysis:** Fungal infection spreading. Spray Propiconazole 25% EC immediately and improve field drainage."
+    }
+  },
+
+  // --- Batch 136: Tomato Blight - CRITICAL ---
+  { 
+    pattern: /tamatar sukh raha|tomato blight|tamatar kala pad raha|tomato disease/i, 
+    answers: {
+      Hinglish: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n🚨 **Status:** CRITICAL\n🌱 **Crop Health:** 35% (Rapid Decline)\n🦠 **Disease:** Late Blight (Pichheti Jhulsa)\n\n📋 **Detailed Analysis:** Tamatar ke patte aur phal kale pad kar sukh rahe hain. Yeh bohot tezi se failne wali bimari hai jo nami wale mausam mein aati hai.\n\n💊 **Treatment Plan:**\n1. 'Mancozeb 75% WP' ya 'Metalaxyl' (2g/liter pani) ka ghol banakar spray karein.\n2. Sookhe aur kale patton ko katkar khet se door fek dein.\n\n⚠️ **Doctor's Note:** Aaj sham tak spray complete karein, warna saari fasal 3 din mein jal jayegi.",
+      Hindi: "[CROP_REPORT] \n\n🩺 **फसल डॉक्टर डायग्नोस्टिक रिपोर्ट**\n\n🚨 **स्थिति:** CRITICAL (गंभीर)\n🌱 **फसल का स्वास्थ्य:** 35%\n🦠 **बीमारी:** पछेती झुलसा (Late Blight)\n\n📋 **विश्लेषण:** टमाटर के पत्ते काले पड़ रहे हैं। 'Mancozeb 75% WP' का स्प्रे करें और खराब पत्तों को तुरंत काट दें।",
+      English: "[CROP_REPORT] \n\n🩺 **Fasal Doctor Diagnostic Report**\n\n🚨 **Status:** CRITICAL\n🌱 **Crop Health:** 35%\n🦠 **Disease:** Late Blight\n\n📋 **Analysis:** Rapidly spreading fungal disease. Apply Mancozeb 75% WP immediately and prune infected leaves."
+    }
+  },
+  // --- Batch 132: Agri Calculator ---
+  {
+    pattern: /calculator|hisaab|calculate|kitna beej|seed rate|yield estimate|revenue calculation|mandi price|calculation/i,
+    answers: {
+      English: "Sure! Here is the Agri-Calculator tool to help you estimate seed rate, yield, and potential revenue. 📊",
+      Hindi: "बिल्कुल! यहाँ कृषि-कैलकुलेटर टूल है जो आपको बीज की मात्रा, पैदावार और अनुमानित आय की गणना करने में मदद करेगा। 📊",
+      Hinglish: "Bilkul! Yeh raha Agri-Calculator tool jo aapko beej rate, yield aur potential revenue calculate karne mein madad karega. 📊",
+      Marwadi: "बिल्कुल! ओ है खेती-कैलकुलेटर जो थानै बीज री जरुरत, पैदावार और कमाई री जानकारी देवेला। 📊"
+    }
   }
 ];
 

@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-const AdSenseBanner = () => {
+const AdSenseBanner = ({ format = "auto" }: { format?: string }) => {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -21,7 +21,7 @@ const AdSenseBanner = () => {
       style={{ display: "block" }}
       data-ad-client="ca-pub-1018836158313685"
       data-ad-slot="8180187622"
-      data-ad-format="auto"
+      data-ad-format={format}
       data-full-width-responsive="true"
     ></ins>
   );

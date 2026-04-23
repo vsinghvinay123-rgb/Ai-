@@ -3,12 +3,23 @@ export interface Message {
   text: string;
   sender: "user" | "bot";
   timestamp: Date;
-  type?: "text" | "report" | "treatment";
+  type?: "text" | "report" | "treatment" | "calculator";
   treatmentData?: {
     chemical: string;
     organic: string;
     prevention: string;
   };
+}
+
+export type Topic = "Agriculture" | "Finance" | "Tech" | "Personal" | "Other";
+
+export interface Chat {
+  id: string;
+  title: string;
+  summary: string;
+  topic: Topic;
+  timestamp: Date;
+  messages: Message[];
 }
 
 export type Language = "English" | "Hindi" | "Hinglish" | "Marwadi";
