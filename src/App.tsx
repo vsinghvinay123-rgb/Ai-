@@ -103,24 +103,24 @@ const InvalidCropCard = ({ content }: { content: string }) => (
   <motion.div 
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
-    className="mt-4 p-6 bg-orange-500/5 border border-orange-500/20 rounded-2xl flex flex-col items-center text-center gap-4 relative overflow-hidden"
+    className="mt-4 p-6 bg-orange-50 border border-orange-100 rounded-2xl flex flex-col items-center text-center gap-4 relative overflow-hidden"
   >
     {/* Decorative background icon */}
-    <div className="absolute -right-4 -bottom-4 opacity-5 rotate-12">
+    <div className="absolute -right-4 -bottom-4 opacity-[0.03] rotate-12">
       <AlertTriangle className="w-24 h-24 text-orange-500" />
     </div>
 
-    <div className="w-14 h-14 bg-orange-500/10 rounded-full flex items-center justify-center border border-orange-500/20">
+    <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center border border-orange-200">
       <AlertTriangle className="w-7 h-7 text-orange-500" />
     </div>
     <div className="space-y-2 relative z-10">
-      <h4 className="text-orange-500 font-black uppercase tracking-widest text-sm">Validation Error</h4>
-      <p className="text-xs text-gray-400 leading-relaxed max-w-[250px]">
+      <h4 className="text-orange-600 font-black uppercase tracking-widest text-sm">Validation Error</h4>
+      <p className="text-xs text-gray-600 leading-relaxed max-w-[250px]">
         {content.replace("[INVALID_CROP]", "").trim()}
       </p>
     </div>
-    <div className="px-3 py-1 bg-orange-500/20 rounded-full border border-orange-500/30">
-      <span className="text-[9px] font-bold text-orange-500 uppercase">Crop Not Detected</span>
+    <div className="px-3 py-1 bg-orange-100 rounded-full border border-orange-200">
+      <span className="text-[9px] font-bold text-orange-600 uppercase">Crop Not Detected</span>
     </div>
   </motion.div>
 );
@@ -151,9 +151,9 @@ const FasalDoctorReportCard = ({ reportId, content, language }: { reportId: stri
   };
 
   const getStatusStyles = () => {
-    if (status === "CRITICAL") return { backgroundColor: '#ef4444', color: '#ffffff', boxShadow: '0 0 15px rgba(239, 68, 68, 0.5)' };
-    if (status === "WARNING") return { backgroundColor: '#eab308', color: '#0a0a0a' };
-    return { backgroundColor: '#22c55e', color: '#ffffff' };
+    if (status === "CRITICAL") return { backgroundColor: '#fee2e2', color: '#b91c1c', border: '1px solid #fecaca' };
+    if (status === "WARNING") return { backgroundColor: '#fef9c3', color: '#854d0e', border: '1px solid #fef08a' };
+    return { backgroundColor: '#dcfce7', color: '#15803d', border: '1px solid #bbf7d0' };
   };
 
   const statusStyle = getStatusStyles();
@@ -162,17 +162,17 @@ const FasalDoctorReportCard = ({ reportId, content, language }: { reportId: stri
     <div className="mt-4 space-y-4">
       <div 
         ref={reportRef}
-        className="bg-white text-bg-dark p-6 rounded-2xl shadow-2xl border-4 border-bg-dark/5 relative overflow-hidden"
+        className="bg-white text-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden"
       >
         {/* Lab Styling Watermark */}
-        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+        <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
           <Stethoscope className="w-32 h-32 rotate-12" />
         </div>
 
         {/* Report Header */}
-        <div className="flex justify-between items-start mb-6 border-b border-gray-200 pb-4">
+        <div className="flex justify-between items-start mb-6 border-b border-gray-100 pb-4">
           <div>
-            <h3 className="text-xl font-black uppercase tracking-tighter text-bg-dark">Fasal Doctor™</h3>
+            <h3 className="text-xl font-black uppercase tracking-tighter text-gray-900">Fasal Doctor™</h3>
             <p style={{ color: '#6b7280' }} className="text-[9px] font-bold uppercase tracking-widest">Diagnostic Lab Report • AI Analysis</p>
           </div>
           <div className="text-right">
@@ -223,10 +223,10 @@ const FasalDoctorReportCard = ({ reportId, content, language }: { reportId: stri
         {/* Certification */}
         <div style={{ borderTopColor: '#f3f4f6' }} className="mt-8 pt-4 border-t flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 style={{ color: '#00ff88' }} className="w-4 h-4" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             <span style={{ color: '#9ca3af' }} className="text-[9px] font-bold uppercase tracking-widest italic">Certified by Bharat AI Agronomy Engine</span>
           </div>
-          <Leaf style={{ color: 'rgba(0, 255, 136, 0.2)' }} className="w-6 h-6" />
+          <Leaf className="w-6 h-6 text-emerald-500/10" />
         </div>
       </div>
 
@@ -235,7 +235,7 @@ const FasalDoctorReportCard = ({ reportId, content, language }: { reportId: stri
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={downloadPDF}
-        className="w-full bg-white text-bg-dark font-black py-4 rounded-xl flex items-center justify-center gap-3 shadow-xl hover:bg-gray-100 transition-all border-b-4 border-gray-300"
+        className="w-full bg-white text-gray-900 font-black py-4 rounded-xl flex items-center justify-center gap-3 shadow-sm hover:bg-gray-50 transition-all border border-gray-200"
       >
         <Download className="w-5 h-5" />
         {language === "Hindi" ? "📄 रिपोर्ट डाउनलोड करें (PDF)" : "📄 Download Full Report (PDF)"}
@@ -277,79 +277,79 @@ const AgriCalculatorCard = ({ language }: { language: Language }) => {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-4 p-5 glass-morphism border border-primary/20 rounded-2xl space-y-4"
+      className="mt-4 p-5 bg-white border border-gray-100 rounded-2xl space-y-4 shadow-sm"
     >
-      <div className="flex items-center gap-2 mb-2">
-        <Calculator className="w-5 h-5 text-primary" />
-        <h3 className="text-sm font-bold uppercase tracking-widest text-primary font-mono">{t.title}</h3>
+      <div className="flex items-center gap-2 mb-2 border-b border-gray-50 pb-3">
+        <Calculator className="w-5 h-5 text-emerald-600" />
+        <h3 className="text-sm font-bold uppercase tracking-widest text-emerald-600 font-mono">{t.title}</h3>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.crop}</label>
+          <label className="text-[10px] text-gray-400 uppercase font-bold">{t.crop}</label>
           <select 
             value={crop}
             onChange={(e) => setCrop(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-white outline-none focus:border-primary/50"
+            className="w-full bg-gray-50 border border-gray-100 rounded-lg px-2 py-2 text-xs text-gray-900 outline-none focus:border-emerald-500/50"
           >
-            {Object.keys(CROP_DATA).map(c => <option key={c} value={c} className="bg-bg-dark">{c}</option>)}
+            {Object.keys(CROP_DATA).map(c => <option key={c} value={c} className="bg-white">{c}</option>)}
           </select>
         </div>
         <div className="space-y-1">
-          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.unit}</label>
+          <label className="text-[10px] text-gray-400 uppercase font-bold">{t.unit}</label>
           <select 
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-white outline-none focus:border-primary/50"
+            className="w-full bg-gray-50 border border-gray-100 rounded-lg px-2 py-2 text-xs text-gray-900 outline-none focus:border-emerald-500/50"
           >
-            <option value="Acre" className="bg-bg-dark">Acre</option>
-            <option value="Bigha" className="bg-bg-dark">Bigha</option>
+            <option value="Acre" className="bg-white">Acre</option>
+            <option value="Bigha" className="bg-white">Bigha</option>
           </select>
         </div>
         <div className="col-span-2 space-y-1">
-          <label className="text-[10px] text-gray-500 uppercase font-bold">{t.area}</label>
+          <label className="text-[10px] text-gray-400 uppercase font-bold">{t.area}</label>
           <input 
             type="number"
             value={area}
             onChange={(e) => setArea(Number(e.target.value))}
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-primary/50"
+            className="w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs text-gray-900 outline-none focus:border-emerald-500/50"
           />
         </div>
       </div>
 
       <div className="space-y-3 pt-2">
-        <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-primary" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center border border-emerald-200">
+              <Leaf className="w-4 h-4 text-emerald-600" />
             </div>
-            <span className="text-xs text-gray-400">{t.seed}</span>
+            <span className="text-xs text-gray-600">{t.seed}</span>
           </div>
-          <span className="text-sm font-bold text-white">{totalSeed} kg</span>
+          <span className="text-sm font-bold text-gray-900">{totalSeed} kg</span>
         </div>
 
-        <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
-              <TrendingUp className="w-4 h-4 text-secondary" />
+            <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center border border-blue-200">
+              <TrendingUp className="w-4 h-4 text-blue-600" />
             </div>
-            <span className="text-xs text-gray-400">{t.yield}</span>
+            <span className="text-xs text-gray-600">{t.yield}</span>
           </div>
-          <span className="text-sm font-bold text-white">{totalYield} Qt</span>
+          <span className="text-sm font-bold text-gray-900">{totalYield} Qt</span>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-green-500/10 rounded-xl border border-green-500/20 shadow-lg shadow-green-500/5">
+        <div className="flex items-center justify-between p-4 bg-emerald-50 rounded-xl border border-emerald-100 shadow-sm shadow-emerald-500/5">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
-              <Coins className="w-4 h-4 text-green-400" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-200 flex items-center justify-center">
+              <Coins className="w-4 h-4 text-emerald-700" />
             </div>
-            <span className="text-xs text-green-400 font-bold">{t.revenue}</span>
+            <span className="text-xs text-emerald-700 font-bold">{t.revenue}</span>
           </div>
-          <span className="text-sm font-black text-green-400">₹{totalRevenue}*</span>
+          <span className="text-sm font-black text-emerald-700">₹{totalRevenue}*</span>
         </div>
       </div>
 
-      <p className="text-[8px] text-gray-600 italic mt-2">* Market prices are approximate MSP-linked values. Real rates may vary.</p>
+      <p className="text-[8px] text-gray-400 italic mt-2">* Market prices are approximate MSP-linked values. Real rates may vary.</p>
     </motion.div>
   );
 };
@@ -358,15 +358,15 @@ const AgriCalculatorCard = ({ language }: { language: Language }) => {
 const AdSlot = ({ type }: { type: "top" | "inline" | "anchor" }) => (
   <div className={`mx-auto w-full max-w-lg ${
     type === "top" ? "py-2 mb-1" : 
-    type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-bg-dark/90 backdrop-blur-md border-t border-white/10" : 
+    type === "anchor" ? "fixed bottom-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-t border-gray-100" : 
     "py-8 my-4"
   }`}>
-    <div className={`relative bg-white/5 border border-white/10 rounded-xl overflow-hidden flex flex-col items-center justify-center transition-all hover:bg-white/10 ${
+    <div className={`relative bg-gray-50 border border-gray-100 rounded-xl overflow-hidden flex flex-col items-center justify-center transition-all hover:bg-white ${
       type === "top" ? "h-[70px]" : 
       type === "anchor" ? "min-h-[60px]" : 
       "min-h-[120px]"
     }`}>
-      <span className="absolute top-1 right-2 text-[7px] uppercase tracking-widest text-gray-500 font-bold opacity-50">Advertisement</span>
+      <span className="absolute top-1 right-2 text-[7px] uppercase tracking-widest text-gray-300 font-bold">Advertisement</span>
       <AdSenseBanner format={type === "top" || type === "anchor" ? "horizontal" : "auto"} />
     </div>
   </div>
@@ -389,7 +389,7 @@ const SuggestionChips = ({ onChipClick }: { onChipClick: (text: string) => void 
           key={idx}
           whileTap={{ scale: 0.95 }}
           onClick={() => onChipClick(chip.query)}
-          className="whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-gray-300 hover:bg-primary/20 hover:border-primary/40 transition-all flex items-center gap-2"
+          className="whitespace-nowrap px-4 py-2 rounded-full bg-gray-50 border border-gray-100 text-xs font-bold text-gray-600 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-700 transition-all flex items-center gap-2 shadow-sm"
         >
           {chip.label}
         </motion.button>
@@ -416,25 +416,25 @@ const AffiliateProductCard = ({ keyword }: { keyword: string }) => {
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-4 p-3 bg-white/5 border border-primary/20 rounded-xl flex items-center gap-4 group hover:bg-white/10 transition-all"
+      className="mt-4 p-3 bg-gray-50 border border-emerald-100 rounded-xl flex items-center gap-4 group hover:bg-emerald-50 transition-all"
     >
-      <div className="w-16 h-16 bg-bg-dark rounded-lg flex items-center justify-center border border-white/5 shrink-0 overflow-hidden">
-         <ShoppingBag className="w-8 h-8 text-primary opacity-50" />
+      <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center border border-gray-100 shrink-0 overflow-hidden shadow-sm">
+         <ShoppingBag className="w-8 h-8 text-emerald-600 opacity-50" />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Recommended for your Crop</p>
-        <h4 className="text-sm font-bold truncate text-white mb-2">{product.name}</h4>
+        <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest mb-1">Recommended for your Crop</p>
+        <h4 className="text-sm font-bold truncate text-gray-900 mb-2">{product.name}</h4>
         <a 
           href={product.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all active:scale-95 shadow-lg shadow-orange-500/20"
+          className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all active:scale-95 shadow-md shadow-emerald-600/10"
         >
           Check Price & Buy Online 🛒
         </a>
       </div>
     </motion.div>
-  );
+);
 };
 
 // --- Chat History Sidebar Component ---
@@ -521,28 +521,28 @@ const ChatHistorySidebar = ({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 left-0 bottom-0 w-[320px] bg-bg-dark border-r border-white/10 z-50 flex flex-col shadow-2xl lg:relative lg:translate-x-0"
+            className="fixed top-0 left-0 bottom-0 w-[320px] bg-white border-r border-gray-100 z-50 flex flex-col shadow-2xl lg:relative lg:translate-x-0"
           >
             {/* Sidebar Header */}
-            <div className="p-6 border-b border-white/5">
+            <div className="p-6 border-b border-gray-50">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center border border-primary/30 shadow-lg glow-accent">
-                    <History className="w-6 h-6 text-primary" />
+                  <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-100">
+                    <History className="w-6 h-6 text-emerald-600" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-black glow-text tracking-tight uppercase italic">Bharat Archives</h2>
-                    <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Session Logic History</p>
+                    <h2 className="text-lg font-black text-gray-900 tracking-tight uppercase italic">Bharat Archives</h2>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Session Logic History</p>
                   </div>
                 </div>
-                <button onClick={onClose} className="p-1 px-2 border border-white/10 rounded-md text-xs font-mono lg:hidden">ESC</button>
+                <button onClick={onClose} className="p-1 px-2 border border-gray-200 rounded-md text-xs font-mono text-gray-400 lg:hidden">ESC</button>
               </div>
 
               <motion.button 
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => { onNewChat(); onClose(); }}
-                className="w-full py-4 bg-primary text-bg-dark rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 shadow-lg glow-accent hover:bg-opacity-90 transition-all"
+                className="w-full py-4 bg-emerald-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 shadow-lg shadow-emerald-600/10 hover:bg-emerald-700 transition-all"
               >
                 <Plus className="w-5 h-5" />
                 New Discussion
@@ -552,13 +552,13 @@ const ChatHistorySidebar = ({
             {/* Filters & Search */}
             <div className="px-6 py-4 space-y-4">
               <div className="relative group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-emerald-600 transition-colors" />
                 <input 
                   type="text" 
                   placeholder="Search interactions..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white outline-none focus:border-primary/40 transition-all"
+                  className="w-full bg-gray-50 border border-gray-100 rounded-xl pl-10 pr-4 py-2.5 text-xs text-gray-900 outline-none focus:border-emerald-500/40 transition-all focus:bg-white"
                 />
               </div>
 
@@ -568,7 +568,7 @@ const ChatHistorySidebar = ({
                     key={filter}
                     onClick={() => setActiveFilter(filter as any)}
                     className={`px-3 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap border transition-all ${
-                      activeFilter === filter ? "bg-primary/20 border-primary text-primary" : "bg-white/5 border-white/5 text-gray-500 hover:border-white/10"
+                      activeFilter === filter ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-gray-50 border-gray-100 text-gray-400 hover:border-gray-200 hover:text-gray-600"
                     }`}
                   >
                     {filter}
@@ -583,8 +583,8 @@ const ChatHistorySidebar = ({
                 list.length > 0 && (
                   <div key={group} className="mb-6">
                     <div className="px-3 mb-3 flex items-center gap-2">
-                       <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest">{group}</p>
-                       <div className="flex-1 h-px bg-white/5" />
+                       <p className="text-[9px] font-black text-gray-300 uppercase tracking-widest">{group}</p>
+                       <div className="flex-1 h-px bg-gray-50" />
                     </div>
                     <div className="space-y-1.5">
                       {list.map(chat => (
@@ -592,21 +592,21 @@ const ChatHistorySidebar = ({
                           key={chat.id}
                           className={`group relative p-3 rounded-2xl border transition-all cursor-pointer ${
                             activeChatId === chat.id 
-                              ? "bg-primary/5 border-primary/30" 
-                              : "bg-transparent border-transparent hover:bg-white/5 hover:border-white/10"
+                              ? "bg-emerald-50 border-emerald-100" 
+                              : "bg-transparent border-transparent hover:bg-gray-50 hover:border-gray-100"
                           }`}
                           onClick={() => { onSelectChat(chat.id); onClose(); }}
                         >
                           <div className="flex items-start gap-3">
-                            <div className="mt-0.5 p-2 bg-white/5 rounded-lg border border-white/5">
+                            <div className={`mt-0.5 p-2 rounded-lg border transition-all ${activeChatId === chat.id ? "bg-emerald-100 border-emerald-200" : "bg-gray-50 border-gray-100 group-hover:bg-white"}`}>
                               {getTopicIcon(chat.topic)}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between mb-0.5">
-                                <h4 className={`text-xs font-bold truncate ${activeChatId === chat.id ? "text-primary" : "text-gray-200"}`}>
+                                <h4 className={`text-xs font-bold truncate ${activeChatId === chat.id ? "text-emerald-950" : "text-gray-700 group-hover:text-gray-900"}`}>
                                   {chat.title}
                                 </h4>
-                                <span className="text-[8px] font-mono text-gray-600 whitespace-nowrap">
+                                <span className="text-[8px] font-mono text-gray-400 whitespace-nowrap">
                                   {new Date(chat.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                               </div>
@@ -620,13 +620,13 @@ const ChatHistorySidebar = ({
                           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center scale-0 group-hover:scale-100 transition-transform origin-right">
                             <button 
                               onClick={(e) => { e.stopPropagation(); const t = prompt("Rename session:", chat.title); if(t) onRenameChat(chat.id, t); }}
-                              className="p-1.5 hover:bg-white/10 rounded-lg text-gray-500 hover:text-white"
+                              className="p-1.5 hover:bg-white rounded-lg text-gray-400 hover:text-emerald-600 shadow-sm border border-transparent hover:border-gray-100"
                             >
                               <Edit2 className="w-3 h-3" />
                             </button>
                             <button 
                               onClick={(e) => { e.stopPropagation(); onDeleteChat(chat.id); }}
-                              className="p-1.5 hover:bg-red-500/10 rounded-lg text-gray-500 hover:text-red-500"
+                              className="p-1.5 hover:bg-white rounded-lg text-gray-400 hover:text-red-500 shadow-sm border border-transparent hover:border-gray-100"
                             >
                               <Trash2 className="w-3 h-3" />
                             </button>
@@ -1346,27 +1346,27 @@ export default function App() {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="flex flex-col h-screen bg-bg-dark text-white font-sans overflow-hidden lg:flex-row">
+      <div className="flex flex-col h-screen bg-white text-gray-900 font-sans overflow-hidden lg:flex-row">
         
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col h-full relative">
+        <div className="flex-1 flex flex-col h-full relative bg-gray-50/50">
           
           {/* Header */}
-          <header className="glass-morphism px-4 py-3 flex items-center justify-between z-10 border-b border-white/5">
+          <header className="bg-white px-4 py-3 flex items-center justify-between z-10 border-b border-gray-100 shadow-sm">
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 hover:bg-white/5 rounded-xl transition-all active:scale-95 text-primary"
+                className="p-2 hover:bg-gray-50 rounded-xl transition-all active:scale-95 text-emerald-600"
               >
                 <History className="w-5 h-5" />
               </button>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center border border-primary/30">
-                  <Leaf className="w-5 h-5 text-primary" />
+                <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center border border-emerald-100">
+                  <Leaf className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h2 className="text-base font-bold glow-text tracking-tight leading-tight">Bharat AI</h2>
-                  {activeChat && <p className="text-[9px] text-gray-500 truncate max-w-[150px] font-mono">{activeChat.title}</p>}
+                  <h2 className="text-base font-bold text-gray-900 tracking-tight leading-tight">Bharat AI</h2>
+                  {activeChat && <p className="text-[9px] text-gray-400 truncate max-w-[150px] font-mono">{activeChat.title}</p>}
                 </div>
               </div>
             </div>
@@ -1379,28 +1379,28 @@ export default function App() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleInstallClick}
-                  className="p-2 bg-primary text-bg-dark rounded-full shadow-lg glow-accent animate-bounce"
+                  className="p-2 bg-emerald-600 text-white rounded-full shadow-lg shadow-emerald-500/20 animate-bounce"
                   title="Install App"
                 >
                   <Download className="w-5 h-5" />
                 </motion.button>
               )}
 
-              <Globe className="w-4 h-4 text-primary" />
+              <Globe className="w-4 h-4 text-emerald-600" />
               <select 
                 value={language} 
                 onChange={(e) => updateLanguage(e.target.value as Language)}
-                className="bg-white/5 text-xs font-medium border border-white/10 rounded-lg px-2 py-1 outline-none focus:border-primary/50 transition-colors"
+                className="bg-gray-50 text-xs font-medium border border-gray-200 rounded-lg px-2 py-1 outline-none focus:border-emerald-500/50 transition-colors"
               >
-                <option value="English" className="bg-bg-dark">English</option>
-                <option value="Hindi" className="bg-bg-dark">Hindi</option>
-                <option value="Hinglish" className="bg-bg-dark">Hinglish</option>
-                <option value="Marwadi" className="bg-bg-dark">Marwadi</option>
+                <option value="English" className="bg-white text-gray-900">English</option>
+                <option value="Hindi" className="bg-white text-gray-900">Hindi</option>
+                <option value="Hinglish" className="bg-white text-gray-900">Hinglish</option>
+                <option value="Marwadi" className="bg-white text-gray-900">Marwadi</option>
               </select>
 
               <button 
                 onClick={clearHistory}
-                className="p-2 bg-white/5 rounded-lg border border-white/10 text-gray-400 hover:text-red-500 transition-all active:scale-95"
+                className="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-400 hover:text-red-500 transition-all active:scale-95"
                 title="Clear Chat"
               >
                 <Trash2 className="w-4 h-4" />
@@ -1412,19 +1412,19 @@ export default function App() {
       <AdSlot type="top" />
 
       {/* Main Container - Chat Messages */}
-      <main className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
+      <main className="flex-1 overflow-y-auto p-4 space-y-8 scrollbar-hide">
         {messages.map((msg, idx) => (
           <React.Fragment key={msg.id}>
             <motion.div
-              initial={{ opacity: 0, y: 10, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
             >
-              <div className={`max-w-[85%] relative ${msg.sender === "user" ? "order-1" : "order-2"}`}>
-                <div className={`p-4 rounded-2xl ${
+              <div className={`max-w-[90%] relative ${msg.sender === "user" ? "order-1" : "order-2"}`}>
+                <div className={`${
                   msg.sender === "user" 
-                    ? "bg-primary text-bg-dark font-medium rounded-tr-none shadow-lg" 
-                    : "glass-morphism text-white rounded-tl-none border-l-2 border-l-primary shadow-xl"
+                    ? "p-4 bg-gray-100 text-gray-900 rounded-2xl rounded-tr-none shadow-sm border border-gray-200" 
+                    : "p-0 text-gray-800"
                 }`}>
                   {msg.type === "report" ? (
                     msg.text.includes("[INVALID_CROP]") ? (
@@ -1447,11 +1447,11 @@ export default function App() {
                       <RecoveryMatrix data={msg.treatmentData} language={language} />
                     </div>
                   ) : (
-                    <p className="text-sm leading-relaxed">{msg.text}</p>
+                    <p className="text-sm leading-relaxed">{msg.text.replace(uiTranslation[language].botPrefix, "")}</p>
                   )}
                   
                   {msg.sender === "bot" && (
-                    <div className="mt-3 flex flex-col gap-3">
+                    <div className="mt-4 flex flex-col gap-4">
                       {/* Affiliate Card Injection */}
                       {["spray", "urea", "npk", "tractor", "rotavator", "tools"].some(keyword => 
                         msg.text.toLowerCase().includes(keyword)
@@ -1463,11 +1463,11 @@ export default function App() {
                         />
                       )}
 
-                      <div className="flex justify-between items-center border-t border-white/5 pt-2">
-                         <span className="text-[8px] text-gray-500 font-mono uppercase">AI Assistant v3.0</span>
+                      <div className="flex justify-between items-center border-t border-gray-100 pt-4">
+                         <span className="text-[8px] text-gray-400 font-mono uppercase font-bold tracking-widest">Bharat Engine v4.0</span>
                          <button 
                           onClick={() => shareOnWhatsApp(msg.text)}
-                          className="p-1.5 rounded-full bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-all active:scale-90"
+                          className="p-1.5 rounded-full bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all active:scale-90 shadow-sm border border-emerald-100"
                         >
                           <Share2 className="w-3.5 h-3.5" />
                         </button>
@@ -1475,13 +1475,13 @@ export default function App() {
                     </div>
                   )}
                 </div>
-                <p className={`text-[10px] mt-1 text-gray-500/60 font-medium ${msg.sender === "user" ? "text-right" : "text-left"}`}>
+                <p className={`text-[8px] mt-1.5 text-gray-400 font-bold uppercase tracking-wider ${msg.sender === "user" ? "text-right" : "text-left"}`}>
                   {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
             </motion.div>
             
-            {/* Inline Ad Slot every 5 bot responses (excluding first) */}
+            {/* Inline Ad Slot setiap 5 respons bot (tidak termasuk pertama) */}
             {idx > 0 && msg.sender === "bot" && messages.filter((m, i) => i <= idx && m.sender === "bot").length % 5 === 0 && <AdSlot type="inline" />}
           </React.Fragment>
         ))}
@@ -1494,31 +1494,36 @@ export default function App() {
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="max-w-md w-full bg-white/5 border border-white/10 rounded-[40px] p-10 backdrop-blur-xl"
+                className="max-w-md w-full bg-white border border-gray-100 rounded-[40px] p-10 shadow-2xl shadow-emerald-500/5 relative overflow-hidden"
               >
-                  <div className="w-20 h-20 bg-primary/20 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl glow-accent">
-                    <Zap className="w-10 h-10 text-primary" />
+                  {/* Decorative faint background element */}
+                  <div className="absolute -right-10 -bottom-10 opacity-[0.03] rotate-12 pointer-events-none">
+                    <Leaf className="w-40 h-40 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-black text-white glow-text mb-3 uppercase italic tracking-tighter">New Discussion Ready</h3>
+
+                  <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-emerald-100">
+                    <Zap className="w-10 h-10 text-emerald-600" />
+                  </div>
+                  <h3 className="text-xl font-black text-gray-900 mb-3 uppercase italic tracking-tighter">New Discussion Ready</h3>
                   <p className="text-sm text-gray-400 leading-relaxed font-sans mb-8">
                      Pardesi Kisan, main Jaswant AI hoon. Fasal, mandi bhav aur rish-kheti ke baare mein puchein.
                   </p>
                   
                   {chats.length > 0 && (
-                    <div className="pt-6 border-t border-white/5">
-                      <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-4">Suggest Continuing:</p>
+                    <div className="pt-6 border-t border-gray-50">
+                      <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-4">Suggest Continuing:</p>
                       <div className="space-y-2 pointer-events-auto">
                         {chats.slice(0, 2).map(chat => (
                           <button 
                             key={chat.id}
                             onClick={() => setActiveChatId(chat.id)}
-                            className="w-full p-4 bg-white/5 border border-white/5 rounded-2xl hover:bg-white/10 hover:border-white/10 transition-all flex items-center justify-between group"
+                            className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl hover:bg-emerald-50 hover:border-emerald-100 transition-all flex items-center justify-between group"
                           >
                             <div className="flex items-center gap-3 overflow-hidden">
-                               <Calendar className="w-4 h-4 text-gray-600 group-hover:text-primary" />
-                               <span className="text-xs text-gray-300 font-bold truncate">{chat.title}</span>
+                               <Calendar className="w-4 h-4 text-gray-300 group-hover:text-emerald-500" />
+                               <span className="text-xs text-gray-600 font-bold truncate group-hover:text-emerald-700">{chat.title}</span>
                             </div>
-                            <Plus className="w-3 h-3 text-gray-600" />
+                            <Plus className="w-3 h-3 text-gray-300" />
                           </button>
                         ))}
                       </div>
@@ -1529,7 +1534,7 @@ export default function App() {
           )}
 
       {/* Fixed Bottom UI Area */}
-      <div className="bg-bg-dark/95 backdrop-blur-lg border-t border-white/5 px-4 pt-3 pb-[80px] space-y-4 z-30">
+      <div className="bg-white/80 backdrop-blur-xl border-t border-gray-100 px-4 pt-3 pb-[80px] space-y-4 z-30">
         
         {/* Suggestion Chips - Fixed Row Above Input */}
         <SuggestionChips onChipClick={(text) => {
@@ -1539,12 +1544,12 @@ export default function App() {
 
         {/* Action Bar - Grouped (Mic, GPS, Camera, Voice Toggle) */}
         <div className="max-w-lg mx-auto w-full px-1">
-          <div className="flex items-center gap-2 p-1.5 bg-white/5 rounded-2xl border border-white/10 w-fit">
+          <div className="flex items-center gap-2 p-1.5 bg-gray-50 rounded-2xl border border-gray-100 w-fit shadow-sm">
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={startListening}
               className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                isListening ? "bg-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-green-500/10 text-green-500 border border-green-500/20"
+                isListening ? "bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/20" : "bg-emerald-50 text-emerald-600 border border-emerald-100"
               }`}
               title="Voice Input"
             >
@@ -1554,7 +1559,7 @@ export default function App() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleGPS}
-              className="w-10 h-10 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-xl flex items-center justify-center transition-all hover:bg-blue-500/20"
+              className="w-10 h-10 bg-blue-50 text-blue-600 border border-blue-100 rounded-xl flex items-center justify-center transition-all hover:bg-blue-100 shadow-sm"
               title="GPS Location"
             >
               <MapPin className="w-5 h-5" />
@@ -1563,19 +1568,19 @@ export default function App() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => fileInputRef.current?.click()}
-              className="w-10 h-10 bg-pink-500/10 text-pink-500 border border-pink-500/20 rounded-xl flex items-center justify-center transition-all hover:bg-pink-500/20"
+              className="w-10 h-10 bg-rose-50 text-rose-600 border border-rose-100 rounded-xl flex items-center justify-center transition-all hover:bg-rose-100 shadow-sm"
               title="Camera Scan"
             >
               <Camera className="w-5 h-5" />
             </motion.button>
 
-            <div className="w-px h-6 bg-white/10 mx-1" />
+            <div className="w-px h-6 bg-gray-200 mx-1" />
 
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleVoice}
-              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                isVoiceEnabled ? "bg-white/10 text-primary border border-primary/20" : "bg-red-500/10 text-red-500 border border-red-500/20"
+              className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all shadow-sm ${
+                isVoiceEnabled ? "bg-emerald-50 text-emerald-600 border border-emerald-100" : "bg-red-50 text-red-600 border border-red-100"
               }`}
               title="Speech Toggle"
             >
@@ -1596,14 +1601,14 @@ export default function App() {
         {/* Input area: [Input | Send] */}
         <div className="flex items-center gap-3 max-w-lg mx-auto w-full">
           {/* Chat Input Field Container */}
-          <div className="flex-1 glass-morphism rounded-2xl flex items-center border border-white/10 px-4 py-1.5 focus-within:border-primary/40 transition-all shadow-xl min-w-0">
+          <div className="flex-1 bg-white rounded-2xl flex items-center border border-gray-200 px-4 py-1.5 focus-within:border-emerald-500/40 transition-all shadow-lg shadow-gray-200/20 min-w-0">
             <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              placeholder={uiTranslation[language].placeholder}
-              className="flex-1 bg-transparent border-none outline-none py-2.5 text-sm placeholder:text-gray-500 min-w-0"
+              placeholder={uiTranslation[language].inputPlaceholder}
+              className="flex-1 bg-transparent border-none outline-none py-2.5 text-sm text-gray-900 placeholder:text-gray-400 min-w-0 font-medium"
             />
           </div>
 
@@ -1612,10 +1617,10 @@ export default function App() {
             whileTap={{ scale: 0.9 }}
             onClick={() => handleSendMessage()}
             disabled={!inputText.trim()}
-            className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shrink-0 shadow-2xl ${
+            className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all shrink-0 shadow-lg ${
               inputText.trim() 
-                ? "bg-primary text-bg-dark glow-accent hover:scale-105" 
-                : "bg-white/5 text-gray-600 border border-white/5 opacity-50"
+                ? "bg-emerald-600 text-white shadow-emerald-600/20 hover:scale-105" 
+                : "bg-gray-100 text-gray-400 border border-gray-200 opacity-50"
             }`}
           >
             <Send className="w-6 h-6" />
@@ -1623,10 +1628,10 @@ export default function App() {
         </div>
 
         {/* Legal Footer */}
-        <footer className="flex flex-wrap justify-center gap-4 text-[9px] text-gray-500 font-bold uppercase tracking-widest opacity-80 overflow-hidden whitespace-nowrap">
-          <button onClick={() => setActiveModal("privacy")} className="hover:text-primary transition-colors">Privacy</button>
-          <button onClick={() => setActiveModal("terms")} className="hover:text-primary transition-colors">Terms</button>
-          <button onClick={() => setActiveModal("about")} className="hover:text-primary transition-colors">About</button>
+        <footer className="flex flex-wrap justify-center gap-4 text-[9px] text-gray-400 font-bold uppercase tracking-widest opacity-80 overflow-hidden whitespace-nowrap">
+          <button onClick={() => setActiveModal("privacy")} className="hover:text-emerald-600 transition-colors">Privacy</button>
+          <button onClick={() => setActiveModal("terms")} className="hover:text-emerald-600 transition-colors">Terms</button>
+          <button onClick={() => setActiveModal("about")} className="hover:text-emerald-600 transition-colors">About</button>
           <span className="opacity-40">© 2026 Bharat AI</span>
         </footer>
       </div>
@@ -1640,11 +1645,14 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/60 flex flex-col items-center justify-center p-6 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] bg-white/80 flex flex-col items-center justify-center p-6 backdrop-blur-md"
           >
-            <div className="bg-bg-dark/80 p-8 rounded-3xl border border-primary/30 flex flex-col items-center shadow-2xl">
-              <Loader2 className="w-12 h-12 text-secondary animate-spin mb-4" />
-              <p className="text-secondary font-bold tracking-widest animate-pulse">LOCATING...</p>
+            <div className="bg-white p-10 rounded-[40px] border border-gray-100 flex flex-col items-center shadow-2xl">
+              <div className="w-20 h-20 bg-blue-50 rounded-3xl flex items-center justify-center mb-6 border border-blue-100">
+                 <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
+              </div>
+              <p className="text-blue-600 font-black tracking-widest animate-pulse uppercase italic">Locating Area...</p>
+              <p className="text-[10px] text-gray-400 mt-2 font-bold uppercase">Detecting Soil & Climate Zone</p>
             </div>
           </motion.div>
         )}
@@ -1656,21 +1664,23 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-6"
+            className="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center p-6"
           >
-            <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden border-2 border-primary/30 glow-accent mb-8">
+            <div className="relative w-full max-w-sm aspect-square rounded-[40px] overflow-hidden border border-gray-100 shadow-2xl mb-12">
               {scannedImage && (
-                <img src={scannedImage} alt="Scanned" className="w-full h-full object-cover opacity-50" />
+                <img src={scannedImage} alt="Scanned" className="w-full h-full object-cover" />
               )}
               <div className="laser-line" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
-                <p className="text-primary font-bold tracking-widest animate-pulse uppercase">Scanning Analysis...</p>
+              <div className="absolute inset-0 bg-emerald-900/10 flex flex-col items-center justify-center backdrop-blur-[1px]">
+                <div className="w-20 h-20 bg-white/90 rounded-3xl flex items-center justify-center shadow-xl border border-emerald-100 mb-4">
+                  <Loader2 className="w-10 h-10 text-emerald-600 animate-spin" />
+                </div>
+                <p className="text-white font-black tracking-[0.2em] shadow-sm uppercase text-xs">AI Vision Analysis...</p>
               </div>
             </div>
             <button 
               onClick={() => setIsScanning(false)}
-              className="p-4 bg-white/10 rounded-full text-white hover:bg-white/20 transition-all active:scale-95"
+              className="p-5 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 transition-all active:scale-95 shadow-sm border border-gray-200"
             >
               <X className="w-6 h-6" />
             </button>
@@ -1695,22 +1705,22 @@ export default function App() {
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
-            className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-bg-dark/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+            className="fixed bottom-0 left-0 right-0 z-[100] p-4 bg-white/95 backdrop-blur-xl border-t border-gray-100 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]"
           >
             <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-4">
-              <p className="text-[11px] text-gray-300 leading-relaxed text-center sm:text-left flex-1 font-sans">
-                We use cookies to personalize content and ads, provide social media features, and analyze our traffic. By clicking 'Accept', you consent to our use of cookies in accordance with our <button onClick={() => setActiveModal("privacy")} className="text-primary underline font-bold">Privacy Policy</button>.
+              <p className="text-[11px] text-gray-500 leading-relaxed text-center sm:text-left flex-1 font-sans font-medium">
+                We use cookies to personalize content and ads, provide social media features, and analyze our traffic. By clicking 'Accept', you consent to our <button onClick={() => setActiveModal("privacy")} className="text-emerald-600 underline font-black">Privacy Policy</button>.
               </p>
               <div className="flex gap-2 w-full sm:w-auto">
                 <button 
                   onClick={declineCookies}
-                  className="flex-1 sm:px-6 py-2 rounded-xl bg-white/5 text-white text-xs font-bold hover:bg-white/10 transition-all"
+                  className="flex-1 sm:px-6 py-2.5 rounded-xl bg-gray-50 text-gray-500 text-xs font-bold hover:bg-gray-100 transition-all border border-gray-200"
                 >
                   Decline
                 </button>
                 <button 
                   onClick={acceptCookies}
-                  className="flex-1 sm:px-6 py-2 rounded-xl bg-primary text-bg-dark text-xs font-bold hover:scale-105 transition-all glow-accent"
+                  className="flex-1 sm:px-6 py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold hover:scale-105 transition-all shadow-lg shadow-emerald-600/20"
                 >
                   Accept
                 </button>
