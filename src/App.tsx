@@ -116,6 +116,43 @@ const LoadingFallback = () => (
 
 import { getCropDiagnosis } from "./services/geminiService";
 
+// --- SEO & Legal Content ---
+const ABOUT_US_CONTENT = `Welcome to Bharat AI. Founded by Jaswant, a passionate tech creator from Sardarshahar, Rajasthan (known digitally via Fact Jaswant and JS Gamer). 
+
+Bharat AI is India's most advanced artificial intelligence assistant designed to empower farmers with crop diagnostics, and help individuals navigate personal finance, mutual funds, and digital business strategies. 
+
+Our mission is to bridge the technology gap for rural and urban India by providing high-quality, free-of-cost AI tools to every citizen.`;
+
+const CONTACT_US_CONTENT = `We'd love to hear from you. For support, business inquiries, or AdSense related queries, please reach out to the Founder, Jaswant.
+
+• Phone / WhatsApp Support: +91-9024363501
+• Location: Sardarshahar, Churu, Rajasthan, India.
+• Working Hours: Monday to Saturday (10 AM to 6 PM IST)`;
+
+const PRIVACY_POLICY_CONTENT = `Privacy Policy for Bharat AI
+
+• Data Protection: We prioritize user security and do not store identified personal chat data or private photos on our permanent servers. All scans are processed in real-time for diagnostic purposes.
+
+• Google AdSense: This website uses Google AdSense, a service for including advertisements. Google AdSense uses "cookies", which are stored on your computer, to analyze how users use the site.
+
+• Third Parties: We do not sell or trade your personal information to outside parties. This does not include trusted third parties who assist us in operating our website.
+
+• Consent: By using our site, you consent to our website's privacy policy.`;
+
+const TERMS_AND_CONDITIONS_CONTENT = `Terms & Conditions
+
+• Informational Purpose: The AI's agricultural, business, and financial advice is provided for informational purposes only. While we aim for high accuracy, AI can make mistakes.
+
+• Professional Consultation: Users should consult with qualified agronomists, financial advisors, or legal professionals before making major life or business decisions.
+
+• Limitation of Liability: Bharat AI and its founder Jaswant shall not be held liable for any decisions made based on the AI's output.
+
+• Usage: By using this service, you agree to these terms. Unauthorized scraping or misuse of the platform is strictly prohibited.`;
+
+const SEO_CONTENT = `Bharat AI is a revolutionary artificial intelligence platform tailored for the Indian landscape. Whether you are a farmer looking for the best pesticide for pink bollworm, a student exploring online degrees, or a professional seeking advice on mutual funds and health insurance, our smart AI is equipped to assist you. 
+
+We provide instant, multilingual support across topics like modern agriculture techniques, crop disease management, personal loans, real estate investments, and high-yield stock market strategies. By leveraging advanced machine learning, Bharat AI delivers rapid, accurate, and free insights to help you make informed daily decisions.`;
+
 // --- Main Component ---
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -131,7 +168,7 @@ export default function App() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [showCookieBanner, setShowCookieBanner] = useState(false);
-  const [activeModal, setActiveModal] = useState<"privacy" | "terms" | "about" | null>(null);
+  const [activeModal, setActiveModal] = useState<"privacy" | "terms" | "about" | "contact" | null>(null);
 
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isSwarming, setIsSwarming] = useState(false);
@@ -851,12 +888,34 @@ export default function App() {
           </motion.button>
         </div>
 
+        {/* SEO Rich Text Content for AdSense Crawlers */}
+        <section className="max-w-lg mx-auto w-full px-4 py-8">
+          <div className="bg-gray-50 border border-gray-100 rounded-3xl p-6 shadow-sm">
+            <h3 className="text-xs font-black text-gray-900 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <Book className="w-4 h-4 text-emerald-600" />
+              Why Choose Bharat AI?
+            </h3>
+            <p className="text-[12px] text-gray-500 leading-relaxed font-sans font-medium">
+              {SEO_CONTENT}
+            </p>
+            <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+              <span className="text-[10px] font-bold text-gray-400">Founded by Jaswant</span>
+              <div className="flex gap-2">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-75" />
+                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse delay-150" />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Legal Footer */}
-        <footer className="flex flex-wrap justify-center gap-4 text-[9px] text-gray-400 font-bold uppercase tracking-widest opacity-80 overflow-hidden whitespace-nowrap">
-          <button onClick={() => setActiveModal("privacy")} className="hover:text-emerald-600 transition-colors">Privacy</button>
-          <button onClick={() => setActiveModal("terms")} className="hover:text-emerald-600 transition-colors">Terms</button>
-          <button onClick={() => setActiveModal("about")} className="hover:text-emerald-600 transition-colors">About</button>
-          <span className="opacity-40">© 2026 Bharat AI</span>
+        <footer className="flex flex-wrap justify-center gap-4 px-4 py-6 text-[10px] text-gray-400 font-bold uppercase tracking-widest border-t border-gray-50">
+          <button onClick={() => setActiveModal("about")} className="hover:text-emerald-600 transition-colors">About Us</button>
+          <button onClick={() => setActiveModal("contact")} className="hover:text-emerald-600 transition-colors">Contact Us</button>
+          <button onClick={() => setActiveModal("privacy")} className="hover:text-emerald-600 transition-colors">Privacy Policy</button>
+          <button onClick={() => setActiveModal("terms")} className="hover:text-emerald-600 transition-colors">Terms & Conditions</button>
+          <span className="opacity-40 w-full text-center mt-2">© 2026 Bharat AI • Sardarshahar</span>
         </footer>
       </div>
     </div>
@@ -960,24 +1019,28 @@ export default function App() {
           isOpen={activeModal === "privacy"} 
           onClose={() => setActiveModal(null)}
           title="Privacy Policy"
-          content={`Privacy Policy for Bharat AI
-...`}
+          content={PRIVACY_POLICY_CONTENT}
         />
 
         <LegalModal 
           isOpen={activeModal === "terms"} 
           onClose={() => setActiveModal(null)}
           title="Terms & Conditions"
-          content={`Terms & Conditions
-...`}
+          content={TERMS_AND_CONDITIONS_CONTENT}
         />
 
         <LegalModal 
           isOpen={activeModal === "about"} 
           onClose={() => setActiveModal(null)}
           title="About Us"
-          content={`About Bharat AI
-...`}
+          content={ABOUT_US_CONTENT}
+        />
+
+        <LegalModal 
+          isOpen={activeModal === "contact"} 
+          onClose={() => setActiveModal(null)}
+          title="Contact Us"
+          content={CONTACT_US_CONTENT}
         />
       </Suspense>
       

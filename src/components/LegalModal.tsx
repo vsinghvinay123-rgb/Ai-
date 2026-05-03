@@ -37,9 +37,13 @@ const LegalModal = ({ isOpen, onClose, title, content }: Props) => {
               </button>
             </div>
             <div className="p-8 max-h-[60vh] overflow-y-auto custom-scrollbar">
-              <pre className="text-xs text-gray-600 whitespace-pre-wrap font-sans leading-relaxed">
-                {content}
-              </pre>
+              <div className="text-xs text-gray-600 font-sans leading-relaxed space-y-4">
+                {content.split('\n\n').map((para, i) => (
+                  <p key={i} className={para.startsWith('•') ? 'pl-4 border-l-2 border-emerald-100' : ''}>
+                    {para}
+                  </p>
+                ))}
+              </div>
             </div>
             <div className="px-8 py-4 bg-gray-50 flex justify-end">
                <button 
